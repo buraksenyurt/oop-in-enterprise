@@ -19,12 +19,17 @@ public class Application
 // Amaç; İş başvurusunda bulunan adayları programatik ortamda temsil edecek bir veri modeli tasarlamak
 public class Candidate
 {
+    // Bu nesne örneğinini oluşturma yöntemleri nelerdir?
+    // Validasyonlar nerede nasıl yapılabilir?
+    // Farklı veri yapıları ile ilişkilendirilebilir mi?
     public string FirstName { get; set; }
     public string MidName { get; set; }
     public string LastName { get; set; }
     public DateTime BirthDate { get; set; } // Geçerli bir doğum tarihi bilgisi girilip girilmediğini nasıl anlarız?
     public bool IsActive { get; set; } = true; // Aktif olup olmama bilgisi burada mı durmalı yoksa başka bir yerde mi?
-    
+    public string Graduate { get; set; } // Lisans, Yüksek Lisans, Doktora, Prof vb bazı bilinen bilgiler
+                                         // string olarak mı tutulmalı yoksa daha tutarlı bir veri yapısı mı olmalı?
+
     // Hangi bölümden mezun?
     // Hangi okuldan mezun?
 
@@ -32,10 +37,10 @@ public class Candidate
     // Birden fazla e-posta adresi varsa ya da telefonu? Hangisi ilk iletişim tercihi?)
     // Telefon numaranız nedir?
     // Posta adresiniz nedir?
-    
+
     // Kaç yıldır bu işle uğraşıyorsunuz? 
     // (Adaydan mı alınmalı, girilen tecrübe bilgilerine göre otomatik olarak mı hesaplanmlı?)
-    
+
     // İlgi alanlarınız neler?
     // Önceki deneyimleriniz? (Kaç deneyim girilebilir?)
     // Bildiğiniz yabancı diller? (Skorlaması nasıl girilir?)
