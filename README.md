@@ -14,7 +14,7 @@ Müfredat boyunca bize gereken araçlar ve ortamlar;
 - *Visual Studio Code* veya *Visual Studio* ya da kendinizi rahat hissettiğiniz herhangi bir IDE
 - [Git](https://git-scm.com/install/) ve GitHub hesabı
 
-## Gün 1
+## Gün 00
 
 Bugün kullandığımız komut satırı ifadeleri şöyledir.
 
@@ -39,7 +39,13 @@ git push origin main
 
 # Repodaki son değişiklikleri çekmek için
 git pull origin main
+```
 
+![day_00_01](./images/day_00_01.png)
+
+Dotnet tarafında kullandığımız komutlar ise şöyle.
+
+```bash
 # Makinede yüklü dotnet sürümünü öğrenmek için
 dotnet --version
 
