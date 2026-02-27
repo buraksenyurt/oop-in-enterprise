@@ -1,6 +1,3 @@
 <Solution>
-    <ItemGroup>
-        <ProjectReference Include=".\HumanResources.Domain\HumanResources.Domain.csproj" />
-    </ItemGroup>
   <Project Path="HumanResources.Domain/HumanResources.Domain.csproj" />
 </Solution>
