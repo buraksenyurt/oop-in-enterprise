@@ -66,3 +66,16 @@ Bu ilk dersimize ait bazı önemli noktaları aşağıdaki gibi özetleyebiliriz
 - **Source Control** aracı olarak **git** CLI aracını kullandık.
 - Kurumsal yazılım çözümlerinde standartlar önemlidir ve bunu sağlamanın birçok yolu var. Birisi de **Code Review** süreçlerini işletmektir. *(Anahtar kelimeler: Code Review, Pull Request, Merge Request)*
 - Belli bir domain'e özgü veri yapısı tasarlarken ilk adımlar
+
+## Gün 01
+
+Bu derste kullandığımız komut satırı ifadeleri.
+
+```bash
+# Yeni bir dotnet solution oluşturulması
+
+# Solution'a proje eklenmesi
+
+# Tüm Solution'ın derlenmesi
+
+```

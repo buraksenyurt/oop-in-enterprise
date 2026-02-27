@@ -25,6 +25,7 @@ public class Candidate
     public string FirstName { get; set; }
     public string MidName { get; set; }
     public string LastName { get; set; }
+    // public string FullName { get; set; }
     public DateTime BirthDate { get; set; } // Geçerli bir doğum tarihi bilgisi girilip girilmediğini nasıl anlarız?
     public bool IsActive { get; set; } = true; // Aktif olup olmama bilgisi burada mı durmalı yoksa başka bir yerde mi?
     public string Graduate { get; set; } // Lisans, Yüksek Lisans, Doktora, Prof vb bazı bilinen bilgiler
