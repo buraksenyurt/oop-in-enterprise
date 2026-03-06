@@ -97,3 +97,21 @@ dotnet sln add HumanResources.Domain/HumanResources.Domain.csproj
 # Tüm Solution'ın derlenmesi
 dotnet build
 ```
+
+## Gün 02
+
+Bu derste aşağıdaki konu başlıklarını ele aldığımız örnekler üzerinde çalıştık.
+
+- Sadece alanlardan *(fields)* oluşan sınıf tasarımı.
+- *Enum* veri türü kullanımı.
+- Bir sınıftan nesne örneği oluşturmak için farklı yollar. *(Constructor kullanmadan)*
+- Nesne örnek dizileri oluşturmak ve kullanmak.
+- İleri yönlü iterasyonlar için *foreach* döngüsü kullanımı.
+- Nesne metotları ve bu metotların nesne örnekleri üzerinden çağrılması.
+- *Static* sınıflar ve metotların kullanımı.
+- *Higher order functions* kavramına giriş niteliğinde Where, ForEach gibi metotların örnek kullanımı.
+- Visual Studio ortamında temel *Debug* işlemleri *(Step into, Step over)* ve nesnelerin anlık durumlarının izlenmesi.
+
+[Örnek kod dosyası](src/Fundamentals/ObjectInstances.cs)
+
+## Gün 03
