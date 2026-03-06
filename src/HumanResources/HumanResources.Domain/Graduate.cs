@@ -35,6 +35,5 @@ public class Graduate
     public float Score { get; set; } // Kimi okulun mezuniyet puanı sayısal kimisinin alfabetik olabilir. Nasıl yönetebiliriz?
     // 100 üstünden 70, C+, 3.4 gibi farklı şekillerde tutulabilir.
     // Şöyle bir fonksiyonellik ihtiyacımız olsun; 100 üstünden 70 giriliyor ama istersek C olarak gösterebiliriz.
-    public List<Graduate> Graduates { get; set; } = [];
     public ContactInformation ContactInformation { get; set; }
 }
