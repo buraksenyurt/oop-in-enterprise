@@ -115,3 +115,19 @@ Bu derste aşağıdaki konu başlıklarını ele aldığımız örnekler üzerin
 [Örnek kod dosyası](src/Fundamentals/ObjectInstances.cs)
 
 ## Gün 03
+
+Önceki dersteki konuların tekrarını takiben geçmiş yıllara dönüp **CSV** formatında veri içeren müşteri verilerinin bir çağrı merkezi sistemine alınması üzerine aşağıdaki diagramdaki akışı değerlendirdik.
+
+![Call Center Case](./images/CallCenterCase1999.png)
+
+Ayrıca aşağıdaki konu başlıklaırını ele aldık.
+
+- Constructor overloading kavramı ve kullanımı
+- Property'ler de private set kullanımı
+- Temel seviyede *encapsulation* kavramı ve uygulaması
+- *Exception* yapısı ve *try-catch* blokları ile hata yönetimi
+- *Exception* yapısında *throw* ifadesi ile hata fırlatma
+- *Rich Entity* kavramı ve basit örnek üzerinden incelenmesi
+- *Debug* işlemleri ve *breakpoint* kullanımı
+
+[Örnek kod dosyası](src/Fundamentals/ObjectInstances2.cs)
