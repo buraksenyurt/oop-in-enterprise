@@ -17,6 +17,7 @@ public class Game
     public GameCategory Category;
     public string Summary;
     public float Rating;
+    // public char Flag; // 'A', 'X', 'B' gibi tek karakterlik bilgileri tutmak için char türünden bir alan tanımlayabiliriz.
 
     /*
         Bir veri yapısı kendi içerisinde iş yapan fonksiyonellikler (metotlar) barındırabilir.
@@ -27,7 +28,9 @@ public class Game
         return $"[{Id}]-{Title} ({ReleaseYear}) - {Category} - Rating: {Rating}/10";
         /*
             Zihin yakan sorular bırakalım;
-            Oyun bilgileri kimi ortamlarda JSON formatında yazdırılacak ya da kimi ortamlarda XML formatında yazdırılacak.
+
+            Oyun bilgileri kimi ortamlarda JSON - JavaScript Object Notation formatında yazdırılacak 
+            ya da kimi ortamlarda XML - eXtensible markup language formatında yazdırılacak.
 
             {
                 "Id": 1,
@@ -48,7 +51,7 @@ public class Game
                 <summary>The Prince of Persia: The Sands of Time is an action-adventure game developed by Ubisoft.</summary>
             </Game>
 
-            hatta CSV formatında yazdırılacak olsaydı;
+            hatta CSV - Comma Seperated Values formatında yazdırılacak olsaydı;
 
             1001|Prince of Persia: The Sands of Time|2003|Action|7.8|The Prince of Persia: The Sands of Time is an action-adventure game developed by Ubisoft.
          
@@ -60,7 +63,6 @@ public class Game
          */
     }
 }
-
 public static class ObjectInstances
 {
     public static void Run()
@@ -134,9 +136,9 @@ public static class ObjectInstances
          sonuç bir listeye çıkar(ToList()) ve her bir elamanı için farklı bir kod bloğu çalıştıran ForEach metodu kullanılır.
          */
         inventory
-            .Where(g=>g.ReleaseYear>2000)
+            .Where(g => g.ReleaseYear > 2000)
             .ToList()
-            .ForEach(g=>Console.WriteLine(g.GetInfo()));
+            .ForEach(g => Console.WriteLine(g.GetInfo()));
 
         //// inventory isimli dizinin elemalarını bir for döngüsü ile dolaşabiliriz. for döngüsü olmak zorunda değil.
         //// while, do while, foreach veya Higher Order Functions (LINQ) gibi diğer döngü türleri de kullanılabilir.
