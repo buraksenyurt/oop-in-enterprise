@@ -1,6 +1,6 @@
 # OOP Test Soruları 01
 
-Bu testin amacı yüksek kalite kodlama standartlarını sağlamak için temel yazılım prensiplerinden olan SOLID ilkelerindeki bilgilerinizi ölçmektir. Sorular, nesne yönelimli programlama (OOP) kavramları, C# dil özellikleri ve yazılım tasarım prensipleri üzerine odaklanmıştır.
+Bu testin amacı yüksek kalite kodlama standartlarını sağlamak için temel yazılım prensiplerinden olan **SOLID** ilkelerindeki bilgilerinizi ölçmektir. Sorular, nesne yönelimli programlama *(OOP)* kavramları, C# dil özellikleri ve yazılım tasarım prensipleri üzerine odaklanmıştır.
 
 *Not: Sorular .Net 10 sürümü üzerinden hazırlanmıştır.*
 
@@ -125,4 +125,314 @@ public interface IDocumentOperations
 - C) **YAGNI *(You Aren't Gonna Need It)*** prensibi ihlal edilmiştir çünkü IDocumentOperations arayüzü, *ReadOnlyPdfDocument* gibi sınıflar için gereksiz metotlar içermektedir, bu da kodun gereksiz yere karmaşıklaşmasına ve bakım zorluklarına yol açar.
 - D) **Interface Segregation Principle (ISP)** ihlal edilmiştir çünkü *ReadOnlyPdfDocument* sınıfı, ihtiyaç duymadığı metotları uygulamak zorunda kalmaktadır. Bu durum, arayüzlerin daha küçük ve spesifik parçalara ayrılması gerektiğini gösterir.
 
-DEVAM EDECEK...
+## Soru 5
+
+Teknik borç *(Technical Debt)*, yazılım geliştirme sürecinde alınan kısa vadeli kararların uzun vadede ortaya çıkan olumsuz etkilerini ifade eder. Bu borç, kodun kalitesini düşürebilir, bakım maliyetlerini artırabilir ve yeni özelliklerin eklenmesini zorlaştırabilir. Teknik borç genellikle zaman baskısı, yetersiz kaynaklar veya deneyimsiz ekip üyeleri nedeniyle ortaya çıkar. Teknik borçların tespitinde **Sonarqube** gibi statik kod tarama araçları sıklıkla kullanılır. Bu araçlar kod kalitesini ölçümlerken bazı metrikler kullanır. Aşağıdaki kod parçasını göz önüne alalım.
+
+```csharp
+public class CustomerService
+{
+    public void RegisterCustomer(
+        string firstName, 
+        string lastName, 
+        DateTime birthDate, 
+        string email, 
+        string phoneNumber, 
+        string addressLine1, 
+        string addressLine2, 
+        string city, 
+        string country, 
+        string zipCode,
+        bool isPremium)
+    {
+        var customer = new Customer
+        {
+            FirstName = firstName,
+            LastName = lastName,
+            BirthDate = birthDate,
+            Email = email,
+            PhoneNumber = phoneNumber,
+            AddressLine1 = addressLine1,
+            AddressLine2 = addressLine2,
+            City = city,
+            Country = country,
+            ZipCode = zipCode,
+            IsPremium = isPremium
+        };
+        var dbContext = new CustomerDbContext();
+        dbContext.Customers.Add(customer);
+        dbContext.SaveChanges();        
+    }
+}
+```
+
+Sizce bu kod parçası için şıklarda belirtilen hangi ihlal söz konusudur.
+
+- A) RegisterCustomer metodunun parametre sayısı çok fazladır. Bu `Long Parameter List` olarak adlandırılan bir ihlaldir ve **Code Smell** kategorisinde yer alır.
+- B) İsimlendirme ihlali söz konusudur. Argüman adları **CamelCase** formatında değil, **snake_case** formatında yazılmalıdır.
+- C) **Cyclomatic Complexity (Döngüsel Karmaşıklık)** ihlali bulunmaktadır. Metot içerisindeki karar ağaçlarının *(if-else, switch blokları)* ve döngülerin çok fazla olması sebebiyle karmaşıklık limiti aşılmıştır.
+- D) Kod genelinde **Duplicated Blocks *(Tekrarlanan Kod Blokları)*** tespit edilmiştir. **SonarQube**, benzer nesne oluşturma ve değer atama işlemlerinin proje içerisinde kopya kod olarak yer almasından dolayı DRY prensibine aykırı bulup bu uyarıyı üretir.
+
+## Soru 6
+
+Müşteri paneline giriş işlemini *(Login)* yapan mevcut eski bir metodu inceliyorsunuz. Kod aşağıdaki gibi bir SQL sorgusu çalıştırarak kullanıcının veritabanında olup olmadığını kontrol etmektedir.
+
+```csharp
+public class AuthService
+{
+    public bool AuthenticateUser(string username, string password)
+    {
+        string query = $"SELECT COUNT(*) FROM Users WHERE Username = '{username}' AND Password = '{password}'";
+        
+        using (SqlConnection conn = new SqlConnection(GetConnectionString()))
+        {
+            SqlCommand cmd = new SqlCommand(query, conn);
+            conn.Open();
+            int result = (int)cmd.ExecuteScalar();
+            return result > 0;
+        }
+    }
+}
+```
+
+Bu metod kurumsal standartlar bakımından incelendiğinde statik kod analizi araçları tarafından büyük bir güvenlik zafiyeti *(Security Vulnerability)* tespit edilecektir. Bu ihlalin temel nedeni ve en doğru çözüm yöntemi hangisidir?
+
+- A) **Cross-Site Scripting (XSS)** zafiyeti bulunmaktadır. Kullanıcıdan alınan `username` ve `password` parametreleri HTML Encode işleminden geçirilmeden kullanılmıştır.
+- B) Sorguda doğrudan bir **SQL Injection** zafiyeti *(CWE-89)* bulunmaktadır. Girdi parametreleri birleştirilerek *(string interpolation / concatenation)* çalıştırıldığı için, zararlı betikler veritabanında komut olarak işletilebilir. Çözüm olarak parametreli sorgular *(Parameterized Queries)* veya ORM *(Object-Relational Mapping)* kütüphaneleri kullanmak ya da **Stored Procedure** tercih edilmelidir.
+- C) Veritabanı bağlantısı `using` bloğunda kullanılmıştır. Bu durum bağlantının gereğinden fazla açık kalmasına sebep olarak **Denial of Service (DoS)** açıklarına neden olur.
+- D) Şifreler düz metin olarak kontrol edildiğinden **Broken Authentication** zafiyeti vardır. Bu durum koddaki SQL string kullanımından bağımsızdır, yalnızca **JWT *(JSON Web Token)*** kullanılarak çözülebilir.
+
+## Soru 7
+
+Yeni mikroservis altyapısına taşınan bir projeyi gözden geçirirken takım arkadaşınızın yazdığı bir veri erişim sınıfında *(Repository)* aşağıdaki gibi bir kod kullanımına denk geldiğinizi düşünelim.
+
+```csharp
+public class AppDbContext : DbContext
+{
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if (!optionsBuilder.IsConfigured)
+        {
+            optionsBuilder.UseSqlServer("Server=prod-db.corp.local;Database=CustomerDb;User ID=admin_sa;Password=supersecretPassword123!;TrustServerCertificate=True;");
+        }
+    }
+    
+    public DbSet<Customer> Customers { get; set; }
+}
+```
+
+Bu kod parçası github reposuna gönderildiğinde modern kod analizi ve güvenlik araçları *(SonarQube, GitHub Advanced Security vb.)* bunu **Kritik / Blocker** seviyesinde bir ihlal olarak işaretlemiştir. Bu uyarının sebebi nedir ve bu durum nasıl çözülmelidir?
+
+- A) Sınıf içerisinde yer alan *DbSet* gibi *Entity Framework* özelliklerinin *public* erişim belirleyicisi ile dışarı açılması, veritabanı tablolarının doğrudan manipüle edilmesine *(Data Exposure)* yol açar. DbSet'ler kapsüllenmelidir *(Encapsulation)*.
+- B) Veritabanının isminin *CustomerDb* olarak verilmesi güvenlik ihlalidir. Veritabanı isimleri hiçbir zaman kod veya yapılandırma dosyalarında gösterilmemelidir.
+- C) **Hardcoded Credentials *(Sabitlenmiş Kimlik Bilgileri)*** güvenlik ihlalidir *(CWE-798)*. Şifre ve hassas bağlantı bilgileri kod içerisinde açık metin olarak *(plaintext)* yer almaktadır. Bunun yerine veriler *appsettings.json*, Ortam Değişkenleri *(Environment Variables)* ya da *Azure Key Vault / AWS Key Management Service* gibi gizli dizi *(secret)* yönetim araçlarından okunmalıdır.
+- D) *TrustServerCertificate=True* kullanımı **Man-in-the-Middle *(MitM)*** saldırılarına kapı araladığı için bir ihlal söz konusudur. Kodda yalnızca *Password* alanı silinerek bu sorun çözülebilir.
+
+## Soru 8
+
+Şirketin maaş ve prim hesaplamalarını yürüten planlı bir arka plan *(Background Job/Worker)* işine ait bir sınıfta aşağıdaki kod parçasında yer alan metotla karşılaştığınızı düşünelim.
+
+```csharp
+public decimal CalculateBonus(Employee employee, int yearsOfService, decimal baseSalary)
+{
+    decimal bonus = 0;
+    
+    switch (employee.Department)
+    {
+        case Department.Sales:
+            if (yearsOfService > 5)
+                bonus = baseSalary * 0.20m;
+            else if (yearsOfService > 2)
+                bonus = baseSalary * 0.10m;
+            else
+                bonus = baseSalary * 0.05m;
+            break;
+
+        case Department.Engineering:
+            if (employee.Level == Level.Senior)
+                bonus = baseSalary * 0.15m;
+            else if (employee.Level == Level.Mid)
+                bonus = baseSalary * 0.10m;
+            else
+                bonus = baseSalary * 0.05m;
+            break;
+
+        case Department.HR:
+            if (yearsOfService > 10)
+                bonus = baseSalary * 0.12m;
+            else
+                bonus = baseSalary * 0.06m;
+            break;
+
+        case Department.Marketing:
+            if (employee.HasCampaignSuccess)
+                bonus = baseSalary * 0.18m;
+            else
+                bonus = baseSalary * 0.04m;
+            break;
+            
+        case Department.Management:
+            bonus = baseSalary * 0.50m;
+            break;
+
+        default:
+            bonus = 0;
+            break;
+    }
+    
+    return bonus;
+}
+```
+
+Statik kod tarama araçları *(Sonarqube)* bu metot için **Cognitive Complexity *(Bilişsel Karmaşıklık)*** ihlali yapıldığını belirtecektir. İhlalin temel sebebi nedir ve kurumsal mimari standartlarına uygun olarak en ideal çözüm yaklaşımı aşağıdakilerden hangisidir?
+
+- A) İhlal, metot içerisindeki değişken atamalarının çokluğundan kaynaklanmaktadır. *decimal bonus = 0;* değişkeni gereksiz yer kaplar. Kod sadece *return baseSalary * 0.20m* gibi doğrudan dönüşler içermelidir.
+- B) İhlalin sebebi uzun bir kod bloğu yazılmış olmasıdır. Çözüm olarak, her bir *case* içerisindeki işlemler asenkron *async/await* olarak yeniden kurgulanmalı ve performans arttırılmalıdır.
+- C) İhlal, *switch* ve iç içe geçmiş *if-else* bloklarının kodu okumayı, takip etmeyi ve test etmeyi aşırı zorlaştırmasından kaynaklanmaktadır. Bu problemi çözmek için OOP mantığına uygun bir biçimde **Strateji Tasarım Deseni (Strategy Pattern)** veya **Polimorfizm** kullanılarak her departman için ayrı bir yetki hesaplama sınıfı oluşturulmalıdır.
+- D) Sorun *employee.Department* değerinin bir *Enum* sabiti olmasından kaynaklanmaktadır. *Enum* değerler *switch-case* bloklarında kullanıldığında derleyiciler çalışma zamanı optimizasyonunu sağlayamaz. Bu veriler *string* değerler olarak tutulmalıdır.
+
+## Soru 9
+
+Bir e-ticaret platformunda ürünlerin fiyatlandırılmasıyla ilgili iş kuralları içeren bir modül kodunu inceliyorsunuz. Aşağıdaki kod parçasında olduğu gibi. Lakin bu kodun bakımının zor olacağından ve yeni kurallar eklenmesi gerektiğinde sürekli değiştirilmek zorunda kalacağından endişe etmektesiniz.
+
+```csharp
+public class PricingService
+{
+    public decimal CalculatePrice(Product product, Customer customer)
+    {
+        decimal price = product.BasePrice;
+
+        if (customer.IsPremium)
+        {
+            price *= 0.9m; // %10 indirim
+        }
+
+        if (product.Category == "Electronics")
+        {
+            price *= 1.2m; // %20 zam
+        }
+
+        if (customer.HasLoyaltyCard)
+        {
+            price *= 0.95m; // %5 indirim
+        }
+
+        if (product.IsOnSale)
+        {
+            price *= 0.8m; // %20 indirim
+        }
+
+        return price;
+    }
+}
+```
+
+Kodun değiştirilmeden genişletilebilir olmasını sağlamak için farklı bir yol arıyorsunuz. Aşağıdaki kod örneklerinden hangisini tercih edersiniz.
+
+- A)
+
+```csharp
+public class PricingService
+{
+    public decimal CalculatePrice(Product product, Customer customer, string discountType)
+    {
+        return discountType switch
+        {
+            "Premium" => product.BasePrice * 0.9m,
+            "Electronics" => product.BasePrice * 1.2m,
+            "Loyalty" => product.BasePrice * 0.95m,
+            "OnSale" => product.BasePrice * 0.8m,
+            _ => product.BasePrice
+        };
+    }
+}
+```
+
+- B)
+
+```csharp
+public interface IPricingRule
+{
+    decimal ApplyRule(decimal currentPrice, Product product, Customer customer);
+}
+
+public class PricingService
+{
+    private readonly IEnumerable<IPricingRule> _rules;
+
+    public PricingService(IEnumerable<IPricingRule> rules)
+    {
+        _rules = rules;
+    }
+
+    public decimal CalculatePrice(Product product, Customer customer)
+    {
+        decimal price = product.BasePrice;
+        foreach (var rule in _rules)
+        {
+            price = rule.ApplyRule(price, product, customer);
+        }
+        return price;
+    }
+}
+```
+
+- C)
+
+```csharp
+public partial class PricingService
+{
+    // C# 'partial class' özelliği ile her kurumsal fiyat kuralı ayrı bir dosyada 
+    // ele alınır. Örneğin PricingService.Premium.cs, PricingService.Elektronics.cs gibi.
+    // Bu sayede PricingService sınıfı tek bir dosyada büyümemiş olur.
+}
+```
+
+- D)
+
+```csharp
+public class PricingService
+{
+    public decimal CalculatePrice(Product product, Customer customer)
+    {
+        return ApplyPremiumRule(
+                  ApplyElectronicsRule(
+                      ApplyLoyaltyRule(
+                          ApplySaleRule(product.BasePrice, product), 
+                      customer), 
+                  product), 
+               customer);
+    }
+    // Private metodlar burada tanımlanır...
+}
+```
+
+## Soru 10
+
+Büyük ölçekli bir lojistik firmasının sipariş yönetim süreçlerinde görev alan bir yazılım geliştiricisi olduğunuzu düşünün. Kod inceleme *(Code Review)* toplantısında, sipariş başarıyla tamamlandığında müşteriye otomatik olarak e-posta ve SMS gönderen aşağıdaki *OrderProcessorService* sınıfının kodunu gözden geçiriyorsunuz.
+
+```csharp
+public class OrderProcessorService
+{
+    public void CompleteOrder(Order order)
+    {
+        // 1. Siparişin durumunu güncelleyecek iş kuralları...
+        order.Status = OrderStatus.Completed;
+        order.CompletedAt = DateTime.UtcNow;
+
+        // 2. Bildirimlerin gönderilmesi
+        var emailSender = new SmtpEmailService();
+        emailSender.SendEmail(order.CustomerEmail, "Siparişiniz tamamlandı ve yola çıktı.");
+
+        var smsSender = new TwilioSmsService();
+        smsSender.SendSms(order.CustomerPhone, "Kargonuz yola çıkmıştır. Takip no: ...");
+    }
+}
+```
+
+Bu örnekte nesne yönelimli tasarım ilkelerinden hangisinin ihlal edildiği net bir şekilde görülmektedir ve kurumsal mimaride en doğru refactoring yaklaşımı hangisi olmalıdır?
+
+- A) Metot içerisinde farklı türden bildirimlerin arka arkaya gönderilmesi **DRY *(Don't Repeat Yourself)*** prensibine aykırıdır. Bildirimler tek bir *SendAllNotifications()* metodu altında birleştirilmeli ve sadece o çağrılmalıdır.
+- B) İşlem sırasında *new* anahtar kelimesi kullanılarak *SmtpEmailService* ve *TwilioSmsService* gibi somut *(concrete)* sınıflara doğrudan bağımlılık *(tight coupling)* oluşturulmuştur. Bu durum **Dependency Inversion Principle *(DIP)*** ihlalidir. Sınıf somut servislere değil, *INotificationService* gibi soyutlamalara *(abstractions)* bağımlı olmalı bu bağımlılıklar koda *constructor-yapıcı metot* aracılığıyla enjekte edilmelidir *(Dependency Injection)*.
+- C) Yerel *(local)* değişken olarak yaratılan bu servisler bellekte sızıntıya *(Memory Leak)* yol açabilir. Performans kaybı yaşamamak için değişkenler metot içinde değil, sınıf seviyesinde *static* değişkenler olarak tanımlanmalıdır.
+- D) Siparişin statüsünü değiştirmek ve arkasından bildirim göndermek aynı metotta yapıldığı için **Liskov Substitution Principle *(LSP)*** ihlal edilmiştir. Alt sınıflar bu metodu ezdiğinde *(override)* sorun yaşama ihtimali oldukça yüksektir.

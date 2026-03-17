@@ -6,6 +6,11 @@ Sektör kampüste projesi kapsamında açtığımız **"Kurumsal Yazılım Çöz
 
 Bu derste amacımız kurumsal yazılım çözümlerinde OOP'nin nasıl kullanıldığına dair temel bir anlayış kazanmaktır. OOP'nin temel prensiplerini ve bu prensiplerin kurumsal yazılım geliştirme süreçlerinde nasıl uygulandığını öğreneceğiz. Ayrıca, OOP'nin avantajlarını ve dezavantajlarını tartışarak, gerçek dünya senaryolarında nasıl etkili bir şekilde kullanılabileceğini göreceğiz. Uçtan uca bir proje üzerinden ilerlerken, dağıtık sistemlere, domain driven design (DDD) ve microservices mimarisi gibi kavramlara da değineceğiz.
 
+Vize ve final sınavlarına hazırlanmak için aşağıdaki quizleri çözebilirsiniz.
+
+- [Quiz 00](./exams/quiz00.md)
+- [Quiz 01](./exams/quiz01.md)
+
 ## Referanslar
 
 - C# Programlama dili ile ilgili temel kavramlar için [ProgrammingWithCSharp](https://github.com/buraksenyurt/ProgrammingWithCSharp) reposunu inceleyebilirsiniz.
