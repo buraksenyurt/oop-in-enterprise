@@ -2,6 +2,8 @@
 
 Bu testin amacı OOP (Object-Oriented Programming) kavramlarını örnek senaryolar üzerinden değerlendirmektir. Aşağıdaki sorulara verilen seçeneklerden en uygun olanını seçiniz.
 
+---
+
 ## Soru 1
 
 Terminalden çalışan bir uygulama yazmak istiyorsunuz. C# programlama dili ile çalışmayı tercih ettiniz. Terminal uygulamaları **executable** olarak derlenirler ve örneğin **Windows** sistemlerinde **.exe** uzantılı dosyalar oluşur. Bu tür uygulamalar genellikle **Console Application** olarak adlandırılır. Aşağıda örnek bir terminal kod parçasına yer verilmiştir.
@@ -18,19 +20,19 @@ public class Application
 }
 ```
 
-Bu kod parçasını göz önüne aldığınızda aşağıdaki ifadelerden hangisi veya hangileri doğrudur?
+Bu kod parçası ile ilgili aşağıdaki düşüncelere yer verilmiştir.
 
-I. C türevli birçok programlama dilinde olduğu gibi, C# dilinde yazılan bir executable'ın giriş noktası **Main** metodudur.
-II. C# case-sensitive bir dildir, bu nedenle **Main** ve **main** farklı tanımlardır.
-III. Terminal uygulamaları genellikle grafik arayüzü içermezler, bu nedenle kullanıcı etkileşimi genellikle metin tabanlıdır.
-IV. .Net standart kütüphanesinde **WriteLine** isimli bir metot yoktur.
+- **I.** C türevli birçok programlama dilinde olduğu gibi, C# dilinde yazılan bir executable'ın giriş noktası **Main** metodudur.
+- **II.** C# case-sensitive bir dildir, bu nedenle **Main** ve **main** farklı tanımlardır.
+- **III.** Terminal uygulamaları genellikle grafik arayüzü içermezler, bu nedenle kullanıcı etkileşimi genellikle metin tabanlıdır.
+- **IV.** .Net standart kütüphanesinde **WriteLine** isimli bir metot yoktur.
 
-A) Yalnız I
-B) I ve II
-C) I, II ve III
-D) Hepsi
+Sizce hangi ifade/ifadeler doğrudur?
 
----
+- A) Yalnız I
+- B) I ve II
+- C) I, II ve III
+- D) Hepsi
 
 ## Soru 2
 
@@ -95,9 +97,7 @@ public class Game
 }
 ```
 
----
-
-**Soru 3:**
+## Soru 3
 
 Bir fabrikadaki ürünler aşağıdaki sınıf ile modellemeye çalışılmıştır:
 
@@ -113,14 +113,12 @@ public class Product
 
 Dikkat edileceği üzere **Id** özelliği sadece okunabilir bir özellik *(Readonly Property)* olarak tanımlanmıştır. Sizce *Id* özelliğini bu şekilde kapsüllemenin *(Encapsulation)* amacı nedir?
 
-A) Ürünlerin benzersiz bir kimliğe sahip olmasını sağlamak ve bu kimliğin dışarıdan değiştirilmesini engellemek.
-B) Ürünlerin fiyatlarının ve stok bilgilerinin güvenliğini sağlamak.
-C) Ürünlerin adlarının değiştirilmesini engellemek.
-D) Ürünlerin kimlik bilgilerini gizlemek ve sadece ürün adı, fiyat ve stok bilgilerini erişilebilir kılmak.
+- A) Ürünlerin benzersiz bir kimliğe sahip olmasını sağlamak ve bu kimliğin dışarıdan değiştirilmesini engellemek.
+- B) Ürünlerin fiyatlarının ve stok bilgilerinin güvenliğini sağlamak.
+- C) Ürünlerin adlarının değiştirilmesini engellemek.
+- D) Ürünlerin kimlik bilgilerini gizlemek ve sadece ürün adı, fiyat ve stok bilgilerini erişilebilir kılmak.
 
----
-
-**Soru 4:**
+## Soru 4
 
 **C#** programlama dili genel bir tip sistemini *(Common Type System)* benimser. Bu tip sistemi sayesinde farklı türlerdeki verilerle çalışmak mümkün olur. *int, float, double, char, string* gibi ilkel türler *(primitive types)* ve *class, struct, interface, enum, delegate* gibi karmaşık türler *(complex types)* bu tip sisteminin bir parçasıdır. Böyle bir tip sistemi gerçek dünya nesnelerinin modellenmesini de kolaylaştırır. Örneğin **enum** türünü kullanarak bazı sayısal değerleri anlamlı isimlerle ifade edebiliriz. Aşağıdaki kod parçasında temel renklerden sekizini temsil eden bir enum tanımı yer almaktadır.
 
@@ -180,14 +178,12 @@ public readonly struct Character
 
 Bu yaklaşımlardan hangisini veya hangilerini tercih edersiniz.*(**Immutable** olma halini dikkate alınız)*
 
-A) I ve II
-B) I, II ve III
-C) Sadece I
-D) Sadece II
+- A) I ve II
+- B) I, II ve III
+- C) Sadece I
+- D) Sadece II
 
----
-
-**Soru 5:**
+## Soru 5
 
 Kurumsal çaptaki büyük projelerde verilerin tutarlılığını sağlamak önemlidir ve bunun için farklı seviyelerde çeşitli kurallar işletilebilir. Verinin doğru şekilde girilmesini sağlamak bunu yaparken bazı doğrulama kurallarını işletmek kullanılan yöntemler arasındadır. Bazı doğrulama kuralları domain yapısını korumak için en alt çekirdek nesnelerde değerlendirilir. Örneğin aşağıdaki basit kod parçasını göz önüne alalım.
 
@@ -217,7 +213,99 @@ public class Product
 
 Sizce aşağıdaki şıklardan hangisi bu kod parçasındaki amaçlardan birisi **değildir**.
 
-A) Bir ürün nesnesi oluşturulurken negatif bir fiyat belirlenmesini engellemek.
-B) Ürün nesnesi oluşturulurken başlık bilgisinin boş veya sadece boşluklardan oluşmasını engellemek.
-C) Oluşturulan her bir ürün nesnesinin benzersiz bir kimliğinin olmasını sağlamak.
-D) Bir ürün oluşturulduktan sonra başlık ve fiyat bilgilerinin değiştirilebilmesini sağlamak.
+- A) Bir ürün nesnesi oluşturulurken negatif bir fiyat belirlenmesini engellemek.
+- B) Ürün nesnesi oluşturulurken başlık bilgisinin boş veya sadece boşluklardan oluşmasını engellemek.
+- C) Oluşturulan her bir ürün nesnesinin benzersiz bir kimliğinin olmasını sağlamak.
+- D) Bir ürün oluşturulduktan sonra başlık ve fiyat bilgilerinin değiştirilebilmesini sağlamak.
+
+## Soru 6
+
+Bazı durumlarda bir sınıfın ilgili alanları sadece belirli metotlar üzerinden değişime açık olabilir. Örneğin bir oyuncunun genel skor bilgisini belirli oranda azaltmak veya artırmak için iki ayrı metot kullanmak seçeneklerden birisidir. Aşağıdaki kod parçasında bu durum örneklenmiştir.
+
+```csharp
+public class Player
+{
+    public string Name { get; private set; }
+    public int Score { get; private set; }
+
+    public Player(string name, int initialScore)
+    {
+        Name = name;
+        Score = initialScore;
+    }
+
+    public void IncreaseScore(int amount)
+    {
+        if (amount < 0) throw new ArgumentException("Puan artırma miktarı negatif olamaz.");
+        Score += amount;
+    }
+
+    public void DecreaseScore(int amount)
+    {
+        if (amount < 0) throw new ArgumentException("Puan azaltma miktarı negatif olamaz.");
+        if( amount > Score) throw new ArgumentException("Puan azaltma miktarı mevcut puandan fazla olamaz.");
+        Score -= amount;
+    }
+}
+```
+
+Bu kod parçası ile ilgili şu fikirler ortaya atılmıştır:
+
+- **I.** Oyuncunun skor bilgisini doğrudan değiştirmek mümkün değildir, sadece *IncreaseScore* ve *DecreaseScore* metotları üzerinden değişiklik yapılabilir.
+- **II.** Hatalı skor bilgisi girilmesi durumunda ortama istisna *(Exception)* fırlatılır ve bu istisnaların nesne kullanıcısı *(object user)* tarafında yönetilmesi beklenir.
+- **III.** Bu sınıf tasarımı oyuncunun skor bilgisinin tutarlılığını sağlamak için kapsülleme *(Encapsulation)* ilkesine uygun bir şekilde tasarlanmıştır.
+- **IV.** Bu kod parçası derlenmez çünkü *Score* özelliği sadece okunabilir *(readonly)* olarak tanımlanmıştır ve *IncreaseScore* ve *DecreaseScore* metotları bu özelliği değiştirmeye çalışmaktadır.
+
+Sizce hangi ifade/ifadeler doğrudur?
+
+- A) Hepsi
+- B) I, II ve III
+- C) Sadece I
+- D) III, IV
+
+## Soru 7
+
+İstisna yönetimi C# ve benzeri birçok programlama dilinde ele alınan önemli kavramlardan birisidir. İstisnalar programın çalışması sırasında ortaya beklenmedik durumları ifade eder ve bu durumların programın normal akışını bozmadan yönetilmesi gerekir. Aşağıdaki kod parçasında basit bir istisna yönetimi örneği yer almaktadır.
+
+```csharp
+public class Calculator
+{
+    public int Divide(int numerator, int denominator)
+    {
+        if (denominator == 0) throw new DivideByZeroException("Bölen sıfır olamaz.");
+        return numerator / denominator;
+    }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        var calculator = new Calculator();
+        try
+        {
+            int result = calculator.Divide(10, 0);
+            Console.WriteLine($"Sonuç: {result}");
+        }
+        catch (DivideByZeroException ex)
+        {
+            Console.WriteLine($"Hata: {ex.Message}");
+        }
+        Console.WriteLine("Program sonlandı.");
+    }
+}
+```
+
+Bu kod parçası ile ilgili aşağıdaki ifadeler ortaya atılmıştır:
+
+- **I.** *Divide* metodu bölen sıfır olduğunda bir istisna fırlatır ve bu istisna *Main* metodunda yakalanır.
+- **II.** İstisna yönetimi sayesinde programın beklenmedik durumlarda çökmesi engellenir ve kullanıcıya anlamlı bir hata mesajı sunulur.
+- **III.** Bu kod parçası derlenmez çünkü *Divide* metodunda *DivideByZeroException* türünde bir istisna fırlatılmaktadır.
+- **IV.** *try-catch* bloğu içinde yer alan kod parçası sadece *Divide* metodunu çağırmakla kalmaz aynı zamanda bölme sonucunu **Infinite** olarak ekrana yazdırır.
+
+Sizce hangi ifade/ifadeler doğrudur?
+
+- A) I, II ve IV
+- B) Hepsi
+- C) I ve II
+- D) Sadece III
