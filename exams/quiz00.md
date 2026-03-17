@@ -440,7 +440,7 @@ public class Graduate
 }
 ```
 
-### Soru 11
+## Soru 11
 
 Yazılım çözümlerinde kodun kalitesini yüksek tutmak için çeşitli prensipler benimsenir ve metodolojiler uygulanır. Özellikle yazılan kodun daha deneyimli birisi tarafından denetlenmesi üzerine odaklanan *Code Review* süreçleri bu metodolojiler arasında önemli bir yer tutar. *Code Review* süreçleri sayesinde kodun kalitesi artırılabilir, hatalar erken aşamada tespit edilebilir ve takım içinde bilgi paylaşımı sağlanabilir. Siz deneyimli bir yazılımcı olduğunuzu düşünün ve takımınızda yeni başlayan bir geliştiricinin aşağıdaki kod parçasını yazdığını varsayalım.
 
