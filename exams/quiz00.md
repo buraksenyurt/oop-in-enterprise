@@ -1,6 +1,8 @@
 # OOP Test Soruları 00
 
-Bu testin amacı OOP (Object-Oriented Programming) kavramlarını örnek senaryolar üzerinden değerlendirmektir. Aşağıdaki sorulara verilen seçeneklerden en uygun olanını seçiniz.
+Bu testin amacı OOP *(Object-Oriented Programming)* kavramlarını örnek senaryolar üzerinden değerlendirmektir. Aşağıdaki sorulara verilen seçeneklerden en uygun olanını seçiniz.
+
+*Not: Sorular .Net 10 sürümü üzerinden hazırlanmıştır.*
 
 ---
 
@@ -9,6 +11,8 @@ Bu testin amacı OOP (Object-Oriented Programming) kavramlarını örnek senaryo
 Terminalden çalışan bir uygulama yazmak istiyorsunuz. C# programlama dili ile çalışmayı tercih ettiniz. Terminal uygulamaları **executable** olarak derlenirler ve örneğin **Windows** sistemlerinde **.exe** uzantılı dosyalar oluşur. Bu tür uygulamalar genellikle **Console Application** olarak adlandırılır. Aşağıda örnek bir terminal kod parçasına yer verilmiştir.
 
 ```csharp
+using System;
+
 namespace HelloWorld;
 
 public class Application
@@ -64,7 +68,8 @@ public class Game
 B)
 
 ```csharp
-public class Game{
+public class Game
+{
     private Id;
     private Name;
     private ReleaseYear;
@@ -309,3 +314,168 @@ Sizce hangi ifade/ifadeler doğrudur?
 - B) Hepsi
 - C) I ve II
 - D) Sadece III
+
+## Soru 8
+
+Aşağıdaki kod parçasını dikkatlice inceleyelim.
+
+```csharp
+using System;
+
+public class Counter
+{
+    private int _count;
+
+    public void Increment()
+    {
+        if (_count == int.MaxValue) throw new OverflowException("Sayaç değeri maksimuma ulaştı.");
+        _count++;
+    }
+
+    public void Decrement()
+    {
+        if (_count == int.MinValue) throw new OverflowException("Sayaç değeri minimuma ulaştı.");
+        _count--;
+    }
+
+    public int GetCount()
+    {
+        return _count;
+    }
+}
+
+public class Program
+{
+    public static void Main()
+    {
+        var counter = new Counter();
+        for (int i = int.MaxValue-1; i <= int.MaxValue; i++)
+        {
+            counter.Increment();
+        }
+        Console.WriteLine($"Sayaç değeri: {counter.GetCount()}");
+    }
+}
+```
+
+Sizce bu kod parçası çalışma zamanında nasıl bir davranış sergiler?
+
+- A) Kod derlenmez çünkü Counter sınıfında tanımlı _count alanı int türünün sınırlarını aşabilir ve bu durum derleyici tarafından tespit edilir.
+- B) Sayaç değeri sadece bir kez artar ve ardından bir istisna fırlatılır çünkü sayaç değeri int.MaxValue değerine ulaştığında Increment metodu bir **OverflowException** fırlatacak şekilde tasarlanmıştır.
+- C) Sayaç değeri sürekli artar, MaxValue aşıldığında - değerinden devam eder ve program normal şekilde çalışmaya devam eder.
+- D) Sayaç değeri sürekli artar, MaxValue değerine ulaşıldığında sıfırlanır ve doğal olarak ekrana "Sayaç değeri: 0" yazdırılır.
+
+## Soru 9
+
+Elimizde oyun bilgilerinin tutulduğu generic bir koleksiyon olduğunu düşünelim. Tüm oyun bilgileri **Game** türünden bir nesne ile ifade edilmekte ve **Inventory** sınıfında `List<Game>` türünden bir özellikle tutulmakta olsun. Bu ilişkinin Inventory sınıfında aşağıdaki gibi tanımlandığını varsayalım.
+
+```csharp
+public class Inventory
+{
+    public List<Game> Games { get; private set; }
+
+    // Diğer kodlar
+}
+```
+
+C#, fonksiyonel dil özelliklerini de desteklediğinden koleksiyon gibi veri yapıları üzerinde çeşitli fonksiyonel işlemler yapmaya olanak tanır. Birçok iterasyonu destekler. Örneğin `Where`, `Select`, `ForEach` gibi metotlar yardımıyla bu veri yapıları üzerinde filtreleme, dönüştürme ve yineleme işlemleri icra edilebilir. Aşağıdaki kod parçasında bu tür bir kullanım örneği yer almaktadır.
+
+```csharp
+var inventory = new Inventory();
+// inventory.Games koleksiyonuna oyunlar ekleniyor...
+inventory.Games.Where(game => game.UserRating >= 8.0).ToList().ForEach(game => Console.WriteLine(game.Name));
+```
+
+Sizce bu kod parçası ne yapar?
+
+- A) Kod derlenmez çünkü `Where` metodu `List<Game>` türünde bir koleksiyon üzerinde doğrudan çağrılamaz.
+- B) `inventory.Games` koleksiyonundaki kullanıcı puanı 8.0'den yüksek olan oyunları filtreler ve isimlerini ekrana yazdırır.
+- C) `inventory.Games` koleksiyonundaki kullanıcı puanı 8.0 veya daha yüksek olan oyunları filtreler ve isimlerini ekrana yazdırır.
+- D) `inventory.Games` koleksiyonundaki tüm oyunların isimlerini ekrana yazdırır.
+
+## Soru 10
+
+Bir insan kaynakları yönetim platformunda kullanıcıların mezuniyet notunu tutmak istediğimizi varsayalım. Ancak farklı kullanıcılar farklı not sistemlerini kullanabileceğini biliyorsunuz. Örneğin bazıları 100 tabanlı bir not sistemini ele alırken kimisi harf tabanlı *(A,B,C,...)* ya da 4.0 tabanlı bir not sistemini kullanıyor olabilir. Bunu karşılayacak türden bir tasarım yapmak istediğimizde aşağıdaki seçeneklerden hangisini tercih edersiniz?
+
+A)
+
+```csharp
+public class Graduate
+{
+    public float Score { get; set; }
+}
+```
+
+B)
+
+```csharp
+public class Graduate
+{
+    public object Score { get; set; }
+}
+```
+
+C)
+
+```csharp
+public class Graduate
+{
+    public string Score { get; set; }
+}
+```
+
+D)
+
+```csharp
+public record Score(object Value, Notation Notation);
+public enum Notation
+{
+    Numeric100,
+    Letter,
+    Numeric4
+}
+public class Graduate
+{
+    public Score Score { get; set; }
+}
+```
+
+### Soru 11
+
+Yazılım çözümlerinde kodun kalitesini yüksek tutmak için çeşitli prensipler benimsenir ve metodolojiler uygulanır. Özellikle yazılan kodun daha deneyimli birisi tarafından denetlenmesi üzerine odaklanan *Code Review* süreçleri bu metodolojiler arasında önemli bir yer tutar. *Code Review* süreçleri sayesinde kodun kalitesi artırılabilir, hatalar erken aşamada tespit edilebilir ve takım içinde bilgi paylaşımı sağlanabilir. Siz deneyimli bir yazılımcı olduğunuzu düşünün ve takımınızda yeni başlayan bir geliştiricinin aşağıdaki kod parçasını yazdığını varsayalım.
+
+```csharp
+using System;
+using Application.Infrastructure.Database;
+
+namespace HrDomain.Entities;
+
+public class Candidate
+{
+    public Guid Id { get; private set; }
+    public string FullName { get; private set; }
+
+    public Candidate(string fullName)
+    {
+        if (string.IsNullOrWhiteSpace(fullName))
+            throw new ArgumentException("İsim alanı boş geçilemez.");
+            
+        Id = Guid.NewGuid();
+        FullName = fullName;
+    }
+
+    public void SaveToDatabase()
+    {
+        var dbContext = new HrDbContext();
+        dbContext.Candidates.Add(this);
+        dbContext.SaveChanges();
+    }
+}
+```
+
+Bu kodu kurumsal mimari standartları ve *SOLID* ilkeleri açısından değerlendirdiğinizde yapacağınız en kritik mimari eleştiri aşağıdakilerden hangisi olurdu?
+
+- A) **Id** özelliği **Guid.NewGuid()** ile sınıf içinde oluşturulmamalı, bu sorumluluk tamamen veritabanına bırakılmalıdır.
+- B) **FullName** özelliği dışarıdan rahatça değiştirilebilmesi için **private set** yerine **public set** olarak tanımlanmalıdır; aksi halde nesne esnekliğini kaybeder.
+- C) **Candidate** domain kurgusunun temel nesnelerindendir. Veritabanı işlemleri gibi altyapı *(Infrastructure)* detaylarını kendi içinde barındırması ve **HrDbContext**'e doğrudan bağımlı olması Single Responsibility *(Tek Sorumluluk)* ve Dependency Inversion *(Bağımlılıkların Tersine Çevrilmesi)* prensiplerini ihlal eder.
+- D) Sınıf içerisinde parametresiz bir kurucu metot *(parameterless constructor)* bulunmadığı için ORM araçları bu sınıfı eşleştiremez *(map edemez)*, bu yüzden kod derlense bile çalışma zamanında hata verir.
