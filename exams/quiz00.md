@@ -1,6 +1,6 @@
 # OOP Test Soruları 00
 
-Bu testin amacı OOP *(Object-Oriented Programming)* kavramlarını örnek senaryolar üzerinden değerlendirmektir. Aşağıdaki sorulara verilen seçeneklerden en uygun olanını seçiniz.
+Bu testin amacı OOP *(Object-Oriented Programming)* kavramlarını örnek senaryolar üzerinden değerlendirmektir.
 
 *Not: Sorular .Net 10 sürümü üzerinden hazırlanmıştır.*
 
@@ -8,7 +8,7 @@ Bu testin amacı OOP *(Object-Oriented Programming)* kavramlarını örnek senar
 
 ## Soru 1
 
-Terminalden çalışan bir uygulama yazmak istiyorsunuz. C# programlama dili ile çalışmayı tercih ettiniz. Terminal uygulamaları **executable** olarak derlenirler ve örneğin **Windows** sistemlerinde **.exe** uzantılı dosyalar oluşur. Bu tür uygulamalar genellikle **Console Application** olarak adlandırılır. Aşağıda örnek bir terminal kod parçasına yer verilmiştir.
+Terminalden çalışan bir uygulama yazmak istiyorsunuz. **C#** programlama dili ile çalışmayı tercih ettiniz. Terminal uygulamaları **executable** olarak derlenirler. Derleme sonrası örneğin **Windows** tabanlı sistemlerde **.exe** uzantılı dosyalar oluşur. Bu tür uygulamalar genellikle **Console Application** olarak da bilinir. Aşağıda örnek bir konsol uygulamasın ait kodlara yer verilmiştir.
 
 ```csharp
 using System;
@@ -24,14 +24,12 @@ public class Application
 }
 ```
 
-Bu kod parçası ile ilgili aşağıdaki düşüncelere yer verilmiştir.
+Bu kod parçası ile ilgili olarak sizce aşağıdaki ifadelerden hangisi veya hangileri doğrudur?
 
 - **I.** C türevli birçok programlama dilinde olduğu gibi, C# dilinde yazılan bir executable'ın giriş noktası **Main** metodudur.
 - **II.** C# case-sensitive bir dildir, bu nedenle **Main** ve **main** farklı tanımlardır.
 - **III.** Terminal uygulamaları genellikle grafik arayüzü içermezler, bu nedenle kullanıcı etkileşimi genellikle metin tabanlıdır.
 - **IV.** .Net standart kütüphanesinde **WriteLine** isimli bir metot yoktur.
-
-Sizce hangi ifade/ifadeler doğrudur?
 
 - A) Yalnız I
 - B) I ve II
@@ -40,7 +38,7 @@ Sizce hangi ifade/ifadeler doğrudur?
 
 ## Soru 2
 
-80li yılların sevilen oyunlarına ait bazı bilgilerin yer aldığı bir verisetine denk geldiğinizi düşünün. Söz konusu veriseti **dat** uzantılı bir dosyada **Comma-Separated Values (CSV)** formatında saklanmakta. Aşağıda örnek bir iki satıra yer verilmektedir. Bu dosyada oyunların hangi yıl piyasaya sürüldüğü, hangi şirket tarafından geliştirildiği ve kullanıcı puanları gibi bilgiler yer almaktadır.
+80li yılların sevilen oyunlarına ait bazı bilgilerin yer aldığı bir veri setine sahip olduğunuzu düşünün. Söz konusu veriler **dat** uzantılı bir dosyada **Comma-Separated Values *(CSV)*** formatında saklanmakta. Aşağıda bu satırlardan oluşan küçük bir örnek set yer alıyor. Söz konusu dosyada oyunların hangi yıl piyasaya sürüldüğü, hangi şirket tarafından geliştirildiği ve kullanıcı puanları gibi bilgiler yer alıyor.
 
 ```text
 10000|Pac-Man|1980|Namco|6.79|
@@ -50,7 +48,7 @@ Sizce hangi ifade/ifadeler doğrudur?
 10004|Tetris|1984|Alexey Pajitnov|9.00|
 ```
 
-Yaklaşık 1000 satırdan oluşan bu verisetini programatik ortamda modellemek istiyorsunuz. Herbir satırı bir sınıf örneği *(Object Instance)* olarak ifade etmeye karar verdiniz. Aşağıdaki sınıf tasarımlarından hangisi doğru bir modelleme sağlar?
+Yaklaşık bin *(1000)* satırdan oluşan bu verisetini programatik ortamda modellemeniz gerekiyor. Bu sayede program çalışma zamanında her bir satırı bir nesne örneği *(Object Instance)* olarak ifade edebileceğiz. Sizce aşağıdaki sınıf tasarımlarından hangisi doğru bir modelleme şeklini ifade eder?
 
 A)
 
@@ -104,7 +102,7 @@ public class Game
 
 ## Soru 3
 
-Bir fabrikadaki ürünler aşağıdaki sınıf ile modellemeye çalışılmıştır:
+Bir fabrikadaki ürünler aşağıda kod yer alan **Product** sınıfı ile modellenmiştir.
 
 ```csharp
 public class Product
@@ -125,7 +123,7 @@ Dikkat edileceği üzere **Id** özelliği sadece okunabilir bir özellik *(Read
 
 ## Soru 4
 
-**C#** programlama dili genel bir tip sistemini *(Common Type System)* benimser. Bu tip sistemi sayesinde farklı türlerdeki verilerle çalışmak mümkün olur. *int, float, double, char, string* gibi ilkel türler *(primitive types)* ve *class, struct, interface, enum, delegate* gibi karmaşık türler *(complex types)* bu tip sisteminin bir parçasıdır. Böyle bir tip sistemi gerçek dünya nesnelerinin modellenmesini de kolaylaştırır. Örneğin **enum** türünü kullanarak bazı sayısal değerleri anlamlı isimlerle ifade edebiliriz. Aşağıdaki kod parçasında temel renklerden sekizini temsil eden bir enum tanımı yer almaktadır.
+**C#** programlama dili genel bir tip sistemini *(Common Type System)* benimser. Bu tip sistemi sayesinde farklı türden verilerle çalışmak mümkün olur. *int, float, double, char, string* gibi ilkel türler *(primitive types)* ve *class, struct, interface, enum, delegate* gibi karmaşık türler *(complex types)* bu tip sisteminin bir parçasıdır. Böyle bir tip sistemi gerçek dünya nesnelerinin modellenmesini de kolaylaştırır. Örneğin **enum** türünü kullanarak bazı sayısal değerleri anlamlı isimlerle ifade edebiliriz. Aşağıdaki kod parçasında temel renklerden sekizini temsil eden bir **enum** tanımı yer almaktadır.
 
 ```csharp
 public enum BasicColor
@@ -141,7 +139,7 @@ public enum BasicColor
 }
 ```
 
-Bu enum tanımından da yararlanarak geliştirmekte olduğunuz oyuna katılacak karakterlerin favori renklerini ifade etmek istiyorsunuz. Öncelikle karakterlerinizi temsil edecek ve ilk kez tanımlandıktan sonra içeriği değiştirilemez *(immutable)* değiştirilmek istenirse de yeni bir örneği oluşturmayı zorunlu kılan bir enstrüman kullanmak istediğimizi varsayalım. Elimizde aşağıdaki seçenekler mevcut.
+Geliştirilmekte olan oyunda bu enum tanımından da yararlanarak karakterlerin favori renklerinin de tutulması gerekmektedir. Oyuncu karakterlerini temsil edecek nesne örnekleri, ilk kez tanımlandıktan sonra içeriği değiştirilemez *(immutable)* olarak kullanılmak istenmektedir. Değiştirilmek istenirse de yeni bir örneği oluşturmayı zorunlu kılmanız beklenmektedir. Elimizde aşağıdaki seçeneklerin mevcut olduğunu düşünelim.
 
 I.
 
@@ -181,7 +179,7 @@ public readonly struct Character
 }
 ```
 
-Bu yaklaşımlardan hangisini veya hangilerini tercih edersiniz.*(**Immutable** olma halini dikkate alınız)*
+Bu seçeneklerden hangisini veya hangilerini tercih edersiniz.*(**Immutable** olma halini dikkate alınız)*
 
 - A) I ve II
 - B) I, II ve III
@@ -190,7 +188,7 @@ Bu yaklaşımlardan hangisini veya hangilerini tercih edersiniz.*(**Immutable** 
 
 ## Soru 5
 
-Kurumsal çaptaki büyük projelerde verilerin tutarlılığını sağlamak önemlidir ve bunun için farklı seviyelerde çeşitli kurallar işletilebilir. Verinin doğru şekilde girilmesini sağlamak bunu yaparken bazı doğrulama kurallarını işletmek kullanılan yöntemler arasındadır. Bazı doğrulama kuralları domain yapısını korumak için en alt çekirdek nesnelerde değerlendirilir. Örneğin aşağıdaki basit kod parçasını göz önüne alalım.
+Kurumsal çaptaki büyük projelerde verilerin tutarlılığını sağlamak önemlidir ve bunun için farklı seviyelerde çeşitli kurallar işletilebilir. Verinin doğru şekilde girilmesini sağlamak ve bunu yaparken bazı doğrulama kurallarını *(validation rules)* işletmek kullanılan yöntemler arasındadır. Bazı doğrulama kuralları çözümün **domain** yapısını korumak için en alt çekirdek nesnelerde değerlendirilir. Bu düşünceyle aşağıdaki basit kod parçasını göz önüne alalım.
 
 ```csharp
 public class Product
@@ -225,7 +223,7 @@ Sizce aşağıdaki şıklardan hangisi bu kod parçasındaki amaçlardan birisi 
 
 ## Soru 6
 
-Bazı durumlarda bir sınıfın ilgili alanları sadece belirli metotlar üzerinden değişime açık olabilir. Örneğin bir oyuncunun genel skor bilgisini belirli oranda azaltmak veya artırmak için iki ayrı metot kullanmak seçeneklerden birisidir. Aşağıdaki kod parçasında bu durum örneklenmiştir.
+Bazı durumlarda bir sınıfın *(class)* ilgili alanları sadece belirli metotlar üzerinden değişime açık olabilir. Örneğin bir oyuncunun genel skor bilgisini belirli oranda azaltmak veya artırmak için iki ayrı metot kullanmak ya da property'lerin set bloklarında bu işlemi yapmak seçeneklerden arasındadır. Aşağıdaki kod parçasında örnek bir senaryo verilmiştir.
 
 ```csharp
 public class Player
@@ -257,7 +255,7 @@ public class Player
 Bu kod parçası ile ilgili şu fikirler ortaya atılmıştır:
 
 - **I.** Oyuncunun skor bilgisini doğrudan değiştirmek mümkün değildir, sadece *IncreaseScore* ve *DecreaseScore* metotları üzerinden değişiklik yapılabilir.
-- **II.** Hatalı skor bilgisi girilmesi durumunda ortama istisna *(Exception)* fırlatılır ve bu istisnaların nesne kullanıcısı *(object user)* tarafında yönetilmesi beklenir.
+- **II.** Hatalı skor bilgisi girilmesi durumunda ortama istisna *(Exception)* fırlatılır ve bu istisnaların nesne kullanıcısı *(object user)* tarafından yönetilmesi beklenir.
 - **III.** Bu sınıf tasarımı oyuncunun skor bilgisinin tutarlılığını sağlamak için kapsülleme *(Encapsulation)* ilkesine uygun bir şekilde tasarlanmıştır.
 - **IV.** Bu kod parçası derlenmez çünkü *Score* özelliği sadece okunabilir *(readonly)* olarak tanımlanmıştır ve *IncreaseScore* ve *DecreaseScore* metotları bu özelliği değiştirmeye çalışmaktadır.
 
@@ -270,7 +268,7 @@ Sizce hangi ifade/ifadeler doğrudur?
 
 ## Soru 7
 
-İstisna yönetimi C# ve benzeri birçok programlama dilinde ele alınan önemli kavramlardan birisidir. İstisnalar programın çalışması sırasında ortaya beklenmedik durumları ifade eder ve bu durumların programın normal akışını bozmadan yönetilmesi gerekir. Aşağıdaki kod parçasında basit bir istisna yönetimi örneği yer almaktadır.
+İstisna yönetimi *(Exception Handling)*, **C#** ve benzeri birçok programlama dilinde ele alınan önemli kavramlardan birisidir. İstisnalar programın çalışması sırasında ortaya çıkan beklenmedik durumları ifade eder ve bu durumların programın normal akışını bozmadan yönetilmesi gerekir. Aşağıdaki kod parçasında basit bir istisna yönetimi örneği yer almaktadır.
 
 ```csharp
 public class Calculator
@@ -303,8 +301,8 @@ public class Program
 
 Bu kod parçası ile ilgili aşağıdaki ifadeler ortaya atılmıştır:
 
-- **I.** *Divide* metodu bölen sıfır olduğunda bir istisna fırlatır ve bu istisna *Main* metodunda yakalanır.
-- **II.** İstisna yönetimi sayesinde programın beklenmedik durumlarda çökmesi engellenir ve kullanıcıya anlamlı bir hata mesajı sunulur.
+- **I.** *Divide* metodu bölen sıfır olduğunda bir istisna fırlatır *(throw exception)* ve bu istisna *Main* metodunda yakalanır.
+- **II.** Buradaki istisna yönetimi *(exception handling)* sayesinde programın beklenmedik durumlarda çökmesi engellenir ve kullanıcıya anlamlı bir hata mesajı sunulur.
 - **III.** Bu kod parçası derlenmez çünkü *Divide* metodunda *DivideByZeroException* türünde bir istisna fırlatılmaktadır.
 - **IV.** *try-catch* bloğu içinde yer alan kod parçası sadece *Divide* metodunu çağırmakla kalmaz aynı zamanda bölme sonucunu **Infinite** olarak ekrana yazdırır.
 
@@ -360,14 +358,14 @@ public class Program
 
 Sizce bu kod parçası çalışma zamanında nasıl bir davranış sergiler?
 
-- A) Kod derlenmez çünkü Counter sınıfında tanımlı _count alanı int türünün sınırlarını aşabilir ve bu durum derleyici tarafından tespit edilir.
-- B) Sayaç değeri sadece bir kez artar ve ardından bir istisna fırlatılır çünkü sayaç değeri int.MaxValue değerine ulaştığında Increment metodu bir **OverflowException** fırlatacak şekilde tasarlanmıştır.
-- C) Sayaç değeri sürekli artar, MaxValue aşıldığında - değerinden devam eder ve program normal şekilde çalışmaya devam eder.
-- D) Sayaç değeri sürekli artar, MaxValue değerine ulaşıldığında sıfırlanır ve doğal olarak ekrana "Sayaç değeri: 0" yazdırılır.
+- A) Kod derlenmez çünkü **Counter** sınıfında tanımlı **_count** alanı **int** türünün sınırlarını aşabilir ve bu durum derleyici tarafından tespit edilir.
+- B) Sayaç değeri sadece bir kez artar ve ardından bir istisna fırlatılır çünkü sayaç değeri **int.MaxValue** değerine ulaştığında **Increment** metodu bir **OverflowException** fırlatacak şekilde tasarlanmıştır.
+- C) Sayaç değeri sürekli artar, **MaxValue** aşıldığında **-*(negatif)*** değerinden devam eder ve program normal akışını sürdürür.
+- D) Sayaç değeri sürekli artar, **MaxValue** değerine ulaşıldığında sıfırlanır ve doğal olarak ekrana **"Sayaç değeri: 0"** yazdırılır.
 
 ## Soru 9
 
-Elimizde oyun bilgilerinin tutulduğu generic bir koleksiyon olduğunu düşünelim. Tüm oyun bilgileri **Game** türünden bir nesne ile ifade edilmekte ve **Inventory** sınıfında `List<Game>` türünden bir özellikle tutulmakta olsun. Bu ilişkinin Inventory sınıfında aşağıdaki gibi tanımlandığını varsayalım.
+Elimizde oyun bilgilerinin tutulduğu generic bir koleksiyon olduğunu düşünelim. Tüm oyun bilgileri **Game** türünden bir nesne ile ifade edilmekte ve **Inventory** sınıfında `List<Game>` türünden bir özellik *(property)* olarak tutulmaktadır. Bu ilişkinin **Inventory** sınıfında aşağıdaki gibi tanımlandığını düşünelim.
 
 ```csharp
 public class Inventory
@@ -378,7 +376,7 @@ public class Inventory
 }
 ```
 
-C#, fonksiyonel dil özelliklerini de desteklediğinden koleksiyon gibi veri yapıları üzerinde çeşitli fonksiyonel işlemler yapmaya olanak tanır. Birçok iterasyonu destekler. Örneğin `Where`, `Select`, `ForEach` gibi metotlar yardımıyla bu veri yapıları üzerinde filtreleme, dönüştürme ve yineleme işlemleri icra edilebilir. Aşağıdaki kod parçasında bu tür bir kullanım örneği yer almaktadır.
+**C#**, birçok fonksiyonel dil özelliğini de desteklediğinden koleksiyon gibi veri yapıları üzerinde çeşitli fonksiyonel işlemler yapmaya da olanak tanır. Bu anlamda birçok iterasyonu destekler. Örneğin `Where`, `Select`, `ForEach` gibi metotlar yardımıyla bu veri yapıları üzerinde filtreleme, dönüştürme ve yineleme işlemleri icra edilebilir. Aşağıdaki kod parçasında bu tür bir kullanım örneği yer almaktadır.
 
 ```csharp
 var inventory = new Inventory();
@@ -386,16 +384,16 @@ var inventory = new Inventory();
 inventory.Games.Where(game => game.UserRating >= 8.0).ToList().ForEach(game => Console.WriteLine(game.Name));
 ```
 
-Sizce bu kod parçası ne yapar?
+Sizce bu kod parçası ne yapmaktadır?
 
-- A) Kod derlenmez çünkü `Where` metodu `List<Game>` türünde bir koleksiyon üzerinde doğrudan çağrılamaz.
-- B) `inventory.Games` koleksiyonundaki kullanıcı puanı 8.0'den yüksek olan oyunları filtreler ve isimlerini ekrana yazdırır.
-- C) `inventory.Games` koleksiyonundaki kullanıcı puanı 8.0 veya daha yüksek olan oyunları filtreler ve isimlerini ekrana yazdırır.
-- D) `inventory.Games` koleksiyonundaki tüm oyunların isimlerini ekrana yazdırır.
+- A) Kod derlenmez çünkü `Where` metodu `List<Game>` türünde bir koleksiyon üzerinde doğrudan **çağrılamaz**.
+- B) **inventory.Games** koleksiyonundaki kullanıcı puanı 8.0'den yüksek olan oyunları filtreler ve isimlerini ekrana yazdırır.
+- C) **inventory.Games** koleksiyonundaki kullanıcı puanı 8.0 veya daha yüksek olan oyunları filtreler ve isimlerini ekrana yazdırır.
+- D) **inventory.Games** koleksiyonundaki tüm oyunların isimlerini ekrana yazdırır.
 
 ## Soru 10
 
-Bir insan kaynakları yönetim platformunda kullanıcıların mezuniyet notunu tutmak istediğimizi varsayalım. Ancak farklı kullanıcılar farklı not sistemlerini kullanabileceğini biliyorsunuz. Örneğin bazıları 100 tabanlı bir not sistemini ele alırken kimisi harf tabanlı *(A,B,C,...)* ya da 4.0 tabanlı bir not sistemini kullanıyor olabilir. Bunu karşılayacak türden bir tasarım yapmak istediğimizde aşağıdaki seçeneklerden hangisini tercih edersiniz?
+Bir insan kaynakları yönetim platformunda kullanıcıların mezuniyet notunu tutmak istediğimizi varsayalım. Ancak farklı kullanıcıların farklı not sistemlerini kullanabileceği gibi bir durum da söz konusu. Örneğin bazıları **100 tabanlı** bir not sistemini ele alırken kimisi **harf tabanlı *(A,B,C,...)*** ya da **4.0 tabanlı** bir not sistemini kullanıyor olabilir. Bunu karşılayacak türden bir tasarım yapmak istediğimizde aşağıdaki seçeneklerden hangisini tercih edersiniz?
 
 A)
 
