@@ -10,6 +10,7 @@ Vize ve final sınavlarına hazırlanmak için aşağıdaki quizleri çözebilir
 
 - [Quiz 00](./exams/quiz00.md)
 - [Quiz 01](./exams/quiz01.md)
+- [Quiz 02(Draft)](./exams/quiz02.md)
 
 ## Referanslar
 
