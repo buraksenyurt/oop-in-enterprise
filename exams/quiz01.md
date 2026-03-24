@@ -1,6 +1,6 @@
 # OOP Test Soruları 01
 
-Bu testin amacı yüksek kalite kodlama standartlarını sağlamak için temel yazılım prensiplerinden olan **SOLID** ilkelerindeki bilgilerinizi ölçmektir. Sorular, nesne yönelimli programlama *(OOP)* kavramları, C# dil özellikleri ve yazılım tasarım prensipleri üzerine odaklanmıştır.
+Bu testin amacı yüksek kalite kodlama standartlarını sağlamak için temel yazılım prensipleri bilgimizi ölçmektedir. Genel olarak **SOLID *(Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion)*** ilkeleri ele alınır ama kod güvenliği ve temel nesne yönelimli dil prensipleri de değerlendirilir.
 
 *Not: Sorular .Net 10 sürümü üzerinden hazırlanmıştır.*
 
@@ -8,7 +8,9 @@ Bu testin amacı yüksek kalite kodlama standartlarını sağlamak için temel y
 
 ## Soru 1
 
-Yazılım çözümlerinde kodun kalitesini yüksek tutmak için çeşitli prensipler benimsenir ve metodolojiler uygulanır. Özellikle yazılan kodun daha deneyimli birisi tarafından denetlenmesi üzerine odaklanan *Code Review* süreçleri bu metodolojiler arasında önemli bir yer tutar. *Code Review* süreçleri sayesinde kodun kalitesi artırılabilir, hatalar erken aşamada tespit edilebilir ve takım içinde bilgi paylaşımı sağlanabilir. Siz deneyimli bir yazılımcı olduğunuzu düşünün ve takımınızda yeni başlayan bir geliştiricinin aşağıdaki kod parçasını yazdığını varsayalım.
+Yazılım çözümlerinde kodun kalitesini yüksek tutmak için çeşitli prensipler benimsenir ve metodolojiler uygulanır. Özellikle yazılan kodun daha deneyimli birisi tarafından denetlenmesi üzerine odaklanan *Code Review* süreçleri bu metodolojiler arasında önemli bir yer tutar. *Code Review* süreçleri sayesinde kodun kalitesi artırılabilir, hatalar erken aşamada tespit edilebilir ve takım içinde bilgi paylaşımı sağlanabilir. Ayrıca tüm yazılım ekibinin belli bir standardın üzerinde kodlama yapabiliyor olmasının da yolu açılır.
+
+Siz deneyimli bir yazılımcı olduğunuzu düşünün ve takımınızda yeni başlayan bir geliştiricinin aşağıdaki kod parçasını gözden geçirdiğiniz varsayın.
 
 ```csharp
 using System;
@@ -41,10 +43,10 @@ public class Candidate
 
 Bu kodu kurumsal mimari standartları ve *SOLID* ilkeleri açısından değerlendirdiğinizde yapacağınız en kritik mimari eleştiri aşağıdakilerden hangisi olurdu?
 
-- A) **Id** özelliği **Guid.NewGuid()** ile sınıf içinde oluşturulmamalı, bu sorumluluk tamamen veritabanına bırakılmalıdır.
+- A) **Id** özelliği **Guid.NewGuid()** ile sınıf içinde *oluşturulmamalı*, bu sorumluluk tamamen veritabanına bırakılmalıdır.
 - B) **FullName** özelliği dışarıdan rahatça değiştirilebilmesi için **private set** yerine **public set** olarak tanımlanmalıdır; aksi halde nesne esnekliğini kaybeder.
-- C) **Candidate** domain kurgusunun temel nesnelerindendir. Veritabanı işlemleri gibi altyapı *(Infrastructure)* detaylarını kendi içinde barındırması ve **HrDbContext**'e doğrudan bağımlı olması Single Responsibility *(Tek Sorumluluk)* ve Dependency Inversion *(Bağımlılıkların Tersine Çevrilmesi)* prensiplerini ihlal eder.
-- D) Sınıf içerisinde parametresiz bir kurucu metot *(parameterless constructor)* bulunmadığı için ORM araçları bu sınıfı eşleştiremez *(map edemez)*, bu yüzden kod derlense bile çalışma zamanında hata verir.
+- C) **Candidate** domain kurgusunun temel nesnelerindendir. Veritabanı işlemleri gibi altyapı *(Infrastructure)* detaylarını kendi içinde barındırması ve **HrDbContext**'e doğrudan bağımlı olması **Single Responsibility *(Tek Sorumluluk)*** ve **Dependency Inversion *(Bağımlılıkların Tersine Çevrilmesi)*** prensiplerini ihlal eder.
+- D) Sınıf içerisinde parametresiz bir kurucu metot *(parameterless constructor)* bulunmadığı için **ORM *(Object-Relational Mapping)*** araçları bu sınıfı eşleştiremez *(map edemez)*, bu yüzden kod derlense bile çalışma zamanında hata verir.
 
 ## Soru 2
 
@@ -73,16 +75,16 @@ public class DiscountCalculator
 }
 ```
 
-Ancak zamanla sisteme farklı müşteri tiplerinin eklenmesi ihtiyacı ortaya çıkmıştır. Örneğin "Öğrenci" ve "Emekli" gibi yeni müşteri tiplerinin eklenmesi söz konusudur. Bunu if bloklarını genişleterek sağlamak mümkündür ancak bu yaklaşım kodun okunabilirliğini ve sürdürülebilirliğini olumsuz etkiler. Bu yaklaşım SOLID ilkelerinden hangisini ihlal eder ve çözüm olarak nasıl bir tasarım önerirsiniz?
+Ancak zamanla sisteme farklı müşteri tiplerinin eklenmesi ihtiyacı ortaya çıkmıştır. Örneğin **"Öğrenci"** ve **"Emekli"** gibi yeni müşteri tipleri gibi. Bunu **if** bloklarını genişleterek sağlamak mümkündür ancak bu yaklaşım kodun okunabilirliğini ve sürdürülebilirliğini olumsuz etkiler. Bu yaklaşım **SOLID** ilkelerinden hangisini ihlal eder ve çözüm olarak nasıl bir tasarım önerirsiniz?
 
-- A) Bu yaklaşım Open/Closed Principle (Açık/Kapalı Prensibi) ihlal eder. Yeni müşteri tipleri eklemek için mevcut kodu değiştirmek gerekir. Çözüm olarak, müşteri tiplerini temsil eden bir arayüz veya soyut sınıf oluşturup, her müşteri tipi için bu arayüzü uygulayan ayrı sınıflar oluşturulabilir.
-- B) Tek Sorumluluk Prensibi (SRP) ihlal edilmiştir. Çözüm olarak her müşteri tipi için ayrı bir hesaplayıcı sınıfı *(Örneğin: VipCalculator, PremiumCalculator)* yazılmalı ve bunlar CalculateFinalPrice metodu içinde switch-case ile çağrılmalıdır.
-- C) Liskov Substitution Principle (Liskov Yerine Geçme Prensibi) ihlal edilmiştir çünkü müşteri tipleri birbirinin yerine geçemez. Çözüm olarak, müşteri tiplerini temsil eden bir enum oluşturulmalı ve bu enum üzerinden indirim oranları belirlenmelidir.
-- D) Kod içinde kullanılan string değerler (örneğin "Standard", "Premium", "VIP") hard-coded olarak tanımlanmıştır, bu da Magic String kullanımı olarak adlandırılır ve kodun bakımını zorlaştırır. Çözüm olarak, müşteri tiplerini temsil eden bir enum oluşturulmalı ve bu enum üzerinden indirim oranları belirlenmelidir.
+- A) Bu yaklaşım **Open/Closed Principle *(Açık/Kapalı Prensibi)*** ihlalidir. Yeni müşteri tipleri eklemek için mevcut kodu değiştirmek gerekir. Çözüm olarak, müşteri tiplerini temsil eden bir arayüz *(interface)* veya soyut sınıf *(abstract class)* oluşturup, her müşteri tipi için bu arayüzü uygulayan ayrı sınıflar oluşturulabilir.
+- B) **Tek Sorumluluk Prensibi *(Single Responsibility Principle)*** ihlal edilmiştir. Çözüm olarak her müşteri tipi için ayrı bir hesaplayıcı sınıfı *(Örneğin: VipCalculator, PremiumCalculator)* yazılmalı ve bunlar **CalculateFinalPrice** metodu içinde **switch-case** ile çağrılmalıdır.
+- C) **Liskov Substitution Principle *(Liskov Yerine Geçme Prensibi)*** ihlal edilmiştir çünkü müşteri tipleri birbirinin yerine geçemez. Çözüm olarak, müşteri tiplerini temsil eden bir **enum** oluşturulmalı ve bu **enum** üzerinden indirim oranları belirlenmelidir.
+- D) Kod içinde kullanılan **string** değerler *(örneğin "Standard", "Premium", "VIP")* hard-coded olarak tanımlanmıştır, bu da **Magic String** kullanımı olarak adlandırılır ve kodun bakımını zorlaştırır. Çözüm olarak, müşteri tiplerini temsil eden bir **enum** oluşturulmalı ve bu **enum** üzerinden indirim oranları belirlenmelidir.
 
 ## Soru 3
 
-Oldukça eski bir ERP sisteminin modernizasyonu sürecinde raporlama ile ilgili bir modülün yeniden yazılması ile ilgileniyorsunuz. Sistemdeki rapor türleri zaman içerisinde aşağıdaki gibi derin bir kalıtım *(hierarchical inheritance)* yapısına sahip olmuş.
+Oldukça eski bir **ERP *(Enterprise Resource Planning)*** sisteminin modernizasyonu sürecinde raporlama ile ilgili bir modülün yeniden yazılması gerekmektedir. Sistemdeki rapor türleri zaman içerisinde aşağıdaki gibi derin bir kalıtım *(hierarchical inheritance)* yapısına sahip olmuştur.
 
 ```text
 1. Report (Temel Sınıf)
@@ -91,22 +93,22 @@ Oldukça eski bir ERP sisteminin modernizasyonu sürecinde raporlama ile ilgili 
 4. EncryptedMailedExcelReport : MailedExcelReport
 ```
 
-Yeni gelen bir isteğe göre şifrelenmiş PDF formatında raporlar da eklenmesi gerekmektedir. Bu durumda mevcut kalıtım yapısına göre yeni bir sınıf eklemek aşağıdaki gibi olacaktır:
+Yeni gelen bir isteğe göre sisteme şifrelenmiş PDF formatında raporların da eklenmesi gerekmektedir. Bu durumda mevcut kalıtım yapısına göre yeni bir sınıf eklemek aşağıdaki gibi olacaktır:
 
 ```text
 5. EncryptedMailedPdfReport : MailedExcelReport
 ```
 
-Sınıf patlaması *(class explosion)* olarak adlandırılan bu durum, kalıtım yapısının karmaşıklaşmasına ve bakım zorluklarına yol açar. Sizce bu durumun üstesinden gelmek için aşağıdaki seçeneklerden hangisini kullanarak kod kalitesini artırırsınız?
+Sınıf patlaması *(class explosion)* olarak adlandırılan bu durum, kalıtım *(inheritance)* yapısının karmaşıklaşmasına ve bakım zorluklarına yol açar. Sizce bu durumun üstesinden gelmek için aşağıdaki seçeneklerden hangisini değerlendirirsiniz?
 
-- A) Tüm rapor tiplerini tek bir sınıf içinde toplar ve türlerini bool tipinden özellikler ile kontrol ederim. Örneğin, IsExcel, IsMailed, IsEncrypted gibi özellikler ekleyerek rapor türlerini belirlerim.
-- B) Mecut kalıtım hiyerarşisini derinleştirip Report sınıfına Encrypt(), Email() gibi metodlar ekler ve bunları alt sınıflarda ezilebilir olması için virtual tanımlarım.
-- C) Report sınıfını bir struct haline getiririm ve bellekteki referans yükünü azaltmayı hedeflerim. Sınıflar arası bağlantıları koparmamaya çalışırım.
-- D) Kalıtım yerine kompozisyon *(composition over inheritance)* kullanıp rapor özelliklerini soyutlarım. Örneğin, IEncryptable, IMailable gibi arayüzler oluşturur ve bu arayüzleri uygulayan somut sınıflar ile raporları oluştururum. Böylece yeni rapor türleri eklemek için mevcut kodu değiştirmek zorunda kalmam ve sınıf patlamasını önlemiş olurum.
+- A) Tüm rapor tiplerini tek bir sınıf içinde toplar ve türlerini **bool** tipinden özellikler ile kontrol ederiz. Örneğin, *IsExcel, IsMailed, IsEncrypted* gibi özellikler ekleyerek rapor türlerini belirler ve yönetiriz.
+- B) Mecut kalıtım hiyerarşisini derinleştirip **Report** sınıfına *Encrypt(), Email()* gibi metodlar ekler ve bunları alt sınıflarda ezilebilir olması için **virtual** nitelikli tanımlarız.
+- C) **Report** sınıfını bir **struct** haline getirir ve bellekteki referans yükünü azaltmayı hedefleriz. Sınıflar arasındaki sıkı bağlantıları koparmamaya çalışırız.
+- D) Kalıtım yerine kompozisyon *(composition over inheritance)* ilkesini kullanıp rapor özelliklerini soyutlarız. Örneğin, *IEncryptable, IMailable* gibi arayüzler oluşturur ve bu arayüzleri uygulayan somut sınıflar *(concrete classes)* ile rapor nesnelerinin örneklenmesini sağlarız. Böylece yeni rapor türleri eklemek için mevcut kodu değiştirmek zorunda kalmaz ve sınıf patlamasını önlemiş oluruz.
 
 ## Soru 4
 
-Kurumsal bir doküman yönetim sistemi tasarladığımız düşünelim. Bu sistemde belgelerin farklı davranışları için aşağıdaki gibi bir arayüz tanımlanmış olsun.
+Kurumsal bir doküman yönetim sistemi *(Document Management System)* tasarladığımızı düşünelim. Bu sistemde belgelerin farklı davranışları için aşağıdaki gibi bir arayüz tanımlanmış olsun.
 
 ```csharp
 public interface IDocumentOperations
@@ -118,16 +120,20 @@ public interface IDocumentOperations
 }
 ```
 
-*ReadOnlyPdfDocument* isimli sınıf da sisteme yeni eklenmiş ve bu arayüzü uygulamış olsun. Sadece okunabilir formattaki bir PDF dokümanını temsil eden bu sınıfa **Fax** ve **Write** gibi davranışları da uygulamak zorunda kalacağız. Sorunu çözmek içinsde bu metotların implementasyonlarını boş bırakmak veya **NotImplementedException** fırlatmak gibi yaklaşımlar kullanacağız. Sizce bu vakada hangi **SOLID** prensibi ihlal edilmiştir.
+Sisteme yeni eklenen **ReadOnlyPdfDocument** isimli sınıf da bu arayüzü uygulamış olsun. Sadece okunabilir *(read-only)* formattaki bir PDF dokümanını temsil eden bu sınıfa **Fax** ve **Write** gibi davranışları da uygulamak zorunda kalacağız. Sorunu çözmek için bu metotların implementasyonlarını boş bırakmak veya **NotImplementedException** fırlatmak gibi yaklaşımlar kullanmak zorunda kalacağız. Sizce bu vakada hangi **SOLID** prensibi ihlal edilmektedir.
 
-- A) **DRY *(Don't Repeat Yourself)*** prensibi ihlal edilmiştir çünkü *ReadOnlyPdfDocument* sınıfında Fax ve Write gibi metotların implementasyonları boş bırakılmakta veya NotImplementedException fırlatılmaktadır, bu da kodun tekrarına ve gereksiz karmaşıklığa yol açar.
-- B) **KISS *(Keep It Simple, Stupid)*** prensibi ihlal edilmiştir çünkü IDocumentOperations arayüzü, *ReadOnlyPdfDocument* gibi sınıflar için gereksiz metotlar içermektedir, bu da kodun basitliğini ve anlaşılabilirliğini azaltır.
-- C) **YAGNI *(You Aren't Gonna Need It)*** prensibi ihlal edilmiştir çünkü IDocumentOperations arayüzü, *ReadOnlyPdfDocument* gibi sınıflar için gereksiz metotlar içermektedir, bu da kodun gereksiz yere karmaşıklaşmasına ve bakım zorluklarına yol açar.
-- D) **Interface Segregation Principle (ISP)** ihlal edilmiştir çünkü *ReadOnlyPdfDocument* sınıfı, ihtiyaç duymadığı metotları uygulamak zorunda kalmaktadır. Bu durum, arayüzlerin daha küçük ve spesifik parçalara ayrılması gerektiğini gösterir.
+- A) **DRY *(Don't Repeat Yourself)*** prensibi ihlal edilir çünkü *ReadOnlyPdfDocument* sınıfında *Fax* ve *Write* gibi metotların implementasyonları boş bırakılmakta veya *NotImplementedException* fırlatılmaktadır. Bu yaklaşım kod tekrarına ve gereksiz karmaşıklığa yol açar.
+- B) **KISS *(Keep It Simple, Stupid)*** prensibi ihlal edilir çünkü *IDocumentOperations* arayüzü, *ReadOnlyPdfDocument* gibi sınıflar için gereksiz metotlar içermektedir, bu da kodun basitliğini ve anlaşılabilirliğini azaltır.
+- C) **YAGNI *(You Aren't Gonna Need It)*** prensibi ihlal edilir çünkü *IDocumentOperations* arayüzü, *ReadOnlyPdfDocument* gibi sınıflar için gereksiz metotlar içermektedir, bu da kodun gereksiz yere karmaşıklaşmasına ve bakım zorluklarına yol açar.
+- D) **Interface Segregation Principle *(ISP)*** ihlali söz konusudur çünkü *ReadOnlyPdfDocument* sınıfı, ihtiyaç duymadığı metotları uygulamak zorunda kalmaktadır. Bu durum, arayüzlerin daha küçük ve spesifik parçalara ayrılması gerektiğini gösterir.
 
 ## Soru 5
 
-Teknik borç *(Technical Debt)*, yazılım geliştirme sürecinde alınan kısa vadeli kararların uzun vadede ortaya çıkan olumsuz etkilerini ifade eder. Bu borç, kodun kalitesini düşürebilir, bakım maliyetlerini artırabilir ve yeni özelliklerin eklenmesini zorlaştırabilir. Teknik borç genellikle zaman baskısı, yetersiz kaynaklar veya deneyimsiz ekip üyeleri nedeniyle ortaya çıkar. Teknik borçların tespitinde **Sonarqube** gibi statik kod tarama araçları sıklıkla kullanılır. Bu araçlar kod kalitesini ölçümlerken bazı metrikler kullanır. Aşağıdaki kod parçasını göz önüne alalım.
+Teknik borç *(Technical Debt)*, yazılım geliştirme sürecinde alınan kısa vadeli kararların uzun vadede ortaya çıkan olumsuz etkilerini ifade eder. Bu borç, kodun kalitesini düşürebilir, bakım maliyetlerini artırabilir ve yeni özelliklerin eklenmesini zorlaştırabilir. Daha da önemlisi üretim ortamlarına önceden fark edilmeyen görev kritik hataların sızmasına yol açabilir.
+
+Teknik borç genellikle zaman baskısı, yetersiz kaynaklar veya deneyimsiz ekip üyeleri nedeniyle ortaya çıkar. Teknik borçların tespitinde **Sonarqube** gibi statik kod tarama araçları sıklıkla kullanılır. Bu araçlar kod kalitesini ölçümlerken bazı metrikler kullanır.
+
+Şimdi aşağıdaki kod parçasını göz önüne alalım.
 
 ```csharp
 public class CustomerService
@@ -168,14 +174,14 @@ public class CustomerService
 
 Sizce bu kod parçası için şıklarda belirtilen hangi ihlal söz konusudur.
 
-- A) RegisterCustomer metodunun parametre sayısı çok fazladır. Bu `Long Parameter List` olarak adlandırılan bir ihlaldir ve **Code Smell** kategorisinde yer alır.
+- A) **RegisterCustomer** metodunun parametre sayısı çok fazladır. Bu `Long Parameter List` olarak adlandırılan bir ihlaldir ve **Code Smell** kategorisinde yer alır.
 - B) İsimlendirme ihlali söz konusudur. Argüman adları **CamelCase** formatında değil, **snake_case** formatında yazılmalıdır.
-- C) **Cyclomatic Complexity (Döngüsel Karmaşıklık)** ihlali bulunmaktadır. Metot içerisindeki karar ağaçlarının *(if-else, switch blokları)* ve döngülerin çok fazla olması sebebiyle karmaşıklık limiti aşılmıştır.
-- D) Kod genelinde **Duplicated Blocks *(Tekrarlanan Kod Blokları)*** tespit edilmiştir. **SonarQube**, benzer nesne oluşturma ve değer atama işlemlerinin proje içerisinde kopya kod olarak yer almasından dolayı DRY prensibine aykırı bulup bu uyarıyı üretir.
+- C) **Cyclomatic Complexity *(Döngüsel Karmaşıklık)*** ihlali bulunmaktadır. Metot içerisindeki karar ağaçlarının *(if-else, switch blokları)* ve döngülerin çok fazla olması sebebiyle karmaşıklık limiti aşılmıştır.
+- D) Kod genelinde **Duplicated Blocks *(Tekrarlanan Kod Blokları)*** tespit edilmiştir. **SonarQube**, benzer nesne oluşturma ve değer atama işlemlerinin proje içerisinde kopya kod olarak yer almasından dolayı **DRY *(Don't Repeat Yourself)*** prensibine aykırı bir durum olduğuna karar verip bu uyarıyı verir.
 
 ## Soru 6
 
-Müşteri paneline giriş işlemini *(Login)* yapan mevcut eski bir metodu inceliyorsunuz. Kod aşağıdaki gibi bir SQL sorgusu çalıştırarak kullanıcının veritabanında olup olmadığını kontrol etmektedir.
+Müşteri paneline giriş işlemini *(Login)* icra eden eski bir metodu inceliyorsunuz. Kod aşağıdaki gibi bir **SQL *(Structured Query Language)*** sorgusu çalıştırarak kullanıcının veritabanında olup olmadığını kontrol etmektedir.
 
 ```csharp
 public class AuthService
@@ -195,16 +201,16 @@ public class AuthService
 }
 ```
 
-Bu metod kurumsal standartlar bakımından incelendiğinde statik kod analizi araçları tarafından büyük bir güvenlik zafiyeti *(Security Vulnerability)* tespit edilecektir. Bu ihlalin temel nedeni ve en doğru çözüm yöntemi hangisidir?
+Kullandığınız statik kod analizi aracı bu kod parçasında kritik bir güvenlik zafiyeti *(Security Vulnerability)* tespit etmiştir. Bu ihlalin temel nedeni ve en doğru çözüm yöntemi hangisidir?
 
-- A) **Cross-Site Scripting (XSS)** zafiyeti bulunmaktadır. Kullanıcıdan alınan `username` ve `password` parametreleri HTML Encode işleminden geçirilmeden kullanılmıştır.
-- B) Sorguda doğrudan bir **SQL Injection** zafiyeti *(CWE-89)* bulunmaktadır. Girdi parametreleri birleştirilerek *(string interpolation / concatenation)* çalıştırıldığı için, zararlı betikler veritabanında komut olarak işletilebilir. Çözüm olarak parametreli sorgular *(Parameterized Queries)* veya ORM *(Object-Relational Mapping)* kütüphaneleri kullanmak ya da **Stored Procedure** tercih edilmelidir.
-- C) Veritabanı bağlantısı `using` bloğunda kullanılmıştır. Bu durum bağlantının gereğinden fazla açık kalmasına sebep olarak **Denial of Service (DoS)** açıklarına neden olur.
-- D) Şifreler düz metin olarak kontrol edildiğinden **Broken Authentication** zafiyeti vardır. Bu durum koddaki SQL string kullanımından bağımsızdır, yalnızca **JWT *(JSON Web Token)*** kullanılarak çözülebilir.
+- A) **Cross-Site Scripting (XSS)** zafiyeti bulunmaktadır. Kullanıcıdan alınan *username* ve *password* parametreleri **HTML Encode** işleminden geçirilmeden kullanılmıştır.
+- B) Sorguda doğrudan bir **SQL Injection** zafiyeti *(CWE-89)* bulunmaktadır. Girdi parametreleri birleştirilerek *(string interpolation / concatenation)* çalıştırıldığı için, zararlı betikler veritabanında komut olarak işletilebilir. Çözüm olarak parametreli sorgular *(Parameterized Queries)* veya ORM *(Object-Relational Mapping)* kütüphaneleri kullanmak tercih edilmelidir.
+- C) Veritabanı bağlantısı **using** bloğunda kullanılmıştır. Bu durum bağlantının gereğinden fazla açık kalmasına sebep olarak **Denial of Service *(DoS)*** saldırılarına karşı sistemi korumasız bırakır.
+- D) Şifreler düz metin olarak kontrol edildiğinden **Broken Authentication** zafiyeti vardır. Bu durum koddaki **SQL string** kullanımından bağımsızdır, yalnızca **JWT *(JSON Web Token)*** kullanılarak çözülebilir.
 
 ## Soru 7
 
-Yeni mikroservis altyapısına taşınan bir projeyi gözden geçirirken takım arkadaşınızın yazdığı bir veri erişim sınıfında *(Repository)* aşağıdaki gibi bir kod kullanımına denk geldiğinizi düşünelim.
+Henüz mikroservis altyapısına taşınan bir projeyi gözden geçirirken takım arkadaşımızın yazdığı bir veri erişim sınıfında *(Repository)* aşağıdaki gibi bir kod kullanımına denk geldiğimizi düşünelim.
 
 ```csharp
 public class AppDbContext : DbContext
@@ -221,7 +227,7 @@ public class AppDbContext : DbContext
 }
 ```
 
-Bu kod parçası github reposuna gönderildiğinde modern kod analizi ve güvenlik araçları *(SonarQube, GitHub Advanced Security vb.)* bunu **Kritik / Blocker** seviyesinde bir ihlal olarak işaretlemiştir. Bu uyarının sebebi nedir ve bu durum nasıl çözülmelidir?
+Bu kod parçası **github** reposuna gönderildiğinde modern kod analizi ve güvenlik araçları *(SonarQube, GitHub Advanced Security vb.)* bunu **Kritik / Blocker** seviyesinde bir ihlal olarak işaretlemiştir. Bu uyarının sebebi nedir ve problem nasıl çözülmelidir?
 
 - A) Sınıf içerisinde yer alan *DbSet* gibi *Entity Framework* özelliklerinin *public* erişim belirleyicisi ile dışarı açılması, veritabanı tablolarının doğrudan manipüle edilmesine *(Data Exposure)* yol açar. DbSet'ler kapsüllenmelidir *(Encapsulation)*.
 - B) Veritabanının isminin *CustomerDb* olarak verilmesi güvenlik ihlalidir. Veritabanı isimleri hiçbir zaman kod veya yapılandırma dosyalarında gösterilmemelidir.
@@ -230,7 +236,7 @@ Bu kod parçası github reposuna gönderildiğinde modern kod analizi ve güvenl
 
 ## Soru 8
 
-Şirketin maaş ve prim hesaplamalarını yürüten planlı bir arka plan *(Background Job/Worker)* işine ait bir sınıfta aşağıdaki kod parçasında yer alan metotla karşılaştığınızı düşünelim.
+Şirketin maaş ve prim hesaplamalarını yürüten planlı bir arka plan *(Background Job/Worker)* işine ait bir sınıfta aşağıdaki kod parçasında yer alan metotla karşılaştığımızı düşünelim.
 
 ```csharp
 public decimal CalculateBonus(Employee employee, int yearsOfService, decimal baseSalary)
@@ -288,12 +294,12 @@ Statik kod tarama araçları *(Sonarqube)* bu metot için **Cognitive Complexity
 
 - A) İhlal, metot içerisindeki değişken atamalarının çokluğundan kaynaklanmaktadır. *decimal bonus = 0;* değişkeni gereksiz yer kaplar. Kod sadece *return baseSalary * 0.20m* gibi doğrudan dönüşler içermelidir.
 - B) İhlalin sebebi uzun bir kod bloğu yazılmış olmasıdır. Çözüm olarak, her bir *case* içerisindeki işlemler asenkron *async/await* olarak yeniden kurgulanmalı ve performans arttırılmalıdır.
-- C) İhlal, *switch* ve iç içe geçmiş *if-else* bloklarının kodu okumayı, takip etmeyi ve test etmeyi aşırı zorlaştırmasından kaynaklanmaktadır. Bu problemi çözmek için OOP mantığına uygun bir biçimde **Strateji Tasarım Deseni (Strategy Pattern)** veya **Polimorfizm** kullanılarak her departman için ayrı bir yetki hesaplama sınıfı oluşturulmalıdır.
+- C) İhlal, *switch* ve iç içe geçmiş *if-else* bloklarının kodu okumayı, takip etmeyi ve test etmeyi aşırı zorlaştırmasından kaynaklanmaktadır. Bu problemi çözmek için OOP mantığına uygun bir biçimde **Strateji Tasarım Deseni *(Strategy Pattern)*** veya **Polimorfizm** kullanılarak her departman için ayrı bir yetki hesaplama sınıfı oluşturulmalıdır.
 - D) Sorun *employee.Department* değerinin bir *Enum* sabiti olmasından kaynaklanmaktadır. *Enum* değerler *switch-case* bloklarında kullanıldığında derleyiciler çalışma zamanı optimizasyonunu sağlayamaz. Bu veriler *string* değerler olarak tutulmalıdır.
 
 ## Soru 9
 
-Bir e-ticaret platformunda ürünlerin fiyatlandırılmasıyla ilgili iş kuralları içeren bir modül kodunu inceliyorsunuz. Aşağıdaki kod parçasında olduğu gibi. Lakin bu kodun bakımının zor olacağından ve yeni kurallar eklenmesi gerektiğinde sürekli değiştirilmek zorunda kalacağından endişe etmektesiniz.
+Bir e-ticaret platformunda ürünlerin fiyatlandırılmasıyla ilgili iş kuralları içeren aşağıdaki modül kodunu inceliyorsunuz. Kodun bakımının zor olduğundan ve yeni kurallar eklenmesi gerektiğinde sürekli değiştirilmek zorunda kalacağından endişe etmektesiniz.
 
 ```csharp
 public class PricingService
@@ -327,7 +333,7 @@ public class PricingService
 }
 ```
 
-Kodun değiştirilmeden genişletilebilir olmasını sağlamak için farklı bir yol arıyorsunuz. Aşağıdaki kod örneklerinden hangisini tercih edersiniz.
+Kodun değiştirilmeden genişletilebilir olmasını sağlamak için farklı bir yol arıyorsunuz. Aşağıdaki kod örneklerinden hangisini tercih edersiniz?
 
 - A)
 
@@ -409,7 +415,7 @@ public class PricingService
 
 ## Soru 10
 
-Büyük ölçekli bir lojistik firmasının sipariş yönetim süreçlerinde görev alan bir yazılım geliştiricisi olduğunuzu düşünün. Kod inceleme *(Code Review)* toplantısında, sipariş başarıyla tamamlandığında müşteriye otomatik olarak e-posta ve SMS gönderen aşağıdaki *OrderProcessorService* sınıfının kodunu gözden geçiriyorsunuz.
+Büyük ölçekli bir lojistik firmasının sipariş yönetim süreçlerinde görev alan bir yazılım geliştiricisi olduğunuzu düşünün. Kod inceleme *(Code Review)* toplantısında, sipariş başarıyla tamamlandığında müşteriye otomatik olarak e-posta ve SMS gönderme görevini üstlenecek aşağıdaki *OrderProcessorService* sınıfının kodunu gözden geçiriyorsunuz.
 
 ```csharp
 public class OrderProcessorService
@@ -430,7 +436,7 @@ public class OrderProcessorService
 }
 ```
 
-Bu örnekte nesne yönelimli tasarım ilkelerinden hangisinin ihlal edildiği net bir şekilde görülmektedir ve kurumsal mimaride en doğru refactoring yaklaşımı hangisi olmalıdır?
+Bu örnekte nesne yönelimli tasarım ilkelerinden hangisinin ihlal edildiği net bir şekilde görülmektedir ve en doğru çözüm yaklaşımı hangisi olmalıdır? Doğru tespit ve çözüm ikilisini bulun.
 
 - A) Metot içerisinde farklı türden bildirimlerin arka arkaya gönderilmesi **DRY *(Don't Repeat Yourself)*** prensibine aykırıdır. Bildirimler tek bir *SendAllNotifications()* metodu altında birleştirilmeli ve sadece o çağrılmalıdır.
 - B) İşlem sırasında *new* anahtar kelimesi kullanılarak *SmtpEmailService* ve *TwilioSmsService* gibi somut *(concrete)* sınıflara doğrudan bağımlılık *(tight coupling)* oluşturulmuştur. Bu durum **Dependency Inversion Principle *(DIP)*** ihlalidir. Sınıf somut servislere değil, *INotificationService* gibi soyutlamalara *(abstractions)* bağımlı olmalı bu bağımlılıklar koda *constructor-yapıcı metot* aracılığıyla enjekte edilmelidir *(Dependency Injection)*.
