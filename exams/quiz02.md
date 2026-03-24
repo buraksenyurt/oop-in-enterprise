@@ -114,4 +114,123 @@ Algoritmamız harika çalışıyor olmasına rağmen test mühendisi arkadaşım
 - C) Veritabanı bağlantısını ve algoritma mantığını birbirinden ayırmak için **Dependency Injection** tekniğini kullanırım. Veritabanı erişimi için bir **ICityGraphProvider** arayüzü tanımlar ve bu arayüzü uygulayan somut bir sınıf kullanırım. **RouteOptimizer** sınıfının yapıcı metoduna *(constructor)* bu arayüzü enjekte ederim. Böylece algoritmayı test ederken gerçek veritabanı bağlantısı yerine sahte *(mock)* bir **ICityGraphProvider** implementasyonu kullanarak sadece algoritmanın doğruluğunu test eden birim testler yazabilirim.
 - D) FindShortestPath metodunu SqlDatabase sınıfının bir metodu haline getiririm.
 
+## Soru 6
+
+**Pi *(π)*** sayısının değeri sonsuz ondalık basamağına sahip bir irrasyonel sayıdır. Matematikteki birçok problemde **π** sayısının yüksek hassasiyetle hesaplanması gerekebilir. Bu konuda çalışan bir arkadaşınız bu değeri hesaplamak için **Monte Carlo** yöntemini tercih ettiği bir kod parçası geliştirmiş. Rastgele x, y koordinatları üretip bu noktaların birim çemberin içine düşüp düşmediğini kontrol ederek **π** sayısının yaklaşık değerini hesaplattığını belirtmekte. Bu amaçla aşağıdaki gibi bir kod parçası yazmış.
+
+```csharp
+int inCircle = 0;
+long totalIterations = 10_000_000;
+
+using (ThreadLocal<Random> threadLocalRandom = new(() => new Random(Guid.NewGuid().GetHashCode())))
+{
+    Parallel.For(0, totalIterations, i =>
+    {
+        Random localRandom = threadLocalRandom.Value!;
+
+        double x = localRandom.NextDouble();
+        double y = localRandom.NextDouble();
+
+        if (x * x + y * y <= 1.0)
+        {
+            Interlocked.Increment(ref inCircle);
+        }
+    });
+}
+Console.WriteLine($"Estimated value of π: {4.0 * inCircle / totalIterations}");
+```
+
+Kodu denediğinizdeyse aşağıdaki çalışma zamanı sonuçlarını elde ettiğinizi gözlemliyorsunuz.
+
+```text
+Estimated value of π: 3.1415036
+Estimated value of π: 3.1419916
+Estimated value of π: 3.140818
+Estimated value of π: 3.1401364
+```
+
+**Monte carlo** yönteminin doğası rastgele atılan dart oklarının bir çemberin içinde düşüp düşmemesine bağlıdır. Dolayısıyla bu sonuçların elde edilmesi sizi şaşırtmıyor.
+
+- I. **if** bloğunda kullanılan Interlocked.Increment metodu, çoklu iş parçacığı ortamında **inCircle** değişkenine yapılan eşzamanlı erişimlerin neden olabileceği yarış durumlarını *(race condition)* önlemek için kullanılır. Bu sayede doğru sayım yapılması sağlanır.
+- II. Kodun performansını artırmak için `ThreadLocal<Random>` kullanılmıştır. Bu sayede her iş parçacığı kendi **Random** örneğine sahip olur ve bu da rastgele sayı üretiminde çakışmaları önler.
+- III. İterasyonun paralel çalıştırılabilmesi için **Parallel.For** kullanılmıştır.
+- IV. Toplam iterasyon sayısını **long** türünün kapasitesine bağlı olarak artırmak mümkündür.
+
+Bu bilgiler ışığında yukarıda belirtilen ifadelerden hangisi veya hangileri doğrudur?
+
+- A) Yalnızca I ve II ifadeleri doğrudur.
+- B) Yalnızca II ve III ifadeleri doğrudur.
+- C) Yalnızca I, II ve III ifadeleri doğrudur.
+- D) Hepsi doğrudur.
+
+## Soru 7
+
+Kombinasyon hesaplamalarında ve Pascal üçgenlerinde sıkça karşılaşılan hesaplamalar ciddi anlamda recursive *(özyinelemeli)* fonksiyon çağrıları gerektirebilir. Aşağıdaki kod parçasını göz önüne alalım.
+
+```csharp
+public int CalcCombination(int n, int r)
+{
+    if (r == 0 || n == r)
+        return 1;
+    return CalcCombination(n - 1, r - 1) + CalcCombination(n - 1, r);
+}
+```
+
+Kod matematiksel olarak doğru olsa da, büyük **n** ve **r** değerleri için çalıştırıldığında ciddi performans sorunlarına yol açar. Ancak aşağıdaki gibi bir kod parçası ile aynı sonucu çok daha hızlı bir şekilde elde edebiliriz.
+
+```csharp
+public class Fermat
+{
+    public static int CalcCombination(int n, int r)
+    {
+        if (r == 0 || n == r)
+            return 1;
+
+        int[,] memo = new int[n + 1, r + 1];
+        for (int i = 0; i <= n; i++)
+        {
+            for (int j = 0; j <= Math.Min(i, r); j++)
+            {
+                if (j == 0 || i == j)
+                    memo[i, j] = 1;
+                else
+                    memo[i, j] = memo[i - 1, j - 1] + memo[i - 1, j];
+            }
+        }
+        return memo[n, r];
+    }
+}
+```
+
+Sizce burada kullanılan teknik nedir ve neden performansı artırır?
+
+- A) Bu teknik **Memoization** olarak adlandırılır. Recursive fonksiyonun her çağrısında aynı hesaplamaların tekrar yapılmasını önlemek için ara sonuçlar bir tabloya kaydedilir. Böylece büyük **n** ve **r** değerleri için bile hızlı sonuç alınır.
+- B) Bu teknik **Static Programming** olarak adlandırılır ve metodun statik olarak tanımlanması sayesinde derleyici tarafından optimize edilerek performans artışı sağlanır.
+- C) Bitmasking yapılmıştır. Bu teknik ile kombinasyon hesaplamaları bit düzeyinde optimize edilir ve performans artışı sağlanır.
+- D) Bu teknik **Tail Recursion** olarak adlandırılır. Recursive çağrıların son işlem olarak yapılması sağlanır ve derleyici tarafından optimize edilerek performans artışı sağlanır.
+
+## Soru 8
+
+Otostopçunun Galaksi Rehberi *(The Hitchhiker's Guide to the Galaxy)* romanında "Hayat, Evren ve Her Şeye Dair Nihai Sorunun Cevabı", **Deep Thought** adlı süper bilgisayar tarafından tam 7.5 milyon yıllık bir hesaplama ile bulunmuştur.
+
+```csharp
+public class DeepThought
+{
+    public int CalculateUltimateAnswer()
+    {
+        int answer = 0;
+        // 7.5 milyon yıllık simülasyon...
+        answer = (int)Math.Pow(6, 2) + 6; 
+        return answer;
+    }
+}
+```
+
+Galaksiyi gezmediğinizi düşünürsek bu metodun genel kültürde temsil ettiği nihai sonuç kaçtır?
+
+- A) 0
+- B) 3.14159
+- C) Infinity
+- D) 42
+
 DEVAM EDECEK...
