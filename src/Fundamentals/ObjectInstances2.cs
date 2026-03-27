@@ -52,6 +52,9 @@ public class Product
         Title = title;
     }
     // Bu yapıcı metod, this ile productId ve title bilgisini diğer yapıcı metoda gönderir.
+    // this ve base keyword'leri bazen karıştırılabilir.
+    // Bu senaryoda this keyword aynı sınıf içerisindeki diğer uygun olan yapıcı metodu işaret eder.
+    // base ile genelde türün türediği üst sınıfın elemanlarına erişiriz.
     public Product(Guid productId, string title, decimal unitPrice)
         : this(productId, title)
     {
@@ -70,14 +73,31 @@ public class Product
     public void DecreaseStock(int quantity)
     {
         // Stok azalış değeri 0dan küçük veya eşitse bir exception fırlatılır.
-        if (quantity <= 0) throw new ArgumentException("Stok azalışı için miktar pozitif olmalıdır.");
+        //if (quantity <= 0) throw new ArgumentException("Stok azalışı için miktar pozitif olmalıdır.");
+        if (quantity <= 0) throw new InvalidStockAmountException();
 
         // Stok azalış miktarı mevcut stok seviyesinden fazla ise bir exception fırlatılır.
-        if (quantity > StockLevel) throw new InvalidOperationException("Stok seviyesinden fazla ürün çıkarılamaz.");
+        //if (quantity > StockLevel) throw new InvalidOperationException("Stok seviyesinden fazla ürün çıkarılamaz.");
+        // Kendi yazdığımı exception türünü de fırlatabiliriz(Domain'e özgü bir exception türü yazmak gibi).
+        if (quantity > StockLevel) throw new InvalidStockAmountException();
 
         StockLevel -= quantity;
     }
 }
+
+/*
+    InvalidStockAmountException, Exception sınıfından türetildiği için (inheritance)
+    throw keyword ile birlikte kullanılabilir ve dolayısıyla bir catch bloğunda yakalanabilir. 
+*/
+public class InvalidStockAmountException
+    : Exception
+{
+    public InvalidStockAmountException()
+        : base("Invalid stock amount") // base keyword'ü ile üst sınıfın constructor'ına(Exception sınıfının yapıcı metoduna) mesajı gönderiyoruz.
+    {
+    }
+}
+
 public class ObjectInstances2
 {
     /*
@@ -99,11 +119,11 @@ public class ObjectInstances2
 
         try
         {
-
             var laptop = new Product(Guid.NewGuid(), "AyBiEm i7 14.1 inch, 1Tb laptop", 1499.99M);
             laptop.IncreaseStock(10); // stok seviyesini 10 artırdık.
             Console.WriteLine($"{laptop.Title} stok seviyesi: {laptop.StockLevel}");
             laptop.DecreaseStock(1);
+            laptop.DecreaseStock(-1); // stok seviyesini 1 azalttık. Stok azalış miktarı negatif olduğu için InvalidStockAmountException fırlatılmasına neden olur.
             Console.WriteLine($"{laptop.Title} stok seviyesi: {laptop.StockLevel}");
 
             // var mouse = new Product(Guid.NewGuid(), "", 29.99M);
@@ -113,8 +133,18 @@ public class ObjectInstances2
             Console.WriteLine($"Laptop: {laptop.Title}, Price: {laptop.UnitPrice}, Stock Level: {laptop.StockLevel}");
             Console.WriteLine($"Book: {csharpBook.Title}, Price: {csharpBook.UnitPrice}, Stock Level: {csharpBook.StockLevel}");
         }
+        // Birden fazla catch bloğu yazabiliriz ama sıralaması önemlidir. En alt kümedeki Exception türevinden en genele doğru bir sıralama yapılır.
+        catch (InvalidStockAmountException exp) // InvalidStockAmountException türünde bir exception oluştuğunda bu blok çalışacak.
+        {
+            Console.WriteLine(exp.Message);
+        }
         catch (Exception exp) // try bloğu içerisinde bir Exception oluştuğunda bu blok çalışacak.
         {
+            // .Net içinde tanımlı birçok Exception türü vardır.
+            // Tüm exception türleri System.Exception sınıfından türemiştir.
+            // Dolayısıyla bu türler için tek bir catch bloğu yazmak mümkündür.
+            // Ama belirli bir exception türünü de catch bloğunda ele alabiliriz.(Sadece ArgumentException türü için catch bloğu yazmak gibi)
+            // Kendi exception türlerimizi de yazabiliriz. Tek yapmamız gereken Exception sınıfından türetmektir(Örneğin InvalidStockLevelException)
             Console.WriteLine(exp.Message);
             //todo@buraksenyurt Farklı Exception türlerinin ele alınması ve kendi exception türlerimizi yazılması konularını da ele alalım
         }
