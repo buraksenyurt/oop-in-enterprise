@@ -8,7 +8,7 @@ Bu testin amacı OOP *(Object-Oriented Programming)* kavramlarını örnek senar
 
 ## Soru 1
 
-Terminalden çalışan bir uygulama yazmak istiyorsunuz. **C#** programlama dili ile çalışmayı tercih ettiniz. Terminal uygulamaları **executable** olarak derlenirler. Derleme sonrası örneğin **Windows** tabanlı sistemlerde **.exe** uzantılı dosyalar oluşur. Bu tür uygulamalar genellikle **Console Application** olarak da bilinir. Aşağıda örnek bir konsol uygulamasın ait kodlara yer verilmiştir.
+Terminalden çalışan bir uygulama yazmak istiyorsunuz. **C#** programlama dili ile çalışmayı tercih ettiniz. Terminal uygulamaları **executable** olarak derlenirler. Derleme sonrası örneğin **Windows** tabanlı sistemlerde **.exe** uzantılı dosyalar oluşur. Bu tür uygulamalar genellikle **Console Application** olarak da bilinir. Aşağıda örnek bir konsol uygulamasına ait kodlara yer verilmiştir.
 
 ```csharp
 using System;
@@ -48,7 +48,7 @@ Bu kod parçası ile ilgili olarak sizce aşağıdaki ifadelerden hangisi veya h
 10004|Tetris|1984|Alexey Pajitnov|9.00|
 ```
 
-Yaklaşık bin *(1000)* satırdan oluşan bu verisetini programatik ortamda modellemeniz gerekiyor. Bu sayede program çalışma zamanında her bir satırı bir nesne örneği *(Object Instance)* olarak ifade edebileceğiz. Sizce aşağıdaki sınıf tasarımlarından hangisi doğru bir modelleme şeklini ifade eder?
+Yaklaşık bin *(1000)* satırdan oluşan bu verisetini programatik ortamda modellemeniz gerekiyor. Bu sayede programın çalışma zamanında her bir satırı bir nesne örneği *(Object Instance)* olarak kullanabileceğiz. Sizce aşağıdaki sınıf tasarımlarından hangisi doğru bir modelleme şeklini ifade eder?
 
 A)
 
@@ -102,7 +102,7 @@ public class Game
 
 ## Soru 3
 
-Bir fabrikadaki ürünler aşağıda kod yer alan **Product** sınıfı ile modellenmiştir.
+Bir fabrikadaki ürünler aşağıdaki kod parçasında görüldüğü gibi **Product** sınıfı ile modellenmiştir.
 
 ```csharp
 public class Product
@@ -111,6 +111,14 @@ public class Product
     public string Name { get; set; }
     public double Price { get; set; }
     public int Stock { get; set; }
+
+    public Product(string name, double price, int stock)
+    {
+        Id = Guid.NewGuid();
+        Name = name;
+        Price = price;
+        Stock = stock;
+    }
 }
 ```
 
@@ -139,7 +147,7 @@ public enum BasicColor
 }
 ```
 
-Geliştirilmekte olan oyunda bu enum tanımından da yararlanarak karakterlerin favori renklerinin de tutulması gerekmektedir. Oyuncu karakterlerini temsil edecek nesne örnekleri, ilk kez tanımlandıktan sonra içeriği değiştirilemez *(immutable)* olarak kullanılmak istenmektedir. Değiştirilmek istenirse de yeni bir örneği oluşturmayı zorunlu kılmanız beklenmektedir. Elimizde aşağıdaki seçeneklerin mevcut olduğunu düşünelim.
+Geliştirilmekte olan oyunda bu **enum** tanımından da yararlanarak karakterlerin favori renklerinin de tutulması beklenmektedir. Oyuncu karakterlerini temsil edecek nesne örnekleri, ilk kez oluşturulduktan sonra içeriği değiştirilemez *(immutable)* olarak kullanılmalıdır. Değiştirilmek istenirse de yeni bir örneği oluşturmayı zorunlu kılmanız gerekmektedir. Elimizde aşağıdaki seçeneklerin mevcut olduğunu düşünelim.
 
 I.
 
@@ -182,13 +190,13 @@ public readonly struct Character
 Bu seçeneklerden hangisini veya hangilerini tercih edersiniz.*(**Immutable** olma halini dikkate alınız)*
 
 - A) I ve II
-- B) I, II ve III
+- B) Hepsi
 - C) Sadece I
 - D) Sadece II
 
 ## Soru 5
 
-Kurumsal çaptaki büyük projelerde verilerin tutarlılığını sağlamak önemlidir ve bunun için farklı seviyelerde çeşitli kurallar işletilebilir. Verinin doğru şekilde girilmesini sağlamak ve bunu yaparken bazı doğrulama kurallarını *(validation rules)* işletmek kullanılan yöntemler arasındadır. Bazı doğrulama kuralları çözümün **domain** yapısını korumak için en alt çekirdek nesnelerde değerlendirilir. Bu düşünceyle aşağıdaki basit kod parçasını göz önüne alalım.
+Kurumsal çaptaki büyük projelerde verilerin tutarlılığını sağlamak önemlidir ve bunun için farklı seviyelerde çeşitli kurallar işletilebilir. Verinin doğru şekilde girilmesini sağlamak ve bunu yaparken bazı doğrulama kurallarını *(validation rules)* işletmek kullanılan yöntemler arasındadır. Bazı doğrulama kuralları çözümün **domain** yapısını korumak için en alt çekirdek nesnelerde değerlendirilir. Bu düşünceyle yazılmış aşağıdaki **Product** sınıfını ele alalım.
 
 ```csharp
 public class Product
@@ -393,7 +401,7 @@ Sizce bu kod parçası ne yapmaktadır?
 
 ## Soru 10
 
-Bir insan kaynakları yönetim platformunda kullanıcıların mezuniyet notunu tutmak istediğimizi varsayalım. Ancak farklı kullanıcıların farklı not sistemlerini kullanabileceği gibi bir durum da söz konusu. Örneğin bazıları **100 tabanlı** bir not sistemini ele alırken kimisi **harf tabanlı *(A,B,C,...)*** ya da **4.0 tabanlı** bir not sistemini kullanıyor olabilir. Bunu karşılayacak türden bir tasarım yapmak istediğimizde aşağıdaki seçeneklerden hangisini tercih edersiniz?
+Bir insan kaynakları yönetim platformunda kullanıcıların mezuniyet notunu tutmak istediğimizi varsayalım. Ancak farklı kullanıcıların farklı not sistemlerini kullanabileceği gibi bir durum da söz konusu. Örneğin bazıları **100 tabanlı** bir not sistemini ele alırken kimisi **harf tabanlı *(A,B,C,...)*** ya da **4.0 tabanlı** bir not sistemini kullanıyor olabilir. Bunu karşılayacak türden bir tasarım yapmak istediğimizde aşağıdaki seçenekler arasından hangisini tercih edersiniz?
 
 A)
 
@@ -437,3 +445,74 @@ public class Graduate
     public Score Score { get; set; }
 }
 ```
+
+## Soru 11
+
+Çalışma zamanında oluşabilecek istisnalar *(Exception)*, try...catch...finally bloklarınca yönetilebilir. Bu bloklar sayesinde programın beklenmedik durumlarda çökmesi engellenir ve kullanıcıya anlamlı geri bildirimler sağlanır. Aşağıdaki kod parçasında bir animasyon programındaki sahne *(stage)* nesnesi oluşturulurken ortaya çıkabilecek hataların yönetilmesine istinaden exception handling kullanımı gösterilmektedir.
+
+```csharp
+public class Application
+{
+    public static void Main()
+    {
+        try
+        {
+            var stage = new Stage("", -5);
+        }
+        catch (...................... ex)
+        {
+            Console.WriteLine($"Error creating stage: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An unexpected error occurred: {ex.Message}");
+        }
+    }
+}
+
+public class InvalidStageException(string message) 
+    : Exception(message)
+{
+}
+
+public class Stage
+{
+    public string Name { get; private set; }
+    public short PlayerCount { get; private set; }
+
+    public Stage(string name, short playerCount)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ......................("Stage name cannot be empty.");
+
+        if (playerCount < 0)
+            throw new ......................("Player count cannot be negative.");
+
+        Name = name;
+        PlayerCount = playerCount;
+    }
+}
+```
+
+Sizce ...... şeklinde boş bırakılan yerlere hangi şıklardan hangisi gelmelidir?
+
+- A) ArgumentException
+- B) ArgumentNullException
+- C) InvalidStageException
+- D) ArgumentOutOfRangeException
+
+## Cevap Anahtarı
+
+| Soru No | Doğru Cevap |
+| ------- | ----------- |
+| 1 | C |
+| 2 | A |
+| 3 | A |
+| 4 | B |
+| 5 | D |
+| 6 | B |
+| 7 | C |
+| 8 | B |
+| 9 | C |
+| 10 | D |
+| 11 | C |
