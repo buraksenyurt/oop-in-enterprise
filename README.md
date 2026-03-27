@@ -143,7 +143,7 @@ Bu derste aşağıdaki konu başlıklarını ele aldığımız örnekler üzerin
 
 ![Call Center Case](./images/CallCenterCase1999.png)
 
-Ayrıca aşağıdaki konu başlıklaırını ele aldık.
+Ayrıca aşağıdaki konu başlıklarını ele aldık.
 
 - Constructor overloading kavramı ve kullanımı
 - Property'ler de private set kullanımı
@@ -159,19 +159,19 @@ Ayrıca aşağıdaki konu başlıklaırını ele aldık.
 
 Bu dersimizde aşağıdaki konu başlıklarını ele aldık.
 
-- Github commit'lerin nasıl takip edilebileceğini ve değişikliklerin nasıl izlenebileceğini gördük.
+- Github **commit**'lerin nasıl takip edileceğini ve değişikliklerin nasıl izlenebileceğini gördük.
 - Kod tarafında kendi **Exception** sınıflarımızı nasıl yazabileceğimize baktık.
 - En genel bakış açısı ile bazı yazılım mimarileri ve kavramları üzerinde durduk.
-- Quiz00 soruları üzerinden geçtik ve birkaçını birlikte çözdük.
+- [Quiz00](exams/quiz00.md) soruları üzerinden geçtik ve birkaçını birlikte çözdük.
 
 #### Mimariler Hakkında Genel Kavramlar
 
-Yazılım mimarilerini genellikle iki ana kategoriye ayırmamız mümkün. "Monolithic" ve "Distributed" mimariler. Monolithic mimarilerde tüm uygulama tek bir birim olarak geliştirilir ve dağıtılır. Distributed mimarilerde ise uygulama birden fazla bağımsız birim olarak geliştirilir ve bu birimler birbirleriyle iletişim kurarak çalışır. Tabii birçok uygulama biçimi ve motifi vardır. Bunların birbirlerine göre avantaj ve dezavantajları **Richards & Ford'un, Fundamentals of Software Architecture** kitabında detaylı bir şekilde ele alınmıştır. Aşağıdaki tabloda bu mimarilerin bazı temel özellikleri kıyaslanmaktadır.
+Yazılım mimarilerini genellikle "Monolithic" ve "Distributed" olmak üzere iki ana kategoriye ayırmak mümkündür. Monolitik mimarilerde tüm uygulama tek bir birim olarak geliştirilir ve dağıtılır. Dağıtık mimarilerde ise uygulama birden fazla bağımsız birim olarak geliştirilir ve bu birimler birbirleriyle iletişim kurarak çalışır. Tabii birçok uygulama biçimi ve motifi vardır. Bunların birbirlerine göre avantaj ve dezavantajları **Richards & Ford'un, Fundamentals of Software Architecture** kitabında detaylı bir şekilde ele alınmıştır. Aşağıdaki tabloda bu mimarilerin bazı temel özellikleri kıyaslanmaktadır.
 
-- Monolithic mimariler: Layered, Pipeline, Mikro Kernel
-- Distributed mimariler: Service Based, Event Driven, Space Based, Service Oriented, Microservices
+- **Monolithic mimariler:** Layered, Pipeline, Mikro Kernel
+- **Distributed mimariler:** Service Based, Event Driven, Space Based, Service Oriented, Microservices
 
-| **Özellik** | **Layered** | **Pipeline** | **Mikro Kernel** | **Service Based** | **Event Driven** | **Space Based** | **Service Oriented** | **Microservices** |
+| | **Layered** | **Pipeline** | **Mikro Kernel** | **Service Based** | **Event Driven** | **Space Based** | **Service Oriented** | **Microservices** |
 | --------- | --------- | ---------- | -------------- | --------------- | -------------- | ------------- | ------------------ | --------------- |
 | **Partition Type** | Technical | Technical | Domain + Technical | Domain | Technical | Domain + Technical | Technical | Domain |
 | **Number of Quanta** | 1 | 1 | 1 | 1..n | 1..n | 1..n | 1 | 1..n |
@@ -179,7 +179,7 @@ Yazılım mimarilerini genellikle iki ana kategoriye ayırmamız mümkün. "Mono
 | **Elasticity** | ★ | ★ | | ★★ | ★★★ | ★★★★ | ★★ | ★★★★★ |
 | **Evolutianry** | ★ | ★★★ | | ★★★ | ★★★★★ | ★★★ | ★ | ★★★★★ |
 | **Fault Tolerance** | ★ | ★ | | ★★★★ | ★★★★★ | ★★★ | ★★★ | ★★★★ |
-| **Modulatiry** | ★ | ★★★ | | ★★★★ | ★★★★ | ★★★ | ★★★ | ★★★★★ |
+| **Modularity** | ★ | ★★★ | | ★★★★ | ★★★★ | ★★★ | ★★★ | ★★★★★ |
 | **Overall Cost** | ★★★★★ | ★★★★★ | ★★★★★ | ★★★★ | ★★★ | ★★ | ★ | ★ |
 | **Performance** | ★★ | ★★ | ★★★ | ★★★ | ★★★★★ | ★★★★★ | ★★ | ★★ |
 | **Reliability** | ★★★ | ★★★ | ★★★ | ★★★★ | ★★★ | ★★★★ | ★★ | ★★★★ |
@@ -187,7 +187,7 @@ Yazılım mimarilerini genellikle iki ana kategoriye ayırmamız mümkün. "Mono
 | **Simplicity** | ★★★★★ | ★★★★★ | ★★★★ | ★★★ | ★ | ★ | ★ | ★ |
 | **Testability** | ★★ | ★★★ | ★★★ | ★★★★ | ★★ | ★ | ★ | ★★★★ |
 
-Bununla birlikte günümüzde yaygın kullanılan bazı mimarilerin temel birkaç özelliği aşağıdaki görselde yer alan taban tasarımlar üzerine inşa edilmiştir. Örneğin hexagonal mimari ile clean architecture, onion architecture gibi mimariler birbirlerine benzer taban tasarımlar üzerine inşa edilmiştir.
+Bununla birlikte günümüzde yaygın kullanılan bazı mimarilerin temel birkaç özelliği aşağıdaki görselde yer alan taban tasarımlar üzerine inşa edilmiştir. Örneğin **hexagonal** ve **clean architecture**, **onion architecture** taban tasarımı üzerine inşa edilmiştir.
 
 ![Common Architectures](./images/day_04_01.png)
 
@@ -196,13 +196,18 @@ Layered, N-Tier ve Onion mimariler ile ilgili aşağıdaki tabloda yer alan bilg
 | **Özellik** | **Layered** | **N-Tier** | **Onion** |
 | --------- | --------- | ---------- | -------------- |
 | **Odak(Focus)** | Mantıksal ayrım *(kod bazlı katmanlar)* | Fiziksel ayrım *(Dağıtılabilir katmanlar)* | Domain bazında izolasyon ve test edilebilirlik |
-| **Dağıtım(Deployment)** | Genelde tek sunucu *(Single tier)* | Her katman farklı bir makineye deploye edilebilir | Genellikle Single tier |
-| **Bağımlılık Yönü(Dependency Direction)** | Aşağı yönlü - Downward *(UI->BLL->DAL)* | Layered ile ayn | İçe doğru *(Inward)* *(Infra -> App -> Domain)* |
+| **Dağıtım(Deployment)** | Genelde tek sunucu *(single-tier)* | Her katman farklı bir makineye deploye edilebilir | Genellikle single-tier |
+| **Bağımlılık Yönü(Dependency Direction)** | Aşağı yönlü - Downward *(UI->BLL->DAL)* | Layered ile aynı | İçe doğru *(Inward)* *(Infra -> App -> Domain)* |
 | **Domain Katmanı Yeri** | Ortada | Ortada | Mimarinin çekirdeğinde *(merkezde)* |
-| **Dependency Inversion** | Zorlanmaz | Zorlanmaz | Interface★ üzerinden zorunludur |
+| **Dependency Inversion** | Zorlanmaz | Zorlanmaz | Sözleşmeler *(Contract)* üzerinden zorunlu |
 | **Infrastructure Dependency** | Core katmanı infra'ya bağımlıdır *(kötü tasarım)* | Genellikle core katmanı infra'ya bağımlıdır | Infra, Core'a bağımlıdır *(İyi tasarım)* |
-| **Örnek Vakalar** | Yoğun CRUD içeren uygulamalar, MVP'ler, basit uygulamalar | Günvelik, yük dengesi, ölçek kritik kurumsal çözümler | Infra kaçaklarından sakınılan, sürekli gelişen iş kuralları içeren, domain bütünlüğü konusunda hassas , çekirdek kuralların test edilmesi gerektiği karmaşık uygulamalar |
+| **Örnek Vakalar** | Yoğun CRUD(1) içeren uygulamalar, MVP'ler(2), basit uygulamalar | Günvelik *(security)*, yük dengesi *(load balancing)*, ölçek *(scalability)* kritik kurumsal çözümler | Infrastructure kaçaklarından sakınılan, sürekli gelişen iş kuralları içeren, domain bütünlüğü konusunda hassas, çekirdek *(core)* kuralların test edilmesi gereken karmaşık uygulamalar |
+
+(1) CRUD: Create, Read, Update, Delete işlemlerini ifade eder.
+(2) MVP: Most Viable Product, ürünün piyasaya sürülebilecek en temel özelliklerini içeren ve yatırımcıya gösterilebilecek ilk sürümüdür.
 
 > Başlangıç seviyesinde bir mimari tasarım için [Hexagonal Architecture](https://github.com/buraksenyurt/HexagonalArchitecture_101) konusuna bakılabilir.
+
+Değişen ihtiyaçlar ve standartlar doğrultusunda karışımıza farklı mimari tasarımlar da çıkabilir. Örneğin **Vertical Slice Architecture** ya da **Modular Monolith** gibi mimariler de günümüzde popüler olan mimari tasarımlar arasında yer almaktadır.
 
 ### Gün 05
