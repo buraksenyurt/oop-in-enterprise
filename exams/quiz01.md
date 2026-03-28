@@ -1,6 +1,6 @@
 # OOP Test Soruları 01
 
-Bu testin amacı yüksek kalite kodlama standartlarını sağlamak için temel yazılım prensipleri bilgimizi ölçmektedir. Genel olarak **SOLID *(Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion)*** ilkeleri ele alınır ama kod güvenliği ve temel nesne yönelimli dil prensipleri de değerlendirilir.
+Bu testin amacı yüksek kalite kodlama standartlarını sağlamak için temel yazılım prensipleri bilgimizi ölçmektedir. Genel olarak **SOLID *(Single Responsibility, Open/Closed, Liskov Substitution, Interface Segregation, Dependency Inversion)*** ilkeleri ele alınır ama kod güvenliği ve temel nesne yönelimli dil prensipleri ile bazı mimari konulara da yer verilmektedir.
 
 *Not: Sorular .Net 10 sürümü üzerinden hazırlanmıştır.*
 
@@ -8,9 +8,9 @@ Bu testin amacı yüksek kalite kodlama standartlarını sağlamak için temel y
 
 ## Soru 1
 
-Yazılım çözümlerinde kodun kalitesini yüksek tutmak için çeşitli prensipler benimsenir ve metodolojiler uygulanır. Özellikle yazılan kodun daha deneyimli birisi tarafından denetlenmesi üzerine odaklanan *Code Review* süreçleri bu metodolojiler arasında önemli bir yer tutar. *Code Review* süreçleri sayesinde kodun kalitesi artırılabilir, hatalar erken aşamada tespit edilebilir ve takım içinde bilgi paylaşımı sağlanabilir. Ayrıca tüm yazılım ekibinin belli bir standardın üzerinde kodlama yapabiliyor olmasının da yolu açılır.
+Yazılım çözümlerinde kodun kalitesini yüksek tutmak için çeşitli prensipler benimsenir ve metodolojiler uygulanır. Özellikle yazılan kodun daha deneyimli birisi tarafından denetlenmesi üzerine odaklanan *Code Review* süreçleri bu metodolojiler arasında önemli bir yer tutar. *Code Review* süreçleri sayesinde kodun kalitesi artar, hatalar erken aşamada tespit edilir ve takım içinde bilgi paylaşımı sağlanır. Ayrıca tüm yazılım ekibinin belli bir standardın üzerinde kodlama yapması da sağlanır.
 
-Siz deneyimli bir yazılımcı olduğunuzu düşünün ve takımınızda yeni başlayan bir geliştiricinin aşağıdaki kod parçasını gözden geçirdiğiniz varsayın.
+Deneyimli bir yazılımcı olduğunuzu düşünün ve takımınızda yeni başlayan bir geliştiricinin aşağıdaki kod parçasını gözden geçirdiğinizi varsayın.
 
 ```csharp
 using System;
@@ -41,7 +41,7 @@ public class Candidate
 }
 ```
 
-Bu kodu kurumsal mimari standartları ve *SOLID* ilkeleri açısından değerlendirdiğinizde yapacağınız en kritik mimari eleştiri aşağıdakilerden hangisi olurdu?
+Bu kodu kurumsal mimari standartları ve *SOLID* ilkeleri açısından değerlendirdiğinizde yapacağınız en kritik mimari eleştiri aşağıdakilerden hangisi olur?
 
 - A) **Id** özelliği **Guid.NewGuid()** ile sınıf içinde *oluşturulmamalı*, bu sorumluluk tamamen veritabanına bırakılmalıdır.
 - B) **FullName** özelliği dışarıdan rahatça değiştirilebilmesi için **private set** yerine **public set** olarak tanımlanmalıdır; aksi halde nesne esnekliğini kaybeder.
@@ -88,18 +88,18 @@ Oldukça eski bir **ERP *(Enterprise Resource Planning)*** sisteminin modernizas
 
 ```text
 1. Report (Temel Sınıf)
-2. ExcelReport : Report
-3. MailedExcelReport : ExcelReport
-4. EncryptedMailedExcelReport : MailedExcelReport
+2. ExcelReport : Report (Excel formatında raporlar için Report sınıfından türetilmiş bir sınıf)
+3. MailedExcelReport : ExcelReport (Excel raporlarını e-posta ile göndermek için ExcelReport sınıfından türetilmiş bir sınıf)
+4. EncryptedMailedExcelReport : MailedExcelReport (Şifrelenmiş ve e-posta ile gönderilen Excel raporları için MailedExcelReport sınıfından türetilmiş bir sınıf)
 ```
 
-Yeni gelen bir isteğe göre sisteme şifrelenmiş PDF formatında raporların da eklenmesi gerekmektedir. Bu durumda mevcut kalıtım yapısına göre yeni bir sınıf eklemek aşağıdaki gibi olacaktır:
+Yeni gelen bir isteğe göre sisteme *şifrelenmiş PDF formatında* raporların da eklenmesi gerekmektedir. Bu durumda mevcut kalıtım yapısına göre yeni sınıf aşağıdaki gibi tanımlanacaktır.
 
 ```text
-5. EncryptedMailedPdfReport : MailedExcelReport
+5. EncryptedMailedPdfReport : MailedExcelReport (Şifrelenmiş ve e-posta ile gönderilen PDF raporları için MailedExcelReport sınıfından türetilmiş bir sınıf)
 ```
 
-Sınıf patlaması *(class explosion)* olarak adlandırılan bu durum, kalıtım *(inheritance)* yapısının karmaşıklaşmasına ve bakım zorluklarına yol açar. Sizce bu durumun üstesinden gelmek için aşağıdaki seçeneklerden hangisini değerlendirirsiniz?
+Sınıf patlaması *(class explosion)* olarak adlandırılan bu durum, kalıtım *(inheritance)* yapısının karmaşıklaşmasına ve bakım zorluklarına yol açar. Bu durumun üstesinden gelmek için aşağıdaki seçeneklerden hangisini seçersiniz?
 
 - A) Tüm rapor tiplerini tek bir sınıf içinde toplar ve türlerini **bool** tipinden özellikler ile kontrol ederiz. Örneğin, *IsExcel, IsMailed, IsEncrypted* gibi özellikler ekleyerek rapor türlerini belirler ve yönetiriz.
 - B) Mecut kalıtım hiyerarşisini derinleştirip **Report** sınıfına *Encrypt(), Email()* gibi metodlar ekler ve bunları alt sınıflarda ezilebilir olması için **virtual** nitelikli tanımlarız.
@@ -108,7 +108,7 @@ Sınıf patlaması *(class explosion)* olarak adlandırılan bu durum, kalıtım
 
 ## Soru 4
 
-Kurumsal bir doküman yönetim sistemi *(Document Management System)* tasarladığımızı düşünelim. Bu sistemde belgelerin farklı davranışları için aşağıdaki gibi bir arayüz tanımlanmış olsun.
+Kurumsal bir doküman yönetim sistemi *(Document Management System)* tasarladığımızı düşünelim. Bu sistemde belgelerin farklı davranışları için aşağıdaki gibi bir sözleşme *(interface)* tanımlanmış olsun. Bu arayüz kendini uygulayan türlere belgelerin okunması, yazılması, yazdırılması ve faks gönderilmesi gibi işlemleri gerçekleştirme yeteneği kazandırır ve bu davranışları uygulamaya zorunlu kılar.
 
 ```csharp
 public interface IDocumentOperations
@@ -120,7 +120,7 @@ public interface IDocumentOperations
 }
 ```
 
-Sisteme yeni eklenen **ReadOnlyPdfDocument** isimli sınıf da bu arayüzü uygulamış olsun. Sadece okunabilir *(read-only)* formattaki bir PDF dokümanını temsil eden bu sınıfa **Fax** ve **Write** gibi davranışları da uygulamak zorunda kalacağız. Sorunu çözmek için bu metotların implementasyonlarını boş bırakmak veya **NotImplementedException** fırlatmak gibi yaklaşımlar kullanmak zorunda kalacağız. Sizce bu vakada hangi **SOLID** prensibi ihlal edilmektedir.
+Sisteme yeni eklenen **ReadOnlyPdfDocument** isimli başka bir sınıf da bu arayüzü kullanıyor olsun. Sadece okunabilir *(read-only)* formattaki bir PDF dokümanını temsil eden bu sınıfa **Fax** ve **Write** gibi davranışları da uygulamak zorunda kalacağız *(Interface uygulama zorunluluğu nedeniyle)*. Sorunu çözmek için bu metotların implementasyonlarını boş bırakmak veya **NotImplementedException** fırlatmak gibi yaklaşımlar kullanmak zorundayız. Burada açık bir şekilde bir SOLID ilkesi ihlali söz konusudur. Sizce bu vakada hangi **SOLID** prensibi ihlal edilmektedir.
 
 - A) **DRY *(Don't Repeat Yourself)*** prensibi ihlal edilir çünkü *ReadOnlyPdfDocument* sınıfında *Fax* ve *Write* gibi metotların implementasyonları boş bırakılmakta veya *NotImplementedException* fırlatılmaktadır. Bu yaklaşım kod tekrarına ve gereksiz karmaşıklığa yol açar.
 - B) **KISS *(Keep It Simple, Stupid)*** prensibi ihlal edilir çünkü *IDocumentOperations* arayüzü, *ReadOnlyPdfDocument* gibi sınıflar için gereksiz metotlar içermektedir, bu da kodun basitliğini ve anlaşılabilirliğini azaltır.
@@ -131,7 +131,7 @@ Sisteme yeni eklenen **ReadOnlyPdfDocument** isimli sınıf da bu arayüzü uygu
 
 Teknik borç *(Technical Debt)*, yazılım geliştirme sürecinde alınan kısa vadeli kararların uzun vadede ortaya çıkan olumsuz etkilerini ifade eder. Bu borç, kodun kalitesini düşürebilir, bakım maliyetlerini artırabilir ve yeni özelliklerin eklenmesini zorlaştırabilir. Daha da önemlisi üretim ortamlarına önceden fark edilmeyen görev kritik hataların sızmasına yol açabilir.
 
-Teknik borç genellikle zaman baskısı, yetersiz kaynaklar veya deneyimsiz ekip üyeleri nedeniyle ortaya çıkar. Teknik borçların tespitinde **Sonarqube** gibi statik kod tarama araçları sıklıkla kullanılır. Bu araçlar kod kalitesini ölçümlerken bazı metrikler kullanır.
+Teknik borç genellikle zaman baskısı, yetersiz kaynaklar veya deneyim eksikliği gibi nedenlerle ortaya çıkar. Teknik borçların tespitinde **Sonarqube**, **Veracode**, **SonarLint** gibi statik kod tarama araçları sıklıkla kullanılır. Bu araçlar kod kalitesini ölçümlerken bazı metrikler kullanır.
 
 Şimdi aşağıdaki kod parçasını göz önüne alalım.
 
@@ -201,7 +201,7 @@ public class AuthService
 }
 ```
 
-Kullandığınız statik kod analizi aracı bu kod parçasında kritik bir güvenlik zafiyeti *(Security Vulnerability)* tespit etmiştir. Bu ihlalin temel nedeni ve en doğru çözüm yöntemi hangisidir?
+Kullandığınız derinlemesine kod güvenliği tarama aracı söz konusu kod parçasında kritik bir güvenlik zafiyeti *(Security Vulnerability)* tespit etmiştir. Bu ihlalin temel nedeni ve en doğru çözüm yöntemi hangisidir?
 
 - A) **Cross-Site Scripting (XSS)** zafiyeti bulunmaktadır. Kullanıcıdan alınan *username* ve *password* parametreleri **HTML Encode** işleminden geçirilmeden kullanılmıştır.
 - B) Sorguda doğrudan bir **SQL Injection** zafiyeti *(CWE-89)* bulunmaktadır. Girdi parametreleri birleştirilerek *(string interpolation / concatenation)* çalıştırıldığı için, zararlı betikler veritabanında komut olarak işletilebilir. Çözüm olarak parametreli sorgular *(Parameterized Queries)* veya ORM *(Object-Relational Mapping)* kütüphaneleri kullanmak tercih edilmelidir.
@@ -210,7 +210,7 @@ Kullandığınız statik kod analizi aracı bu kod parçasında kritik bir güve
 
 ## Soru 7
 
-Henüz mikroservis altyapısına taşınan bir projeyi gözden geçirirken takım arkadaşımızın yazdığı bir veri erişim sınıfında *(Repository)* aşağıdaki gibi bir kod kullanımına denk geldiğimizi düşünelim.
+Henüz mikroservis altyapısına taşınan bir projeyi gözden geçirirken takım arkadaşınızın yazdığı bir veri erişim sınıfında aşağıdaki gibi bir kod kullanımına denk geldiğimizi düşünelim.
 
 ```csharp
 public class AppDbContext : DbContext
@@ -227,7 +227,7 @@ public class AppDbContext : DbContext
 }
 ```
 
-Bu kod parçası **github** reposuna gönderildiğinde modern kod analizi ve güvenlik araçları *(SonarQube, GitHub Advanced Security vb.)* bunu **Kritik / Blocker** seviyesinde bir ihlal olarak işaretlemiştir. Bu uyarının sebebi nedir ve problem nasıl çözülmelidir?
+Bu kod parçası **github** reposuna gönderildiğinde modern kod analizi ve güvenlik araçları *(SonarQube, GitHub Advanced Security, Fortify vb.)* bunu **Kritik / Blocker** seviyesinde bir ihlal olarak işaretlemiştir. Bu uyarının sebebi nedir ve problem nasıl çözülmelidir?
 
 - A) Sınıf içerisinde yer alan *DbSet* gibi *Entity Framework* özelliklerinin *public* erişim belirleyicisi ile dışarı açılması, veritabanı tablolarının doğrudan manipüle edilmesine *(Data Exposure)* yol açar. DbSet'ler kapsüllenmelidir *(Encapsulation)*.
 - B) Veritabanının isminin *CustomerDb* olarak verilmesi güvenlik ihlalidir. Veritabanı isimleri hiçbir zaman kod veya yapılandırma dosyalarında gösterilmemelidir.
@@ -290,7 +290,7 @@ public decimal CalculateBonus(Employee employee, int yearsOfService, decimal bas
 }
 ```
 
-Statik kod tarama araçları *(Sonarqube)* bu metot için **Cognitive Complexity *(Bilişsel Karmaşıklık)*** ihlali yapıldığını belirtecektir. İhlalin temel sebebi nedir ve kurumsal mimari standartlarına uygun olarak en ideal çözüm yaklaşımı aşağıdakilerden hangisidir?
+Statik kod tarama araçları *(Sonarqube)* bu metot için **Cognitive Complexity *(Bilişsel Karmaşıklık)*** ihlali yapıldığını belirtmekte. İhlalin temel sebebi nedir ve kurumsal mimari standartlarına uygun olarak en ideal çözüm yaklaşımı aşağıdakilerden hangisidir?
 
 - A) İhlal, metot içerisindeki değişken atamalarının çokluğundan kaynaklanmaktadır. *decimal bonus = 0;* değişkeni gereksiz yer kaplar. Kod sadece *return baseSalary * 0.20m* gibi doğrudan dönüşler içermelidir.
 - B) İhlalin sebebi uzun bir kod bloğu yazılmış olmasıdır. Çözüm olarak, her bir *case* içerisindeki işlemler asenkron *async/await* olarak yeniden kurgulanmalı ve performans arttırılmalıdır.
@@ -442,3 +442,60 @@ Bu örnekte nesne yönelimli tasarım ilkelerinden hangisinin ihlal edildiği ne
 - B) İşlem sırasında *new* anahtar kelimesi kullanılarak *SmtpEmailService* ve *TwilioSmsService* gibi somut *(concrete)* sınıflara doğrudan bağımlılık *(tight coupling)* oluşturulmuştur. Bu durum **Dependency Inversion Principle *(DIP)*** ihlalidir. Sınıf somut servislere değil, *INotificationService* gibi soyutlamalara *(abstractions)* bağımlı olmalı bu bağımlılıklar koda *constructor-yapıcı metot* aracılığıyla enjekte edilmelidir *(Dependency Injection)*.
 - C) Yerel *(local)* değişken olarak yaratılan bu servisler bellekte sızıntıya *(Memory Leak)* yol açabilir. Performans kaybı yaşamamak için değişkenler metot içinde değil, sınıf seviyesinde *static* değişkenler olarak tanımlanmalıdır.
 - D) Siparişin statüsünü değiştirmek ve arkasından bildirim göndermek aynı metotta yapıldığı için **Liskov Substitution Principle *(LSP)*** ihlal edilmiştir. Alt sınıflar bu metodu ezdiğinde *(override)* sorun yaşama ihtimali oldukça yüksektir.
+
+## Soru 11
+
+Bir çağrı merkezi sisteminde aday kayıt sürecini yöneten modülde iş kurallarına aykırı veriler için özel hatalar üretmek istiyorsunuz. Örneğin, adayın e-posta adresi geçersiz ise sistemin teknik bir hata yerine anlamlı bir domain hatası döndürmesini amaçlıyorsunuz. Bunun için takım arkadaşınız aşağıdaki yaklaşımları öneriyor. Sizce en doğru yaklaşım hangisidir?
+
+- A) Tüm hataları tek tip yönetmek için her yerde yalnızca **Exception** fırlatılmalı, hata türleri mesaj metninden anlaşılmalıdır.
+- B) Geçersiz iş durumlarını temsil eden, **Exception** sınıfından türeyen anlamlı bir özel hata türü *(örneğin InvalidCandidateEmailException)* tanımlanmalı; ilgili iş kuralı ihlalinde bu tür fırlatılmalıdır.
+- C) Hata yönetimini sadeleştirmek için iş kuralı ihlallerinde **null** döndürülmeli ve üst katmanlar bunu sessizce yok saymalıdır.
+- D) Domain katmanında hata fırlatmak yerine tüm doğrulamaları yalnızca veritabanı kısıtlarına bırakmak en doğru yöntemdir.
+
+## Soru 12
+
+Kurumsal bir insan kaynakları uygulamasında, başlangıçta tek sunucuda çalışan katmanlı *(Layered)* bir sistem kullanıldığını düşünelim. Zamanla popüler halen gelen uygulama gün geçtikçe daha çok abone almaya ve buna bağlı olarak da trafik artmaya başlıyor. Bunun üzerine yazılım ekibi uygulamanın bazı parçalarını farklı sunuculara ayırmayı ve böylece sistemi kabul edilebilir şekilde ölçeklemeyi *(scaling)* istiyor. Bu noktada çözümün hem mantıksal katman *(Logical Layer)* ayrımını koruması hem de fiziksel dağıtıma *(Deployment)* imkan vermesi bekleniyor. Şıklarda belirtilen mimari yaklaşımlardan hangisini tercih edersiniz?
+
+- A) N-Tier yaklaşımını kullanarak sunum *(presentation)*, iş *(business)* ve veri katmanlarını *(data layer)* farklı fiziksel ortamlara dağıtmak.
+- B) Tüm bileşenleri tek bir çalıştırılabilir dosyada toplayıp katmanları sadece klasör seviyesinde ayırmak.
+- C) **Onion** mimarisini tamamen bırakıp doğrudan veritabanı odaklı **stored procedure** kullanımına geçmek ve veritabanı seviyesinde hız optimizasyonu yapmak.
+- D) Katmanlar arası iletişimi azaltmak için bütün modülleri tek bir **Domain Service** sınıfında birleştirmek.
+
+## Soru 13
+
+Operasyon ekibi mevcut monolitik yapıda bakım maliyetlerinin arttığını ve dağıtım *(deployment)* hızının düşük kaldığını raporluyor. Buna karşılık ekipte bazı geliştiriciler doğrudan mikroservislere geçmeyi, bazıları ise önce geçiş sürecini daha kontrollü yönetmeyi öneriyor. Kararsızlık ve belirsizlik sürecin uzamasına neden oluyor. Ancak önünüzde aşağıdaki seçenekler var. Sizce böyle bir durumda en sağlıklı yaklaşım hangisi olur?
+
+- A) Tüm modülleri tek seferde mikroservislere bölmek ve geçişler sırasında vakit kaybına neden olan tüm testleri geçici olarak devre dışı bırakmak.
+- B) Yalnızca veritabanını bölmek, uygulama kodunu ve dağıtımı ise tamamen aynı bırakmak.
+- C) Önce **modüler monolit** veya **vertical slice** gibi yaklaşımlarla sınırları netleştirip, olgunlaşan modülleri ihtiyaç oldukça bağımsız servislere taşımak.
+- D) Dağıtık mimariye geçişin karmaşıklığını azaltmak için tüm domain kurallarını istemci tarafında çalıştırmak.
+
+## Soru 14
+
+Bir yazılım projesinde katmanlar arası bağımlılık yönünü yanlış kurgulanmış ve domain katmanında doğrudan *ORM-Object Relational Mapping* ve mesaj kuyruğu *(message broker)* kütüphaneleri kullanılmaya başlanmıştır. Oysa ki bu tür bağımlılıklar domain katmanını etkilememelidir. Bu hata birim testlerini zorlaştırmış ve iş kurallarının altyapı değişikliklerinden etkilenmesine neden olmuştur. Bu problemi çözmek için seçeneklerden hangisini önerirsiniz?
+
+- A) Domain katmanında altyapı bağımlılıklarını koruyup testlerde bu kütüphaneleri gerçek ortamda çalıştırmak.
+- B) Domain katmanını kaldırıp tüm iş kurallarını **Application** katmanında statik yardımcı sınıflara taşımak.
+- C) Bağımlılık problemini azaltmak için tüm katmanları aynı namespace altında birleştirmek.
+- D) Altyapı detaylarını domain'e taşımak yerine domain içinde yalnızca sözleşmeleri *(interface/contract)* tanımlayıp somut implementasyonları **Infrastructure** katmanında tutmak.
+
+---
+
+## Cevap Anahtarı
+
+| Soru | Doğru Cevap |
+|------|-------------|
+| 1    | C           |
+| 2    | A           |
+| 3    | D           |
+| 4    | D           |
+| 5    | A           |
+| 6    | B           |
+| 7    | C           |
+| 8    | C           |
+| 9    | B           |
+| 10   | B           |
+| 11   | B           |
+| 12   | A           |
+| 13   | C           |
+| 14   | D           |
