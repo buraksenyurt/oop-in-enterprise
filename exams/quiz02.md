@@ -8,7 +8,7 @@ Bu testin amacı matematiksel bazı kavramların programatik ortamda modellenmes
 
 ## Soru 1
 
-Bir algoritmanın performansını değerlendirmek için kullanılan **BigO** notasyonu, algoritmanın çalışma zamanının veya bellek kullanımının girdi boyutuna göre nasıl değiştiğini ifade eden bir enstrümandır. Farklı türleri vardır. Örneğin, **O(1)**, **O(n)**, **O(n^2)** gibi. **O(1)**, algoritmanın çalışma zamanının girdi boyutundan bağımsız olduğunu ifade ederken, **O(n)** algoritmanın çalışma zamanının girdi boyutuna doğrusal olarak arttığını ifade eder. **O(n^2)** ise algoritmanın çalışma zamanının girdi boyutunun karesiyle arttığını ifade eder. Bu notasyon, algoritmaların verimliliğini karşılaştırmak ve büyük veri setleriyle çalışırken hangi algoritmanın daha uygun olduğunu belirlemek için kullanılır.
+Bir algoritmanın performansını değerlendirmek için kullanılan **[BigO](https://www.bigocheatsheet.com/)** notasyonu, algoritmanın çalışma zamanının veya bellek kullanımının girdi boyutuna göre nasıl değiştiğini ifade eden bir enstrümandır. Farklı türleri vardır. Örneğin, **O(1)**, **O(n)**, **O(n^2)** gibi. **O(1)**, algoritmanın çalışma zamanının girdi boyutundan bağımsız olduğunu ifade ederken, **O(n)** algoritmanın çalışma zamanının girdi boyutuna doğrusal olarak arttığını ifade eder. **O(n^2)** ise algoritmanın çalışma zamanının girdi boyutunun karesiyle arttığını ifade eder. Bu notasyon, algoritmaların verimliliğini karşılaştırmak ve büyük veri setleriyle çalışırken hangi algoritmanın daha uygun olduğunu belirlemek için kullanılır.
 
 Elimizde bir milyon elemanlı iki devasa asal sayı kümesi olduğunu varsayalım. **A** ve **B** isimli bu asal sayı kümelerinin kesişimlerini bulmamız gerekiyor. Bununla ilgili ilk protopipi aşağıdaki kod parçasında görüldüğü gibi yazdığımızı düşünelim.
 
@@ -43,7 +43,7 @@ Bu bilgiler ışığında milyonlarca kompleks sayının *(complex numbers)* kul
 - A) Kompleks sayıları temsil etmek için bir **class** tanımlamak en uygun yaklaşımdır çünkü karmaşık nesneleri modellemek için referans tipi kullanmak daha esneklik sağlar.
 - B) Kompleks sayıları temsil etmek için bir **struct** tanımlamak en uygun yaklaşımdır çünkü küçük, basit veri yapıları için değer tipi kullanmak daha performanslıdır.
 - C) Kompleks sayıları temsil etmek için **record struct *(readonly struct)*** tanımlamak en uygun yaklaşımdır çünkü bu sayede Heap'te gereksiz bellek tahsisi yapılmaz, **Garbage Collector**'un yükü hafifler ve nesneler immutable olur, bu da thread-safe bir yapı sağlar.
-- D) Komplek sayıların gerçel ve sanal kökü için `Tuple<double, double>` kullanmak en uygun yaklaşımdır çünkü bu sayede iki değeri tek bir veri yapısında tutabiliriz.
+- D) Kompleks sayıların gerçel ve sanal kökü için `Tuple<double, double>` kullanmak en uygun yaklaşımdır çünkü bu sayede iki değeri tek bir veri yapısında tutabiliriz.
 
 ## Soru 3
 
@@ -110,7 +110,7 @@ public class RouteOptimizer{
 Algoritmamız harika çalışıyor olmasına rağmen test mühendisi arkadaşımızın kodla ilgili endişeleri var. Kodun test edilemz olduğunu ve gerçekten bir veritabanı bağlantısı olmadan bir birim test *(unit test)* yazmanın mümkün olmadığını söylüyor. Dolayısıyla algoritma mantığını veritabanı altyapısından ayırmanız gerekiyor. Aşağıdaki seçeneklerden hangisini kullanırsınız.
 
 - A) Test mühendisinin görüşüne itiraz ederim zira veritabanı ile algoritmayı aynı metot altında toplamak performans açısından avantajlıdır.
-- D) Algoritmanın çalışma sırasında oluşan değerleri bir **log** dosyasına yazdırırım. Böylece algoritmanın doğruluğunu manuel olarak da kontrol edebiliriz.
+- B) Algoritmanın çalışma sırasında oluşan değerleri bir **log** dosyasına yazdırırım. Böylece algoritmanın doğruluğunu manuel olarak da kontrol edebiliriz.
 - C) Veritabanı bağlantısını ve algoritma mantığını birbirinden ayırmak için **Dependency Injection** tekniğini kullanırım. Veritabanı erişimi için bir **ICityGraphProvider** arayüzü tanımlar ve bu arayüzü uygulayan somut bir sınıf kullanırım. **RouteOptimizer** sınıfının yapıcı metoduna *(constructor)* bu arayüzü enjekte ederim. Böylece algoritmayı test ederken gerçek veritabanı bağlantısı yerine sahte *(mock)* bir **ICityGraphProvider** implementasyonu kullanarak sadece algoritmanın doğruluğunu test eden birim testler yazabilirim.
 - D) FindShortestPath metodunu SqlDatabase sınıfının bir metodu haline getiririm.
 
@@ -149,7 +149,7 @@ Estimated value of π: 3.140818
 Estimated value of π: 3.1401364
 ```
 
-**Monte carlo** yönteminin doğası rastgele atılan dart oklarının bir çemberin içinde düşüp düşmemesine bağlıdır. Dolayısıyla bu sonuçların elde edilmesi sizi şaşırtmıyor.
+**Monte Carlo** yönteminin doğası rastgele atılan dart oklarının bir çemberin içinde düşüp düşmemesine bağlıdır. Dolayısıyla bu sonuçların elde edilmesi sizi şaşırtmıyor.
 
 - I. **if** bloğunda kullanılan Interlocked.Increment metodu, çoklu iş parçacığı ortamında **inCircle** değişkenine yapılan eşzamanlı erişimlerin neden olabileceği yarış durumlarını *(race condition)* önlemek için kullanılır. Bu sayede doğru sayım yapılması sağlanır.
 - II. Kodun performansını artırmak için `ThreadLocal<Random>` kullanılmıştır. Bu sayede her iş parçacığı kendi **Random** örneğine sahip olur ve bu da rastgele sayı üretiminde çakışmaları önler.
@@ -204,7 +204,7 @@ public class Fermat
 
 Sizce burada kullanılan teknik nedir ve neden performansı artırır?
 
-- A) Bu teknik **Memoization** olarak adlandırılır. Recursive fonksiyonun her çağrısında aynı hesaplamaların tekrar yapılmasını önlemek için ara sonuçlar bir tabloya kaydedilir. Böylece büyük **n** ve **r** değerleri için bile hızlı sonuç alınır.
+- A) Bu teknik Tabulation *(Aşağıdan Yukarıya Dinamik Programlama)* olarak adlandırılır. **Recursive** fonksiyonun getirdiği çağrı yığını *(call stack)* yükünü ortadan kaldırmak için sonuçlar en küçük problemden başlanarak iteratif bir şekilde hesaplanır ve bir tabloya *(memo dizisi)* kaydedilir.
 - B) Bu teknik **Static Programming** olarak adlandırılır ve metodun statik olarak tanımlanması sayesinde derleyici tarafından optimize edilerek performans artışı sağlanır.
 - C) Bitmasking yapılmıştır. Bu teknik ile kombinasyon hesaplamaları bit düzeyinde optimize edilir ve performans artışı sağlanır.
 - D) Bu teknik **Tail Recursion** olarak adlandırılır. Recursive çağrıların son işlem olarak yapılması sağlanır ve derleyici tarafından optimize edilerek performans artışı sağlanır.
@@ -233,4 +233,84 @@ Galaksiyi gezmediğinizi düşünürsek bu metodun genel kültürde temsil etti�
 - C) Infinity
 - D) 42
 
-DEVAM EDECEK...
+## Soru 9
+
+Uygulamalar sıklıkla log biriktirirler. Bu loglar üretim ortamlarında bu işe özel sistemler tarafından toplanır, analiz edilir ve görselleştirilir. Bu konuda geliştirilmiş birçok standart vardır. Ancak bazen geliştirme ortamlarında ve uygulamaların testleri sırasında bu tip loglar en basit çözüm olarak terminale veya text dosyalara yazdırılır. Örnek dört satırı verilen aşağıdaki içeriğe sahip bir log dosyası oluştuğunu düşünebiliriz.
+
+```text
+2024-01-01 12:00:00,000 [INFO] Application started.
+2024-01-01 12:00:01,000 [ERROR] An unexpected error occurred.
+2024-01-01 12:00:02,000 [WARN] Low disk space.
+2024-01-01 12:00:03,000 [INFO] Application stopped.
+```
+
+Bir süre sonra **log** dosyasının **100 MB**'ın üzerine çıktığını ve belirli kategorideki logları analiz etmek istediğimizi düşünelim. Aklınıza gelen ilk yöntem dosyayı satır bazında okumak, her satırı parçalamak ve kategori ile ilgili kelimeleri aramak olabilir. Bunun için de **String** sınıfı ile gelen **Substring** ve **Split** metotlarını kullandığınız bir kod parçası geliştirdiğinizi varsayalım. Ne var ki bir süre sonra analiz uygulamasının çok fazla **RAM** tükettiğini ve **Garbage Collector**'ın sürekli devreye girerek uygulamayı yavaşlattığını gözlemliyorsunuz. Burada açıkça görünen bellek tahsisi *(memory allocation)* problemini çözmek ve performansı artırmak için aşağıdaki şıklarda belirtilen yollardan hangisini tercih edersiniz?
+
+- A) Log dosyasını parçalamak yerine **Regular Expressions** kullanarak doğrudan kategori bilgisine erişmeye çalışırım. Böylece gereksiz string parçalama işlemlerinden kaçınarak bellek tahsisi yapmamış olurum.
+- B) Dosyayı asenkron okuyarak problemi çözmeye çalışırım. Burada **FileStream** sınıfının **ReadAsync** metodunu kullanarak dosyayı parça parça okuyabilir ve her parçayı analiz edebilirim. Bu sayede bellek kullanımını azaltabilirim.
+- C) Metin *(text)* işlemlerini hızlandırmak için **StringBuilder** sınıfını kullanırım. **StringBuilder**, string birleştirme işlemlerinde daha az bellek tahsisi yapar ve performansı artırır.
+- D) **string** yerine `Span<char>` ve `ReadOnlySpan<char>` yapılarını kullanırım. Bu yapılar mevcut bellek üzerinde dilimleme *(slicing)* işlemi yapar ve **Heap** üzerinde yeni string nesneleri oluşmasına gerek kalmadan sıfır bellek tahsisiyle *(zero-allocation)* çalışır. Böylece büyük log dosyalarını analiz ederken bellek kullanımını önemli ölçüde azaltabilirim.
+
+## Soru 10
+
+Veritabanında kayıtlı kullanıcıları çeken ve bunun için **Entity Framework** kullanan aşağıdaki kod parçasını göz önüne alalım.
+
+```csharp
+IEnumerable<User> users = dbContext.Users.Where(u => u.IsActive);
+
+if(users.Count() > 0){
+    foreach(var user in users){
+        Console.WriteLine(user.Name);
+    }
+}
+```
+
+Kod çalışıyor olsa da teknik açıdan bir darboğaz *(bottleneck)* oluşturur. Çünkü **users.Count()** ifadesi tüm aktif kullanıcıları veritabanından çekerek sayısını hesaplar ve ardından **foreach** döngüsü tekrar aynı kullanıcıları çekmeye çalışır. Bu **Multiple Enumeration** olarak adlandırılır ve performans sorunlarına yol açabilir. Bu problemi çözmek için aşağıdaki şıklardan hangisi en uygun yaklaşımdır?
+
+- A) **users.Count()** ifadesini **users.Any()** ile değiştirip sadece aktif kullanıcıların var olup olmadığını kontrol eder ve gereksiz yere tüm kullanıcıları çekmemiş olurum.
+- B) **ToList()** metodu kullanarak **users** koleksiyonunu bir listeye dönüştürürüm. Böylece veritabanından sadece bir kez çekme işlemi yapılır ve ardından liste üzerinde istediğimiz kadar işlem yapabiliriz.
+- C) **foreach** döngüsü yerine **LINQ**'in **.ForEach()** veya **Parallel.ForEach()** metodunu kullanırım, böylece okuma ve yazdırma işlemleri asenkron yapılarak darboğaz oluşması engellenir.
+- D) Koleksiyonu belleğe almamak için `IEnumerable<User>` yerine `IQueryable<User>` arayüzünü *(interface)* kullanırım. Böylece veritabanı sorgusunu optimize etmiş oluruz.
+
+## Soru 11
+
+Bilgisayar programcısı **Sir Tony Hoare**, "Milyar Dolarlık Hata(The Billion Dollar Mistake)" olarak adlandırdığı **null** referans kavramını 1965 yılında ortaya atmıştır *(QuickSort algoritması ile de bilinen Hoare, sayısız önemli çalışmasının yanında 1980'de Turing ödülü almış ve ne yazık ki 5 Mart 2026'da 92 yaşında aramızdan ayrılmıştır)* O zamanlar bu kavramın programlama dillerine esneklik ve kolaylık sağlayacağını düşünmüştür. Ancak zamanla **null** referansların neden olduğu hataların *(NullReferenceException)* yazılım geliştirme sürecinde ciddi sorunlara yol açtığı görülmüştür.
+
+Modern C# sürümlerinde *(Özellikle .Net 8 ve sonrasında)*, **Nullable Reference Types** özelliği varsayılan olarak açık gelmektedir. Buna göre aşağıdaki kod parçasını göz önüne alalım.
+
+```csharp
+public class User
+{
+    public string Name { get; set; }
+    public string? Email { get; set; }
+}
+
+public void PrintUserInfo(User user)
+{
+    Console.WriteLine($"Name: {user.Name}");
+    Console.WriteLine($"Email: {user.Email ?? "Email not provided"}");
+}
+```
+
+Bu kod parçası ile ilgili olarak aşağıdaki şıklardan hangisi doğru bir teknik tespittir?
+
+- A) **Email** özelliği **string?** ile **nullable** olarak işaretlenmiş ve **?? *(null-coalescing operator)*** kullanılarak olası tüm çalışma zamanı hatalarının önüne geçilmiştir.
+- B) Eğer **user.Name** veritabanından **null** olarak gelirse, **Console.WriteLine** metodu *string interpolation* işlemi esnasında bir **NullReferenceException** hatası verecek ve uygulama çökecektir.
+- C) Geliştirici property seviyesinde önlem alsa da, **PrintUserInfo** metoduna gönderilen **user** parametresinin kendisinin **null** olup olmadığını kontrol etmemektedir. Metoda **null** bir argüman geçildiğinde **user.Name** çağrısı anında **NullReferenceException** hatası fırlatır. Ayrıca derleyici, **Name** özelliğine ilk değeri atanmadığı için **CS8618** *(Non-nullable property 'Name' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.)* hatası verecektir.
+- D) **Email** özelliği **string?** türünde olduğu için değer tipi *(value type)* gibi davranır. Bu nedenle **??** operatörü yerine **user.Email.HasValue** kullanılarak kontrol edilmelidir, aksi halde kod zaten derlenmez.
+
+## Cevap Anahtarı
+
+| Soru | Doğru Cevap |
+|------|-------------|
+| 1    | B           |
+| 2    | C           |
+| 3    | A           |
+| 4    | B           |
+| 5    | C           |
+| 6    | D           |
+| 7    | A           |
+| 8    | D           |
+| 9    | D           |
+| 10   | B           |
+| 11   | C           |
