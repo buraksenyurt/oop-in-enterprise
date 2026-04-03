@@ -24,7 +24,7 @@
 
     !!! Çözümü sonraki derste ele alacağız !!!
 */
-public class DependencyManagements
+public class DependencyManagement
 {
     public static void Run()
     {
