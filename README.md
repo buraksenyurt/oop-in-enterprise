@@ -211,3 +211,36 @@ Layered, N-Tier ve Onion mimariler ile ilgili aşağıdaki tabloda yer alan bilg
 Değişen ihtiyaçlar ve standartlar doğrultusunda karışımıza farklı mimari tasarımlar da çıkabilir. Örneğin **Vertical Slice Architecture** ya da **Modular Monolith** gibi mimariler de günümüzde popüler olan mimari tasarımlar arasında yer almaktadır.
 
 ### Gün 05
+
+Bu dersimizde farklı yazılımların birbirleriyle ağ ortamında nasıl haberleştiğine dair aşağıdaki çizelgede yer alan örnek senaryoyu inceledik.
+
+![Services](./images/day_05_00.png)
+
+Özellikle büyük çaplı legacy sistemler bir takım görev kritik süreçler içerebilirler. Bu tip süreçlerin sistemden kopartılması veya modernize edilmesi her zaman kolay değildir. İlerleyen zamanlarda daha modern/yeni uygulamaların, legacy sistemle çeşitli ortak süreçler üzerinden haberleşmesi gerekebilir. Bu tür durumlarda farklı uygulamalar arasında veri alışverişi yapmak ya da süreç işletmek için çeşitli yöntemler kullanılır. Anlık veya zamanlanmış veri alışverişi senaryolarında, genellikle **API**'ler, **Message Queues** veya **File Transfer** yöntemleri tercih edilir. Her birinin avantajları ve dezavantajları vardır ve seçim, uygulamanın ihtiyaçlarına, performans gereksinimlerine ya da mevcut altyapıya bağlı olarak değişir.
+
+Anlık iletişimlerde **REST *(Representational State Transfer)*, **gRPC *(Google Remote Procedure Call)*** veya **SOAP *(Simple Object Access Protocol)*** tabanlı API'ler yaygın olarak kullanılır ancak bazı durumlarda anlık talep sayısı o kadar yüksek olur ki süreçlerin asenkron bir şekilde yönetilebilmesi gerekir. Bu gibi durumlarda Message Queue'lar devreye girebilir. RabbitMQ, Apache Kafka gibi araçlar bu tür senaryolarda popüler çözümler arasında yer alır. Diğer yandan bazı vakalarda dosya tabanlı veri alışverişi de tercih edilebilir *(FTP)*. Bu yöntem genellikle büyük veri setlerinin transferi veya belirli bir formatta veri paylaşımı gerektiğinde kullanılır.
+
+Entegrasyon yöntemleri ile ilgili olarak aşağıdaki tabloda bazı yardımcı bilgiler yer almaktadır.
+
+| **Kriter** | **API(REST/gRPC/SOAP)** | **Message Queue** | **File Transfer** |
+| --------- | --------- | ---------- | -------------- |
+| **İletişim Türü** | Genellikle senkron *(Request-Response)* | Asenkron *(Publish-Subscribe, Point-to-Point)* | Zamanlanmış *(Batch veya asenkron)* |
+| **Gecikme *(Latency)*** | Düşük gecikme, anlık iletişim | Değişken. Kuyruk yoğunluğuna göre nanosaniyeden dakikalar mertebesine çıkabilir. | Yüksek gecikme, dosya transferi süresi ve dolayısıyla anlık iletişim için uygun değildir |
+| **Veri Boyutu** | Küçük ve orta boyutlu JSON, XML, Protobuf içerikleri | Küçük boyutlu ancak sayıca çok fazla veri | Büyük ölçekli veri (Gigabyte mertebesi ve üzeri) |
+| **Sistem Bağlılığı** | Sıkı bağlı *(Tight coupling)* Karşı sistemin o an ayakta olması gerekir. | Gevşek bağlı *(Loose coupling)* Üreten ve tüketen sistemlerden birbirinden bağımsızdır. | Gevşek bağlı *(Loose coupling)* Sadece ortak bir dosya sistemi veya sunucu gerekitir. |
+| **Hata Yönetimi ve Güvenilirlik** | Uygulama seviyesinde. timeout, retry gibi mekanizmalarla yönetmek gerekir. | Yüksek. Mesajlar kaybolmaz, teslimat garantisi yüksektir. | Düşük/Orta. İletişim koparsa transferin baştan başlaması veya kaldığı yerden devam etmesi gerekir. Ek scriptler gerektirebilir. |
+
+Gerçek hayat senaryoları açısından da durumu değerlendirebiliriz.
+
+| **Senaryo** | **Yöntem** | **Neden?** |
+| --------- | --------- | ---------- |
+| Yeni bir web uygulamasının legacy **CRM *(Customer Relationship Management)*** sisteminden yararlanarak müşterilerin güncel bakiye veya kredibilite bilgilerine anlık olarak bakması gerekiyor. | API *(REST, gRPC)* | Anlık bilgi ihtiyacı var, düşük gecikme gereksinimi var, veri boyutu küçük. |
+| Bir e-ticaret platformu, black-friday gibi yüksek trafik aldığı günlerde legacy sistemdeki faturalama süreçlerini sorunsuz şekilde kullanmak istiyor. | Message Queue | Anlık talep sayısı çok yüksek olabilir, süreçlerin asenkron yönetilmesi gerekir, mesaj kaybı olmamalıdır. |
+| Muhasebe paketini kullanan legacy uygulamanın her gece sabaha karşı 04:00 sularında günsonu dökümlerini veri ambarı sistemine aktarması gerekiyor. | File Transfer *(FTP)* | Büyük veri setleri transfer edilecek, anlık iletişim gerekmiyor, zamanlanmış bir süreç var. |
+| Legacy sistemde gerçekleşen bir bir tık, hata veya giriş işleminin, yeni nesil bir analiz platformuna *(Elasticsearch, Splunk gibi)* anlık olarak iletilmesi gerekiyor. | Message Queue *(RabbitMQ, Kafka vb.)* | Anlık talep sayısı çok yüksek olabilir, süreçlerin asenkron yönetilmesi gerekir, mesaj kaybı olmamalıdır. |
+
+Dersimizin ikinci bölümünde nesne yönelimli dillerde bileşen bağımlılıklarının *(Dependency)* yönetimi ile ilgili ön hazırlıklara başladık ve çalışan ama sorunlu olan bir kod parçasını ele aldık. Bu kodun problemlerinin neler olduğunu keşfi öğrencilere bırakıldı. Sonraki derste bu kodun nasıl iyileştirilebileceği üzerine konuşacağız.
+
+[Örnek kod dosyası](src/Fundamentals/DependencyManagement.cs)
+
+## Gün 06
