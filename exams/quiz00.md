@@ -501,6 +501,72 @@ Sizce ...... şeklinde boş bırakılan yerlere hangi şıklardan hangisi gelmel
 - C) InvalidStageException
 - D) ArgumentOutOfRangeException
 
+## Soru 12
+
+Nesen yönelimli programlama dillerinin benimsediği temel ilkeler encapsulation, inheritance, polymorphism ve abstraction'dır. Bu ilkeler sayesinde gerçek dünya nesnelerinin programatik ortamda modellenmesi kolaylaşır. Modern dillerin kullandığın standart kütüphaneleri de bu ilkeler doğrultusunda tasarlanır ve böylece genişletilebilir ve yeniden kullanılabilir kod yazmak mümkün olur. Örneğin var olan kütüphane hiyerarşisindeki birçok enstrüman kalıtım *(inheritance)* yoluyla genişletilebilir ve bu sayede yeni özellikler eklenebilir. İstisna yönetimi de bu ilkeler doğrultusunda ele alınır. Örneğin kendi **Exception** türlerimizi tasarlayarak **try...catch* bloklarında kullanabiliriz. Domain Driven Design *(DDD)* yaklaşımında özellikle çekirdek nesne kurallarını korumak için özel istisna türleri tasarlamak yaygın bir uygulamadır. Aşağıdaki entity sınıfını göz önüne alalım.
+
+```csharp
+public class Stage
+{
+    public string Name { get; private set; }
+    public short PlayerCount { get; private set; }
+
+    public Stage(string name, short playerCount)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new Exception("Stage name cannot be empty.");
+
+        if (playerCount < 0)
+            throw new Exception("Player count cannot be negative.");
+
+        Name = name;
+        PlayerCount = playerCount;
+    }
+}
+```
+
+**Exception** sınıfı yerine kendi istisna türümüzü kullanmaya karar verdik. Sizce şıklardaki yazılış biçimlerinden hangisi doğrudur?
+
+- A)
+
+```csharp
+public class InvalidStageException(string message) 
+    : Exception(message)
+{
+}
+```
+
+- B)
+
+```csharp
+public class InvalidStageException(string message) 
+    : base(message)
+{
+}
+```
+
+- C)
+
+```csharp
+public struct InvalidStageException{
+    public string Message { get; } = "Invalid stage data.";
+}
+```
+
+- D)
+
+```csharp
+public class InvalidStageException
+{
+    private string _message;
+    public InvalidStageException(string message)
+    {
+        _message = message;
+    }
+    public string GetMessage() => _message;
+}
+```
+
 ## Cevap Anahtarı
 
 | Soru No | Doğru Cevap |
@@ -516,3 +582,4 @@ Sizce ...... şeklinde boş bırakılan yerlere hangi şıklardan hangisi gelmel
 | 9 | C |
 | 10 | D |
 | 11 | C |
+| 12 | A |

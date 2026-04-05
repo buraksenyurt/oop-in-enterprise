@@ -326,6 +326,60 @@ Bir elektronik ticaret platformunuzda **"Black Friday"** gibi çok yoğun trafik
 - C) **Message Queue** sistemlerinin karşı sistemin anlık olarak ayakta olmasını zorunlu kılması *(sıkı bağlılık sağlaması)*.
 - D) Anlık talep sayısının çok yüksek olabileceği durumlarda süreçlerin asenkron olarak yönetilebilmesi ve mesaj teslimat garantisi sayesinde veri kaybının önlenmesi.
 
+## Soru 15
+
+Bir bayi otomasyon sisteminde saniyede milyonlarca event'in anlık olarak işlenmesi ve yüksek yanıt sürelerinin sağlanması gerekmektedir. Ölçeklenebilir olması beklenen sisteme dahil olan servisler arasında yoğun ağ gecikmeleri *(Network Latency)* oluşması da **istenememektedir**. Bu senaryoda olduğu gibi aşırı yük ve anlık veri işleme ihtiyacı için yüksek ağ trafiği yaratan mikroservisler yerine aşağıdaki mimarilerden hangisi performans ve ölçeklenebilirlik açısından daha uygun bir çözüm sunar?
+
+- A) Layered *(Katmanlı) Mimari
+- B) Mikro Kernel Mimarisi
+- C) Service-Oriented Architecture *(SOA)*
+- D) Event-Driven Architecture *(EDA)*
+
+## Soru 16
+
+Yaşı on yılın üzerinden olan devasa bir monolit sistemde çalıştığınızı düşünelim. Değişen iş gereksinimleri nedeniyle sistem ihtiyaçlara hızlı yanıt veremez hale gelmiştir. Sistemde sadece belirli iş süreçlerinde *(Kredi onayı, müşteri limit sorglulaması vb)* bağımsız ve hızlı güncellemeler yapabilmeye ihtiyaç vardır. Ancak sistemin geri kalanında büyük çaplı bir refactoring yapmak mümkün değildir. Diğer yandan yeni iş süreçlerini karşılayacak modüllerin kendi veritabanları ile çalışması gerekmektedir. Bu durumda hem iş alanı odaklı bağımsız dağıtılabilir *(independent deployable)* birimler oluşturmak hem de mevcut monolit yapıyı korumak için aşağıdaki mimarilerden hangisini kullanmayı tercih edersiniz?
+
+- A) Layered *(Katmanlı)* Mimari
+- B) Microservice *(Mikro servis)* Architecture
+- C) Pipeline Architecture
+- D) Space Based Architecture
+
+## Soru 17
+
+Çekirdek iş kurallarının dış dünyadan, veri tabanlarından ve kullanıcı arayüzü kütüphanelerinden *(UI Framework)* tamamen izole edilmesi gereken bir yazılım projesinde görev aldığımızı düşünelim. Bu yaklaşım, sistemin çekirdek mantığının altyapı bileşenleri ayağa kaldırılmadan da çok rahat ve hızlı bir şekilde test edilebilir olmasını sağlar. Bu amacı gerçekleştirmek için kullanılması gereken temel mimari tasarım felsefesi aşağıdakilerden hangisidir?
+
+- A) Onion Architecture
+- B) Layered *(Katmanlı) Mimari*
+- C) Microservice Architecture
+- D) Event-Driven Architecture *(EDA)*
+
+## Soru 18
+
+Kullanıcı trafiğinde ani ve çok büyük dalgalanmalar yaşanan *(örneğin kampanya veya toplu indirim uygulanan, reklam çıkılan günlerde vb)* bir e-ticaret platformunda, veri tabanında yaşanan darboğazları *(bottleneck)* aşmak ve sisteme anında yeni kaynaklar ekleyip çıkarabilmek *(elasticity)* birincil stratejik hedef olarak belirlenmiştir. Merkezi bir veri tabanı kullanmak yerine bellek içi veri kümeleri *(in-memory data grids)* kullanarak söz konusu darboğazların aşılabileceği öngörülmektedir. Sizce aşağıdaki mimarilerden hangisi bu hedeflere ulaşmak için en uygun çözümü sunar?
+
+- A) Layered *(Katmanlı) Mimari*
+- B) Microservice *(Mikro servis)* Architecture
+- C) Pipeline Architecture
+- D) Space Based Architecture
+
+## Soru 19
+
+Bir yazılım ekibi yeni bir fikri hızlıca pazara sunmak *(Time to Market)* için basit, başlangıç maliyeti düşük ve geliştirilmesi görece kolay bir mimari çözüm arayışındadır. Ölçeklenebilirlik *(Scalability)* ve yüksek performans şu an için ikincil plandadır. Yazılım mimarilerinin doğası gereği yapısal karmaşıklığı en az ve genel maliyeti *(Overall Cost)* en düşük olan mimari yaklaşımı aşağıdakilerden hangisidir?
+
+- A) Layered *(Katmanlı) Mimari*
+- B) Microservice *(Mikro servis)* Architecture
+- C) Pipeline Architecture
+- D) Event-Driven Architecture *(EDA)*
+
+## Soru 20
+
+Saniyede on binin üzerinde okuma *(Read)* ve sadece birkaç yüz yazma *(Write)* işleminin gerçekleştiği bir uygulama çözümü düşünelim. Aynı veri modeli kullanıldığı için bu model üzerinden hem okuma hem de yazma işlemini yapmak veritabanı tarafında kilitlenmelere veya kullanılan stratejiye göre uzun süre beklemelere neden oluyor. Yazılım mimari ekibi bu sorunu çözmek için veritabanı komutlarının ayrıştırılmasını öneriyor. Hatta bu işlemleri veritabanını ayırarak yapılabileceğini belirtiyor. Buna göre okuma ve yazma işlemlerini birbirinden ayrı veritabanlarında yaparak bu darboğazın aşılabileceği öngörülüyor. Tabii ortada bir başka problem daha var; yazılan verinin sadece okuma amaçlı kullanılan veritabnaına aktarılarak senkronizasyonun sağlanması ve eksik kalan parçaların da bir şekilde tamamlanması gerekiyor. Sizce verinin okuma ve yazma işlemlerinin ayrıştırılması ve senkronizasyonun sağlanması için aşağıdaki şıklardan hangisini tercih edersiniz?
+
+- A) **Strangler Fig *(Strangler Pattern)*** prensibi ile mevcut veritabanını yavaş yavaş okuma ve yazma işlemlerini ayrı veritabanlarına yönlendirecek şekilde refactor ederiz. Senkronizasyon için de bir ETL *(Extract, Transform, Load)* süreci kurarak yazma işlemi gerçekleştiğinde okuma veritabanına gerekli güncellemelerin yapılmasını sağlayabiliriz.
+- B) **Active-Record Pattern** prensibi ile her iki veritabanına da aynı anda yazma işlemi yaparız. Okuma işlemi için ise sadece okuma veritabanını kullanırız. Senkronizasyon için de her iki veritabanında aynı anda güncelleme yapılmasını sağlayarak veri tutarlılığını koruruz.
+- C) **CQRS (Command Query Responsibility Segregation)** prensibi ile okuma ve yazma işlemlerini birbirinden ayırırız. Senkronizasyon için **Event Bus** veya **Message Broker** sistemlerinden yararlanarak yazma işlemi gerçekleştiğinde okuma veritabanına gerekli güncellemelerin yapılmasını sağlayabiliriz.
+- D) Bir **API Gateway** kullanarak okuma ve yazma işlemlerini yönlendiririz. **API Gateway**, gelen istekleri analiz ederek okuma işlemleri için bir veritabanına, yazma işlemleri için ise başka bir veritabanına yönlendirebilir. Senkronizasyon için de **API Gateway** üzerinde bir mekanizma kurarak yazma işlemi gerçekleştiğinde okuma veritabanına gerekli güncellemelerin yapılmasını sağlayabiliriz.
+
 ## Cevap Anahtarı
 
 | Soru | Doğru Cevap |
@@ -344,3 +398,9 @@ Bir elektronik ticaret platformunuzda **"Black Friday"** gibi çok yoğun trafik
 | 12   | A           |
 | 13   | B           |
 | 14   | D           |
+| 15   | D           |
+| 16   | B           |
+| 17   | A           |
+| 18   | D           |
+| 19   | A           |
+| 20   | C           |
