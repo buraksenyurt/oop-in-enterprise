@@ -1,4 +1,4 @@
-# OOP Test Soruları 02 [DRAFT]
+# OOP Test Soruları 02
 
 Bu testin amacı matematiksel bazı kavramların programatik ortamda modellenmesi, veri yapıları ve algoritma performansı etkilerinin ölçülmesine yöneliktir.
 
@@ -299,6 +299,33 @@ Bu kod parçası ile ilgili olarak aşağıdaki şıklardan hangisi doğru bir t
 - C) Geliştirici property seviyesinde önlem alsa da, **PrintUserInfo** metoduna gönderilen **user** parametresinin kendisinin **null** olup olmadığını kontrol etmemektedir. Metoda **null** bir argüman geçildiğinde **user.Name** çağrısı anında **NullReferenceException** hatası fırlatır. Ayrıca derleyici, **Name** özelliğine ilk değeri atanmadığı için **CS8618** *(Non-nullable property 'Name' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.)* hatası verecektir.
 - D) **Email** özelliği **string?** türünde olduğu için değer tipi *(value type)* gibi davranır. Bu nedenle **??** operatörü yerine **user.Email.HasValue** kullanılarak kontrol edilmelidir, aksi halde kod zaten derlenmez.
 
+## Soru 12
+
+Geliştirmekte olduğunuz sistemde, her gece saat 04:00'te oluşan Gigabyte'lar boyutundaki günsonu döküm verilerini bir veri ambarı *(Data Warehouse)* sistemine aktarmanız gerekmektedir. Bu entegrasyon için aşağıdaki şıklarda yöntem ve hata yönetimi stratejileri verilmiştir. Sizce hangi yöntem ve strateji en uygun olanıdır?
+
+- A) **File Transfer** tercih edilmelidir; ancak iletişim koparsa transferin baştan başlaması veya kaldığı yerden devam etmesi için ek scriptler gerektirebilir *(Düşük/Orta güvenilirlik)*.
+- B) **Message Queue** tercih edilmelidir; çünkü büyük veri setleri *(Gigabyte ve üzeri)* için en düşük gecikmeyi sağlar *(Yüksek güvenilirlik)*.
+- C) **File Transfer** tercih edilmelidir; teslimat garantisi yüksektir, iletişim kopsa bile mesajlar asla kaybolmaz *(Yüksek güvenilirlik)*.
+- D) **API** tercih edilmelidir; timeout mekanizmaları ile büyük dosyalar en hızlı şekilde iletilir *(Uygulama seviyesinde güvenilirlik)*.
+
+## Soru 13
+
+Farklı sistemlerin bir arada çalıştığı senaryolar kurumsal çözümlerde oldukça yaygındır. Ağ problemleri, veri tutarsızlıkları, performans sorunları gibi birçok zorluk ortaya çıkabilir. Ayrıca verinin güvenilir bir şekilde iletilmesi, işlenmesi ve saklanması da önemli bir konudur. Bu bilgileri göz önüne alırsak sizce aşağıdaki şıklardan hangisi **yanlıştır?**
+
+- A) **Message Queue** sistemlerinde mesajların kaybolma riski yoktur veya çok azdır, teslimat garantisi yüksektir.
+- B) **Message Queue** yönteminin gecikme *(latency)* süresi sabittir ve hiçbir zaman dakikalar mertebesine çıkmaz.
+- C) **API** *(REST/gRPC)* iletişiminde hata yönetimi uygulama seviyesindedir ve timeout, retry gibi mekanizmalarla yönetilir.
+- D) **Dosya transferi** *(File Transfer)* güvenilirlik düşük veya orta seviyededir.
+
+## Soru 14
+
+Bir elektronik ticaret platformunuzda **"Black Friday"** gibi çok yoğun trafik alınan kampanya dönemlerinde, faturalama süreçleri için **API haberleşmesi** yerine **Message Queue *(RabbitMQ, Kafka vb.)*** araçlarının tercih edilmesinin temel nedeni aşağıdakilerden hangisidir?
+
+- A) **Message Queue** araçlarının her durumda API'lerden daha düşük *(nanosaniyelik)* ve sabit bir gecikme süresi *(latency)* sunması.
+- B) API'lerin **JSON *(JavaScript Object Notation)***, **XML *(Extensible Markup Language)*** veya **Protobuf *(Protocol Buffers)*** gibi veri formatlarını yüksek trafikte işleyeMEmesi.
+- C) **Message Queue** sistemlerinin karşı sistemin anlık olarak ayakta olmasını zorunlu kılması *(sıkı bağlılık sağlaması)*.
+- D) Anlık talep sayısının çok yüksek olabileceği durumlarda süreçlerin asenkron olarak yönetilebilmesi ve mesaj teslimat garantisi sayesinde veri kaybının önlenmesi.
+
 ## Cevap Anahtarı
 
 | Soru | Doğru Cevap |
@@ -314,3 +341,6 @@ Bu kod parçası ile ilgili olarak aşağıdaki şıklardan hangisi doğru bir t
 | 9    | D           |
 | 10   | B           |
 | 11   | C           |
+| 12   | A           |
+| 13   | B           |
+| 14   | D           |
