@@ -479,6 +479,58 @@ Bir yazılım projesinde katmanlar arası bağımlılık yönünü yanlış kurg
 - C) Bağımlılık problemini azaltmak için tüm katmanları aynı namespace altında birleştirmek.
 - D) Altyapı detaylarını domain'e taşımak yerine domain içinde yalnızca sözleşmeleri *(interface/contract)* tanımlayıp somut implementasyonları **Infrastructure** katmanında tutmak.
 
+## Soru 15
+
+DDD *(Domain-Driven Design)* yaklaşımında sadece taşıdığı verilerle anlam kazanan nesneler *Value Object* olarak adlandırılır. Bu nesneler genellikle immutable *(değiştirilemez)* olarak tasarlanır ve eşitlikleri içeriklerine göre değerlendirilir. Modern C# sürümlerinde bu tip nesneler tanımlamak da oldukça kolaylaşmıştır. Aşağıdaki kod parçasını inceleyelim.
+
+```csharp
+public record Address(string Street, string City, string ZipCode);
+
+public class Program
+{
+    public static void Main()
+    {
+        var address1 = new Address("Atatürk Cad.", "İstanbul", "34000");
+        var address2 = new Address("Atatürk Cad.", "İstanbul", "34000");
+        
+        bool isSame = (address1 == address2);
+        Console.WriteLine(isSame);
+    }
+}
+```
+
+Bu kod çalıştığında isSame değişkeninin değeri ne olur ve bunun sebebi nedir?
+
+- A) false olur. Çünkü address1 ve address2 bellekte (heap) farklı referanslara sahip iki ayrı nesnedir.
+- B) true olur. Çünkü record türleri C#'ta referanslarına göre değil, taşıdıkları özelliklerin değerlerine göre (value-based equality) karşılaştırılır.
+- C) false olur. C# dilinde == operatörü record türleri için desteklenmez, derleme hatası fırlatmamak için varsayılan olarak false döner.
+- D) true olur. C# derleyicisi değişken isimleri benzemese de, oluşturulan nesnelerin referanslarını arka planda otomatik olarak eşitler.
+
+## Soru 16
+
+Büyük çaplı kurumsal çözümlerde veritabanı veya uzak web servisleri gibi dış kaynaklara yapılan çağrıların sistemleri kitlememesi için asenkron programlama teknikleri sıklıkla kullanılır. Aşağıdaki kod parçasında bu kullanıma dair bir örnek yer almaktadır.
+
+```csharp
+public class ProductClient
+{
+    private readonly HttpClient _httpClient = new HttpClient();
+
+    public async Task<string> GetProductDetailsAsync(string productId)
+    {
+        string url = $"https://api.companydomain.com/products/{productId}";
+        string result = await _httpClient.GetStringAsync(url);
+        return result;
+    }
+}
+```
+
+Bu kodda kullanılan async ve await kullanımı ile ilgili olarak aşağıdaki ifadelerden hangisi doğrudur?
+
+- A) HTTP isteği arka planda beklerken await anahtar kelimesi sayesinde mevcut thread serbest bırakılır ve uygulamanın diğer istekleri yanıtlamaya devam etmesi sağlanır.
+- B) Metodun dönüş tipi `Task<string>` olduğu için await kullanılmasa dahi C# derleyicisi kodu asenkron çalışacak şekilde otomatik olarak yeniden yapılandırır.
+- C) async anahtar kelimesi eklendiği her metot için işletim sisteminden fiziksel olarak yeni ve bağımsız bir thread talep edilmesini garanti eder.
+- D) await anahtar kelimesi, HTTP isteği tamamlanana kadar uygulamadaki ana thread'i tamamen dondurur ve başka bir işlem yapılmasına izin vermez.
+
 ---
 
 ## Cevap Anahtarı
@@ -499,3 +551,5 @@ Bir yazılım projesinde katmanlar arası bağımlılık yönünü yanlış kurg
 | 12   | A           |
 | 13   | C           |
 | 14   | D           |
+| 15   | B           |
+| 16   | A           |
