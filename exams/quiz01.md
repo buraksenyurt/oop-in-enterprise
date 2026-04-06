@@ -508,7 +508,7 @@ Bu kod çalıştığında isSame değişkeninin değeri ne olur ve bunun sebebi 
 
 ## Soru 16
 
-Büyük çaplı kurumsal çözümlerde veritabanı veya uzak web servisleri gibi dış kaynaklara yapılan çağrıların sistemleri kitlememesi için asenkron programlama teknikleri sıklıkla kullanılır. Aşağıdaki kod parçasında bu kullanıma dair bir örnek yer almaktadır.
+Büyük çaplı kurumsal çözümlerde veritabanı veya uzak web servisleri gibi dış kaynaklara yapılan çağrıların sistemleri kilitlememesi için asenkron programlama teknikleri sıklıkla kullanılır. Aşağıdaki kod parçasında bu kullanıma dair bir örnek yer almaktadır.
 
 ```csharp
 public class ProductClient
@@ -524,7 +524,7 @@ public class ProductClient
 }
 ```
 
-Bu kodda kullanılan async ve await kullanımı ile ilgili olarak aşağıdaki ifadelerden hangisi doğrudur?
+Bu kodda yer alan **async** ve **await** kullanımı ile ilgili olarak aşağıdaki ifadelerden hangisi doğrudur?
 
 - A) HTTP isteği arka planda beklerken await anahtar kelimesi sayesinde mevcut thread serbest bırakılır ve uygulamanın diğer istekleri yanıtlamaya devam etmesi sağlanır.
 - B) Metodun dönüş tipi `Task<string>` olduğu için await kullanılmasa dahi C# derleyicisi kodu asenkron çalışacak şekilde otomatik olarak yeniden yapılandırır.

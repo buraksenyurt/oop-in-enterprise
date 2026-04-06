@@ -494,7 +494,7 @@ public class Stage
 }
 ```
 
-Sizce ...... şeklinde boş bırakılan yerlere hangi şıklardan hangisi gelmelidir?
+Sizce ...... şeklinde boş bırakılan yerlere şıklardan hangisi gelmelidir?
 
 - A) ArgumentException
 - B) ArgumentNullException
@@ -503,7 +503,9 @@ Sizce ...... şeklinde boş bırakılan yerlere hangi şıklardan hangisi gelmel
 
 ## Soru 12
 
-Nesen yönelimli programlama dillerinin benimsediği temel ilkeler encapsulation, inheritance, polymorphism ve abstraction'dır. Bu ilkeler sayesinde gerçek dünya nesnelerinin programatik ortamda modellenmesi kolaylaşır. Modern dillerin kullandığın standart kütüphaneleri de bu ilkeler doğrultusunda tasarlanır ve böylece genişletilebilir ve yeniden kullanılabilir kod yazmak mümkün olur. Örneğin var olan kütüphane hiyerarşisindeki birçok enstrüman kalıtım *(inheritance)* yoluyla genişletilebilir ve bu sayede yeni özellikler eklenebilir. İstisna yönetimi de bu ilkeler doğrultusunda ele alınır. Örneğin kendi **Exception** türlerimizi tasarlayarak **try...catch* bloklarında kullanabiliriz. Domain Driven Design *(DDD)* yaklaşımında özellikle çekirdek nesne kurallarını korumak için özel istisna türleri tasarlamak yaygın bir uygulamadır. Aşağıdaki entity sınıfını göz önüne alalım.
+Nesen yönelimli programlama dillerinin benimsediği temel ilkeler encapsulation, inheritance, polymorphism ve abstraction'dır. Bu ilkeler sayesinde gerçek dünya nesnelerinin programatik ortamda modellenmesi kolaylaşır. Modern dillerin kullandığı standart kütüphaneler de bu ilkeler doğrultusunda tasarlanır ve böylece genişletilebilir, yeniden kullanılabilir kod yazmak mümkün hale gelir.
+
+Örneğin var olan kütüphane hiyerarşisindeki birçok enstrüman kalıtım *(inheritance)* yoluyla genişletilebilir ve bu sayede yeni özellikler eklenebilir. İstisna yönetimi *(Exception Handling)* de bu ilkeler doğrultusunda ele alınır. Örneğin kendi **Exception** türlerimizi tasarlayarak **try...catch* bloklarında kullanabiliriz. Domain Driven Design *(DDD)* yaklaşımında çekirdek nesne kurallarını korumak için özel istisna türleri tasarlamak yaygın bir yaklaşımdır. Aşağıdaki entity sınıfını göz önüne alalım.
 
 ```csharp
 public class Stage
