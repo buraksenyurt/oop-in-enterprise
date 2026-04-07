@@ -1,4 +1,4 @@
-# Kurumsal Yazılım Çözümlerinden OOP ile Çalışmak
+# Kurumsal Yazılım Çözümlerinde OOP ile Çalışmak
 
 Sektör kampüste projesi kapsamında açtığımız **"Kurumsal Yazılım Çözümlerinden OOP ile Çalışmak"** dersine ait notların, örnek kodların yer aldığı repodur.
 
