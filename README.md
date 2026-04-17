@@ -14,6 +14,7 @@ Sektör kampüste projesi kapsamında açtığımız **"Kurumsal Yazılım Çöz
     - [Gün 04](#gün-04)
       - [Mimariler Hakkında Genel Kavramlar](#mimariler-hakkında-genel-kavramlar)
     - [Gün 05](#gün-05)
+    - [Gün 06](#gün-06)
 
 ## Önsöz
 
@@ -23,7 +24,7 @@ Bu derste amacımız kurumsal yazılım çözümlerinde OOP'nin nasıl kullanıl
 
 - [Quiz 00](./exams/quiz00.md)
 - [Quiz 01](./exams/quiz01.md)
-- [Quiz 02(Draft)](./exams/quiz02.md)
+- [Quiz 02](./exams/quiz02.md)
 
 ## Referanslar
 
@@ -244,3 +245,11 @@ Dersimizin ikinci bölümünde nesne yönelimli dillerde bileşen bağımlılık
 [Örnek kod dosyası](src/Fundamentals/DependencyManagement.cs)
 
 ## Gün 06
+
+Bu derste bileşenler arası bağımlılıkların yönetiminde kullanabileceğimiz önemli enstrümanlardan birisi olan **Interface** kavramına değindik. Kendi sözleşmelerimizi interface yapısı üzerinden nasıl tanımlayabileceğimize ve bu sözleşmelerin uygulamalarını nasıl yazabileceğimize dair örnekler üzerinde çalıştık. Ayrıca, .NET ile birlikte hazır olarak gelen bazı built-in interface'lerin ne işe yaradığını ve nasıl kullanıldığını ele aldık.
+
+[Kendi Interface Türlerimizi Yazmak ve Kullanmak](src/Fundamentals/InterfaceConcept.cs)
+
+[Built-In Interface Türlerini Kullanmak](src/Fundamentals/InterfaceUsages.cs)
+
+## Gün 07
