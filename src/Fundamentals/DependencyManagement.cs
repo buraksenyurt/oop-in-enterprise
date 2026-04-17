@@ -63,6 +63,7 @@ public class AlertManager
         }
     }
 }
+
 public class NotificationService
 {
     public void Send(Player player, string message, string target)
@@ -73,8 +74,10 @@ public class NotificationService
             Console.WriteLine($"Text message sent to {player.PhoneNumber}: {message}");
         else if (target == "Email")
             Console.WriteLine($"Email sent to {player.Email}: {message}");
+        // Yeni bir alert türü söz konusu olduğunda (Push Notification, Toast gibi) buraya yeni bir if bloğu eklemem gerekir.
     }
 }
+
 public class Player
 {
     public Guid Id { get; set; }
