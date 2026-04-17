@@ -11,6 +11,15 @@ public class InterfaceApplication
         INotificationService notificationService = new SmsNotificationService();
         // ve bu atanabilme özelliği sebebiyle SendNotification metoduna gönderilebiliyor.
         SendNotification(notificationService, "Hello, this is a test message!");
+
+        /*
+            Sisteme yeni bir bildirim yöntemi eklediğimizi düşünelim. (Örneğin, EmailNotificationService gibi)
+            Bunu kullanarak mesaj göndermek de oldukça kolaydır.
+            Aşağıdaki çağrımda ilk argüman olarak yeni bir EmailNotificationService nesne örneği oluşturup gönderdik.
+            Bunu yaparken, SendNotification metoduna müdahele etmediğimize, içerisinde bir if veya switch-case
+            bloğu kullanmadığımıza dikkat edelim.
+        */
+        SendNotification(new EmailNotificationService(), "Hello, this is a test message!");
     }
 
     /*
@@ -43,6 +52,9 @@ public class InterfaceApplication
      - message: Gönderilecek mesajın içeriği
 
     Bütün interface'ler isimlendirme standardı gereği "I" harfi ile başlar.
+
+    Interface türleri polimorfik enstrümanlardır. Yani, kendisini implemente eden asıl nesnelere bürünüp çalışırlar.
+    Bknz: Polymorphism (Polimorfizm) kavramına bakmakta yarar var.
 */
 public interface INotificationService
 {
@@ -58,6 +70,17 @@ public class SmsNotificationService
     public void Notify(string message)
     {
         // SMS gönderme işlemleri burada yapılır
+        Console.WriteLine($"SMS Sending: `{message}`");
+    }
+}
+
+public class EmailNotificationService
+    : INotificationService
+{
+    public void Notify(string message)
+    {
+        // Email gönderme işlemleri burada yapılır
+        Console.WriteLine($"Email Sending: `{message}`");
     }
 }
 
