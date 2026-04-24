@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Storage.Domain/Storage.Domain.csproj" />
+  <Project Path="Storage.Infra/Storage.Infra.csproj" />
+</Solution>

@@ -20,6 +20,16 @@ public class InterfaceApplication
             bloğu kullanmadığımıza dikkat edelim.
         */
         SendNotification(new EmailNotificationService(), "Hello, this is a test message!");
+
+        /*
+         Kendi sistemimizdeki QueueNotificationService bileşeni, RabbitMQ isimli bir asenkron
+         kuyruk sistemi ile çalışır. Bu bileşenin oluşturulması sırasında ilgili bağımlılık
+         QueueNotificationService constructor'ına enjekte edilir. Bu sayede, SendNotification metoduna
+         herhangi bir müdahele yapmadan, bu yeni bildirim bileşenini de kullanabiliriz.         
+        */
+        var queueNotifyService = new QueueNotificationService(
+            new RabbitMQ.Client.ConnectionFactory().CreateConnectionAsync().GetAwaiter().GetResult());
+        SendNotification(queueNotifyService, "Hello, this is a test message!");
     }
 
     /*
@@ -81,6 +91,30 @@ public class EmailNotificationService
     {
         // Email gönderme işlemleri burada yapılır
         Console.WriteLine($"Email Sending: `{message}`");
+    }
+}
+
+public class QueueNotificationService
+    : INotificationService
+{
+    // RabbitMQ ile çalışacak bir bileşenemiz var.
+    // RabbitMQ nesnesi de Constructor üzerinden bu bileşene enjekte ediliyor.
+    protected readonly RabbitMQ.Client.IConnection connection;
+
+    public QueueNotificationService(RabbitMQ.Client.IConnection connection) // Constructor Injection (DI) tekniği ile RabbitMQ bağlantısı enjekte ediliyor.
+    {
+        this.connection = connection;
+    }
+
+    // Gerçek hayat senaryosunda kuyruk sistemini kullanan bileşen de buraya
+    // dışarıdan bir bağımlılık olarak yine Interface'ler üzerinden enjekte edilebilir.
+    public void Notify(string message)
+    {
+        // Burada RabbitMQ.Client kütüphanesini kullanarak mesaj kuyruğuna bağlanıp,
+        // mesajı kuyruğa ekleme işlemi yapılır.
+
+        // Mesaj kuyruğuna ekleme işlemleri burada yapılır
+        Console.WriteLine($"Queueing Message: `{message}`");
     }
 }
 
