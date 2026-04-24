@@ -15,6 +15,7 @@ Sektör kampüste projesi kapsamında açtığımız **"Kurumsal Yazılım Çöz
       - [Mimariler Hakkında Genel Kavramlar](#mimariler-hakkında-genel-kavramlar)
     - [Gün 05](#gün-05)
     - [Gün 06](#gün-06)
+    - [Gün 07](#gün-07)
 
 ## Önsöz
 
@@ -254,4 +255,14 @@ Bu derste bileşenler arası bağımlılıkların yönetiminde kullanabileceğim
 
 ## Gün 07
 
+Bu derste aşağıdaki şekiled görülen senaryoyu işlemeye başladık.
+
 ![day 07](./images/day_07_01.png)
+
+Bileşenler arası bağımlılıkların nasıl yönetildiğini incelemeye çalıştığımız bu örnekte belirli türlerdeki belgeleri *(metin belgeleri, ses, video, görüntü kayıtları vs)* depolamak için kullanılabilecek farklı stratejileri yönetecek bir uygulama altyapısı tasarlamaya çalışıyoruz. Ağırlıklı olarak **interface** türünden yararlanarak soyutlamalar yapmaya ve nesne yönelimli dillerin kalıtım *(inheritance)*, çok biçimlilik *(polymorphism)* gibi özelliklerini kullanarak esnek bir tasarım ortaya koymaya çalışıyoruz.
+
+[Örnek solution içeriği](src/Storage/)
+
+Sonraki ders için bıraktığımız önemli bir soru ise şu; **IStorageService** implementasyonlarında özellikle doğrulama adımlarını işleyen **IAssetValidator** türevlerini kod tekrarına sebebiyet vermeden nasıl yönetebiliriz?
+
+## Gün 08
