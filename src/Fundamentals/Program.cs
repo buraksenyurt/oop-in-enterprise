@@ -9,7 +9,8 @@ public class Program
         // CustomExceptions.Run(); // Day 04 örneklerini çalıştırmak için bu satırı kullanabilirsiniz.
         // DependencyManagement.Run(); // Day 05 örneklerini çalıştırmak için bu satırı kullanabilirsiniz.
         // InterfaceApplication.Run(); // Day 06 örneklerini çalıştırmak için bu satırı kullanabilirsiniz.
-        InterfaceUsages.Run();
+        // InterfaceUsages.Run();
+        InterfaceUsagesV2.Run();
 
         // PrepGuide.Run();
     }

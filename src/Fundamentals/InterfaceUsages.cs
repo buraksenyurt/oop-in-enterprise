@@ -87,6 +87,7 @@ public class StockComparer
     {
         // TODO@buraksenyurt: Compare metoduna farklı sıralama stratejilerini dışarıdan nasıl alabiliriz?
         // Yani bu kadar çok switch-case yapısı yazmak yerine, farklı sıralama stratejilerini dışarıdan alabilir miyiz?
+        // Örnek bir uygulama için InterfaceUsagesV2 dosyasındaki CustomerComparer kullanımına bakılabilir.
         switch (SortDirection)
         {
             case SortDirection.Ascending:
