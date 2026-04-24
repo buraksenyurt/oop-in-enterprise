@@ -253,3 +253,5 @@ Bu derste bileşenler arası bağımlılıkların yönetiminde kullanabileceğim
 [Built-In Interface Türlerini Kullanmak](src/Fundamentals/InterfaceUsages.cs)
 
 ## Gün 07
+
+![day 07](./images/day_07_01.png)
