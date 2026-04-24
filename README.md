@@ -247,11 +247,20 @@ Dersimizin ikinci bölümünde nesne yönelimli dillerde bileşen bağımlılık
 
 ## Gün 06
 
-Bu derste bileşenler arası bağımlılıkların yönetiminde kullanabileceğimiz önemli enstrümanlardan birisi olan **Interface** kavramına değindik. Kendi sözleşmelerimizi interface yapısı üzerinden nasıl tanımlayabileceğimize ve bu sözleşmelerin uygulamalarını nasıl yazabileceğimize dair örnekler üzerinde çalıştık. Ayrıca, .NET ile birlikte hazır olarak gelen bazı built-in interface'lerin ne işe yaradığını ve nasıl kullanıldığını ele aldık.
+Bu derste bileşenler arası bağımlılıkların yönetiminde kullanabileceğimiz önemli enstrümanlardan birisi olan **Interface** kavramına değindik. Kendi sözleşmelerimizi **interface** yapısı üzerinden nasıl tanımlayabileceğimize ve bu sözleşmelerin uygulamalarını nasıl yazabileceğimize dair örnekler üzerinde çalıştık. Ayrıca, **.NET** ile birlikte hazır olarak gelen bazı built-in interface'lerin ne işe yaradığını ve nasıl kullanıldığını ele aldık.
 
 [Kendi Interface Türlerimizi Yazmak ve Kullanmak](src/Fundamentals/InterfaceConcept.cs)
 
 [Built-In Interface Türlerini Kullanmak](src/Fundamentals/InterfaceUsages.cs)
+
+Özellikle bileşen bağımlılıklarının *(Dependency Management)* önemli bir yeri olan **Interface** türü ile ilgili şunları söyleyebiliriz;
+
+- **Interface**'ler, bir sınıfın hangi üyeleri *(metotlar, özellikler vb)* uygulaması gerektiğini tanımlayan bir sözleşme *(contract)* görevi görür. Bu sayede farklı sınıflar aynı interface'i uygulayarak benzer davranışlar sergileyebilirler.
+- **Interface**'ler çok biçimlilik *(polymorphism)* prensibini destekler. Böylece bir interface kendisinden türeyen asıl nesneleri taşıyabilir ve onlara ait asıl fonksiyonellikleri çağırabilir. Örneğin, `IEnumerable<T>` interface'ini uygulayan herhangi bir sınıf, `foreach` döngüsü ile iterasyona tabi tutulabilir.
+- **Interface**'ler, bileşenler arasındaki bağımlılıkları azaltarak *(Loosely Coupled)* esnek ve sürdürülebilir bir kod yapısı oluşturulmasına yardımcı olur. Bir sınıf, bir **interface**'e bağımlı olduğunda, o **interface**'i uygulayan herhangi bir sınıfla çalışabilir, bu da kodun yeniden kullanılabilirliğini *(reusability)* artırır.
+- **Dependecy Inversion Principle**'a göre, yüksek seviyeli modüller düşük seviyeli modüllere bağımlı olmamalıdır. Her ikisi de soyutlamalara *(abstractions)* bağımlı olmalıdır. Bu prensip, **interface**'lerin kullanımını teşvik eder ve bileşenler arasındaki bağımlılıkları yönetmek için önemli bir araç olarak karşımıza çıkar.
+- **.NET** ekosistemi içerisinde birçok built-in **interface** türü bulunur( `IEnumerable<T>`, `IDisposable`, `IComparable<T>` vb.) Bu sözleşmeleri kullanarak .Net içinde tanımlı bir çok bileşeni genişletebiliriz. Örneğin kendi türlerimize bir iterasyon öğretebilir ve döngülerle kullandırabiliriz ya da farklı kriterlere göre bir veri türünün sıralanmasını...
+- **Interface**'ler, test edilebilirliği de artırır. Bir sınıfın bağımlılıklarını **interface**'ler üzerinden tanımlamak, bu bağımlılıkların kolayca taklit edilmesine *(mocking)* olanak tanır. Örneğin bir metod içerisindeki akışı test ederken veri tabanı operasyonlarını kontrol etme ihtiyacımız yoksa, ilgili veri operasyonlarını içeren bir **interface** tanımlayarak, testlerimizde bu **interface**'i taklit edebilir ve gerçek veri tabanı işlemlerinden kaçınabiliriz. Burada **mocking framework** lerde sıklıkla kullanılır. İlerleyen derslerde bu konuya da değineceğiz.
 
 ## Gün 07
 
