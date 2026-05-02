@@ -1,5 +1,6 @@
 ﻿using Storage.Domain;
 using Storage.Infra.Contracts;
+using Storage.Infra.Validators;
 
 namespace Storage.Infra.Services;
 
@@ -12,13 +13,16 @@ namespace Storage.Infra.Services;
 */
 
 public class FileStorageService
-    : IStorageService
+    : BaseStorage, IStorageService
 {
     private const string StorageFolder = "Storage"; // Dışarıdan bir konfigurasyonda alınır
-    private readonly List<IAssetValidator> _validators = [
-        new SizeValidator(),
-        new TypeValidator()
-    ];
+    //private readonly List<IAssetValidator> _validators = [
+    //    new SizeValidator(),
+    //    new TypeValidator()
+    //];
+    public FileStorageService(string name) : base(name)    {
+        
+    }
     public void AddValidator(IAssetValidator validator)
     {
         _validators.Add(validator);
@@ -34,16 +38,17 @@ public class FileStorageService
         //    throw new InvalidOperationException($"Content size exceeds the maximum allowed limit for {asset.Key}");
         //}
 
-        // Size validator
-        // Type validator (kabul edilebilen türden bir içerik mi?)
-        foreach (var validator in _validators)
-        {
-            if (!validator.Validate(asset))
-            {
-                throw new InvalidOperationException($"Validation failed for {asset.Key} with {validator.GetType().Name}");
-            }
-        }
+        //// Size validator
+        //// Type validator (kabul edilebilen türden bir içerik mi?)
+        //foreach (var validator in _validators)
+        //{
+        //    if (!validator.Validate(asset))
+        //    {
+        //        throw new InvalidOperationException($"Validation failed for {asset.Key} with {validator.GetType().Name}");
+        //    }
+        //}
 
-        throw new NotImplementedException();
+        base.ApplyValidators(asset);
+        throw new NotImplementedException();        
     }
 }

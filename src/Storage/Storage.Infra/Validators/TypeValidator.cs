@@ -1,12 +1,12 @@
 ﻿using Storage.Domain;
 using Storage.Infra.Contracts;
 
-namespace Storage.Infra.Services;
+namespace Storage.Infra.Validators;
 
 public class TypeValidator
     : IAssetValidator
 {
-    enum DocumentType
+    enum AssetType
     {
         Pdf,
         Word,

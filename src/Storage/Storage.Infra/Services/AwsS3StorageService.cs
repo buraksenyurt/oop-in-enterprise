@@ -1,42 +1,48 @@
 ﻿using Storage.Domain;
 using Storage.Infra.Contracts;
+using Storage.Infra.Validators;
 
 namespace Storage.Infra.Services;
 
 /*
-    Tüm StorageService türevlerinde varsayılan validator bileşenleri kullanılacaksa,
-    kod tekrarını önlemek için nasıl bir yol izleyebiliriz?
-
-    Abstract class oluşturup validasyonları buradan yönetebiliriz,
-    Validasyon nesne koleksiyonunu storage servislerine constructor üzerinden enjekte edebiliriz
-    gibi...
+    Servis bileşenimiz hem BaseStorage'dan hem de IStorageService'ten türüyor.
+    C# dilinde normalde bir sınıfın birden fazla sınıftan türetilmesi yasak.
+    Fakat bir sınıf ve n sayıda interface ile çoklu türetme desteklenebilir.
 */
 public class AwsS3StorageService
-    : IStorageService
+    : BaseStorage, IStorageService // Multi-inheritance'a bir örnek
 {
     private readonly string _region = "us-east-1"; // Dışarıdan bir konfigurasyonda alınır
-    private readonly List<IAssetValidator> _validators = [
-        new SizeValidator(),
-        new TypeValidator()
-    ];
+    //private readonly List<IAssetValidator> _validators = [
+    //    new SizeValidator(),
+    //    new TypeValidator()
+    //];
+
+    public AwsS3StorageService(string name) : base(name)
+    {        
+    }
+
     public void AddValidator(IAssetValidator validator)
     {
+        // _validators base sınıfta (BaseStorage) tanımlı ve protected erişim belirleyicisi ile işaretlendi.
+        // Dolayısıyla türeyen sınıflardan erişebiliriz.
         _validators.Add(validator);
     }
     public Task<byte[]> LoadAsync(string key)
     {
         throw new NotImplementedException();
     }
+    //todo@buraksenyurt : Exception yerine belki Result pattern uygulayabiliriz.
     public Task SaveAsync(Asset asset)
     {
-        foreach (var validator in _validators)
-        {
-            if (!validator.Validate(asset))
-            {
-                throw new InvalidOperationException($"Validation failed for {asset.Key} with {validator.GetType().Name}");
-            }
-        }
-
+        base.ApplyValidators(asset);
+        //foreach (var validator in _validators)
+        //{
+        //    if (!validator.Validate(asset))
+        //    {
+        //        throw new InvalidOperationException($"Validation failed for {asset.Key} with {validator.GetType().Name}");
+        //    }
+        //}
         throw new NotImplementedException();
     }
 }
