@@ -10,7 +10,8 @@ public class Program
         // DependencyManagement.Run(); // Day 05 örneklerini çalıştırmak için bu satırı kullanabilirsiniz.
         // InterfaceApplication.Run(); // Day 06 örneklerini çalıştırmak için bu satırı kullanabilirsiniz.
         // InterfaceUsages.Run();
-        InterfaceUsagesV2.Run();
+        // InterfaceUsagesV2.Run();
+        AbstractClassUsages.Run();
 
         // PrepGuide.Run();
     }
