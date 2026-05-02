@@ -275,3 +275,20 @@ Bileşenler arası bağımlılıkların nasıl yönetildiğini incelemeye çalı
 Sonraki ders için bıraktığımız önemli bir soru ise şu; **IStorageService** implementasyonlarında özellikle doğrulama adımlarını işleyen **IAssetValidator** türevlerini kod tekrarına sebebiyet vermeden nasıl yönetebiliriz?
 
 ## Gün 08
+
+Bu derste aşağıdaki konulara değindik.
+
+- **Abstract** sınıfların ne olduğunu ve nasıl kullanıldığını inceledik.
+- **Storage** senaryosunda çoklu türetmeyi destekleyecek şekilde bir tasarım ortaya koymaya çalıştık.
+- **Dependency Injection** kavramına giriş yaparak, uygulama içerisinde bağımlılıkların nasıl yönetilebileceği üzerine konuştuk.
+- Eklediğimiz **Console** uygulamasında **constructor injection** tekniği ile bağımlılıkları nasıl ele alabileceğimize baktık.
+
+**Console** uygulamasında dahili **dependency injection** mekanizmasını kullanabilmek için aşağıdaki **NuGet** paketini projemize eklememiz gerekmektedir.
+
+```bash
+dotnet add package Microsoft.Extensions.DependencyInjection
+```
+
+[Abstract sınıf kullanımı](src/Fundamentals/AbstractClassUsages.cs)
+
+[Örnek solution içeriği](src/Storage/)
