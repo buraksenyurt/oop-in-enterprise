@@ -10,7 +10,8 @@ namespace Storage.Infra.Services;
     Fakat bir sınıf ve n sayıda interface ile çoklu türetme desteklenebilir.
 */
 public class AwsS3StorageService
-    : BaseStorage, IStorageService // Multi-inheritance'a bir örnek
+    : //BaseStorage,
+      IStorageService
 {
     private readonly string _region = "us-east-1"; // Dışarıdan bir konfigurasyonda alınır
     //private readonly List<IAssetValidator> _validators = [
@@ -18,16 +19,16 @@ public class AwsS3StorageService
     //    new TypeValidator()
     //];
 
-    public AwsS3StorageService(string name = "AwsS3Storage") : base(name)
-    {        
-    }
+    //public AwsS3StorageService(string name = "AwsS3Storage") : base(name)
+    //{        
+    //}
 
-    public void AddValidator(IAssetValidator validator)
-    {
-        // _validators base sınıfta (BaseStorage) tanımlı ve protected erişim belirleyicisi ile işaretlendi.
-        // Dolayısıyla türeyen sınıflardan erişebiliriz.
-        _validators.Add(validator);
-    }
+    //public void AddValidator(IAssetValidator validator)
+    //{
+    //    // _validators base sınıfta (BaseStorage) tanımlı ve protected erişim belirleyicisi ile işaretlendi.
+    //    // Dolayısıyla türeyen sınıflardan erişebiliriz.
+    //    _validators.Add(validator);
+    //}
     public Task<byte[]> LoadAsync(string key)
     {
         throw new NotImplementedException();
@@ -35,7 +36,7 @@ public class AwsS3StorageService
     //todo@buraksenyurt : Exception yerine belki Result pattern uygulayabiliriz.
     public Task SaveAsync(Asset asset)
     {
-        base.ApplyValidators(asset);
+        // base.ApplyValidators(asset);
         //foreach (var validator in _validators)
         //{
         //    if (!validator.Validate(asset))
@@ -43,6 +44,7 @@ public class AwsS3StorageService
         //        throw new InvalidOperationException($"Validation failed for {asset.Key} with {validator.GetType().Name}");
         //    }
         //}
-        throw new NotImplementedException();
+        Console.WriteLine($"Saving asset with key: {asset.Key} to AWS S3 in region {_region}");
+        return Task.CompletedTask;
     }
 }

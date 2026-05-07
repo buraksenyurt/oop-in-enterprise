@@ -20,9 +20,18 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services)
     {
-        services.AddScoped<IStorageService, AwsS3StorageService>();
-        // services.AddScoped<IAssetValidator, SizeValidator>();
-        // services.AddScoped<IAssetValidator, TypeValidator>();
+        services.AddScoped<AwsS3StorageService>();
+        services.AddScoped<IAssetValidator, S3KeyValidator>();
+        services.AddScoped<IAssetValidator, SizeValidator>();
+        services.AddScoped<IAssetValidator, TypeValidator>();
+
+        services.AddScoped<IStorageService>(sp =>
+        {
+            var inner = sp.GetRequiredService<AwsS3StorageService>();
+            var validators = sp.GetServices<IAssetValidator>().ToList();
+            return new ValidatingStorageService(inner, validators);
+        });
+
         // services.AddSingleton<IRedisCache, RedisCacheService>();
         return services;
     }

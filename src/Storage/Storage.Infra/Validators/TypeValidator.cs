@@ -17,6 +17,7 @@ public class TypeValidator
     }
     public bool Validate(Asset asset)
     {
-        throw new NotImplementedException();
+        Console.WriteLine($"Validating asset type for key: {asset.Key}");
+        return true;
     }
 }

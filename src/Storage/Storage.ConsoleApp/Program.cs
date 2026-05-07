@@ -11,6 +11,7 @@ using Storage.Domain;
 using Storage.Infra.Contracts;
 using Storage.Infra.Services;
 using Storage.Infra;
+using Storage.Infra.Validators;
 
 // ServiceCollection ile çalışma zamanında hangi arayüzlerin hangi bileşenlere denk geldiğini
 // DI Container sistemine tanımlayabiliyoruz.
@@ -38,13 +39,52 @@ Abstract base class bir name parametresi gönderiyorlar. Bu parametre verilmezse
 atanmazsa çalışma zamanında aşağıdaki çağrımda exception alırız, çünkü DI Container AwsS3StorageService sınıfının
 constructor'ındaki string yerine ne gönderileceğini de bilmek ister. Hiç beklenmedik bir bağımlılık yaratmış oluruz.
  */
-var storageService = serviceProvider.GetRequiredService<IStorageService>();
+// var storageService = serviceProvider.GetRequiredService<IStorageService>();
+
+/*
+    ValidatingStorageService bileşenimizin iki bağımlılığı var. Birisi IServiceStorage implementasyonu,
+    diğeri de validator listesi. Bunu örnekledikten sonra InvoiceController sınıfına devredebiliriz.
+
+    inner ise, DI Container üzerinden gelen servis oluyor (ki bu senaryoda DependencyInjection sınıfında
+    bağladığımız AwsS3StorageService nesne örneği)
+*/
+var inner = serviceProvider.GetRequiredService<IStorageService>();
+//var storageService = new ValidatingStorageService(inner,
+//[
+//    new SizeValidator(),
+//    //new TypeValidator(),
+//    new S3KeyValidator()
+//]);
+
+//storageService = new ValidatingStorageService(new FileStorageService(),
+//[
+//    new SizeValidator(),
+//    new TypeValidator()
+//]);
+
+/*
+    Aşağıdaki kullanım geçerlidir ama mantıklı değildir. Neden?
+    Çünkü sınıfımız adı ve görevi bir Storage Service implementasyonunu validasyonlarla donatmak ve bunları işlemesini sağlamak.
+    [] ile boş bir array gönderip bu kuralı ihlal edebiliriz. Hatta null gönderebiliriz.
+    Aynı durum ilk parametre için de geçerli. null gönderebiliriz.
+    Bunun tedbileri alınabilir. Constructor içerisinde null check yapıp exception verebiliriz.
+    Not Nullable' a zorlayabiliriz ama sınıfın tasarımını ve kullanımını zorlaştırır.    
+*/
+// var novalidatingStorageService = new ValidatingStorageService(new FileStorageService(), []);
 
 // InvoiceController'ın ihtiyacı olan asıl servisi buradaki gibi Constructor üzerinden gönderebiliriz.
-var invoiceController = new InvoiceController(storageService);
-await invoiceController.SaveInvoice(new Invoice
+var invoiceController = new InvoiceController(inner);
+var saveResult = await invoiceController.SaveInvoice(new Invoice
 {
     ID = Guid.NewGuid(),
     EInvoice = new Asset("invoice-123.pdf", [0x25, 0x50, 0x44, 0x46])
-
 });
+
+if (saveResult.IsSuccess)
+{
+    Console.WriteLine($"Invoice saved successfully with ID: {saveResult.Value}");
+}
+else
+{
+    Console.WriteLine($"Failed to save invoice. Error: {saveResult.ErrorMessage}");
+}

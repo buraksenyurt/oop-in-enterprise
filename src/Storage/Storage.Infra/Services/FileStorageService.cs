@@ -13,20 +13,21 @@ namespace Storage.Infra.Services;
 */
 
 public class FileStorageService
-    : BaseStorage, IStorageService
+    : // BaseStorage,
+     IStorageService
 {
     private const string StorageFolder = "Storage"; // Dışarıdan bir konfigurasyonda alınır
     //private readonly List<IAssetValidator> _validators = [
     //    new SizeValidator(),
     //    new TypeValidator()
     //];
-    public FileStorageService(string name = "FileStorage") : base(name)    {
+    //public FileStorageService(string name = "FileStorage") : base(name)    {
         
-    }
-    public void AddValidator(IAssetValidator validator)
-    {
-        _validators.Add(validator);
-    }
+    //}
+    //public void AddValidator(IAssetValidator validator)
+    //{
+    //    _validators.Add(validator);
+    //}
     public Task<byte[]> LoadAsync(string key)
     {
         throw new NotImplementedException();
@@ -48,7 +49,7 @@ public class FileStorageService
         //    }
         //}
 
-        base.ApplyValidators(asset);
+        // base.ApplyValidators(asset);
         throw new NotImplementedException();        
     }
 }

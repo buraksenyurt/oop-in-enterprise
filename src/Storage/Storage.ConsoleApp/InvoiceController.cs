@@ -16,15 +16,12 @@ namespace Storage.ConsoleApp;
     O zaman soru şu: InvoiceController bileşeninin bu işlemler için hangi bileşenlere ihtiyacı var.
     İhtiyaç duyulan tüm bileşenler Dependency Injection tekniği ile buraya alınabilirler.
 */
-internal class InvoiceController
+public class InvoiceController(IStorageService storageService)
 {
-    private readonly IStorageService _storageService;
-    public InvoiceController(IStorageService storageService)
-    {
-        _storageService = storageService;
-    }
+    private readonly IStorageService _storageService = storageService;
 
-    public async Task<bool> SaveInvoice(Invoice invoice)
+    // SaveInvoice metodu generic Result türünden değer döner.
+    public async Task<Result<Guid>> SaveInvoice(Invoice invoice)
     {
         /*
             Diyelim ki, AWS Storage kullanılıyor. Aşağıdaki gibi InvoiceController sınıfı içinde,
@@ -43,13 +40,35 @@ internal class InvoiceController
         //s3Storage.AddValidator(new S3KeyValidator());
         //await _storageService.SaveAsync(invoice.EInvoice);
 
-        // todo@buraksenyurt AddValidator problemini çözmemiz lazım. IStorageService değil, BaseStorage'a ait çünkü.
+        // AddValidator problemini çözmemiz lazım. IStorageService değil, BaseStorage'a ait çünkü (Done, ValidatingStorageService kullanarak)
         // Buradan şunu da ortaya koyabiliriz. Validator(Audit) dediğimiz işlevler, StorageService bileşenlerine mi ait olmalı
         // yoksa bu sorumluluk tamamen farklı bir bileşende mi yönetilmeli?
-        _storageService.AddValidator(new S3KeyValidator());
-        await _storageService.SaveAsync(invoice.EInvoice);
+        // _storageService.AddValidator(new S3KeyValidator());
 
-        return true;
+        try
+        {
+            await _storageService.SaveAsync(invoice.EInvoice);
+
+            // Herhangi bir exception yoksa geriye işlemin başarılı olduğuna dair bilgi döneriz.
+            // Bu bilgi içerisinde işlemin örneğin hangi fatura ID'si ile alakalı olduğunu da söyleyebiliriz.
+            return new Result<Guid>
+            {
+                IsSuccess = true,
+                Value = invoice.ID
+            };
+        }
+        catch (Exception ex)
+        {
+            // Geriye işlemin hatalı olduğunu döndürüyoruz. Hata mesajını da ekleyebiliriz.
+            return new Result<Guid>
+            {
+                IsSuccess = false,
+                Value = invoice.ID,
+                ErrorMessage = ex.Message
+            };
+        }
+
+
     }
 
     public async Task<Invoice> GetInvoice(Guid id)

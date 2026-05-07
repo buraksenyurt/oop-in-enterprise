@@ -8,6 +8,7 @@ public class SizeValidator
 {
     public bool Validate(Asset asset)
     {
-        throw new NotImplementedException();
+        Console.WriteLine($"Validating asset size for key: {asset.Key}");
+        return true;
     }
 }
