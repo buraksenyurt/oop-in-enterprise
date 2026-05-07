@@ -48,7 +48,7 @@ constructor'ındaki string yerine ne gönderileceğini de bilmek ister. Hiç bek
     inner ise, DI Container üzerinden gelen servis oluyor (ki bu senaryoda DependencyInjection sınıfında
     bağladığımız AwsS3StorageService nesne örneği)
 */
-var inner = serviceProvider.GetRequiredService<IStorageService>();
+// var inner = serviceProvider.GetRequiredService<IStorageService>();
 //var storageService = new ValidatingStorageService(inner,
 //[
 //    new SizeValidator(),
@@ -56,11 +56,11 @@ var inner = serviceProvider.GetRequiredService<IStorageService>();
 //    new S3KeyValidator()
 //]);
 
-//storageService = new ValidatingStorageService(new FileStorageService(),
-//[
-//    new SizeValidator(),
-//    new TypeValidator()
-//]);
+var storageService = new ValidatingStorageService(new FileStorageService(),
+[
+    new SizeValidator(),
+    new TypeValidator()
+]);
 
 /*
     Aşağıdaki kullanım geçerlidir ama mantıklı değildir. Neden?
@@ -73,7 +73,7 @@ var inner = serviceProvider.GetRequiredService<IStorageService>();
 // var novalidatingStorageService = new ValidatingStorageService(new FileStorageService(), []);
 
 // InvoiceController'ın ihtiyacı olan asıl servisi buradaki gibi Constructor üzerinden gönderebiliriz.
-var invoiceController = new InvoiceController(inner);
+var invoiceController = new InvoiceController(storageService);
 var saveResult = await invoiceController.SaveInvoice(new Invoice
 {
     ID = Guid.NewGuid(),

@@ -50,6 +50,7 @@ public class FileStorageService
         //}
 
         // base.ApplyValidators(asset);
-        throw new NotImplementedException();        
+        Console.WriteLine($"Saving asset with key: {asset.Key} to file system in folder {StorageFolder}");
+        return Task.CompletedTask;
     }
 }
