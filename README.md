@@ -1,21 +1,22 @@
-# Kurumsal Yazılım Çözümlerinde OOP ile Çalışmak
+# Kurumsal Yazılım Çözümlerinde Nesne Yönelimli Dillerle Çalışmak
 
-Sektör kampüste projesi kapsamında açtığımız **"Kurumsal Yazılım Çözümlerinden OOP ile Çalışmak"** dersine ait notların, örnek kodların yer aldığı repodur.
+Sektör kampüste projesi kapsamında açtığımız **"Kurumsal Yazılım Çözümlerinden Nesne Yönelimli Dillerle Çalışmak"** dersine ait notların, örnek kodların yer aldığı repodur.
 
-- [Kurumsal Yazılım Çözümlerinden OOP ile Çalışmak](#kurumsal-yazılım-çözümlerinden-oop-ile-çalışmak)
-  - [Önsöz](#önsöz)
-  - [Referanslar](#referanslar)
-  - [Gereksinimler](#gereksinimler)
-  - [Gün Bazlı Özetler](#gün-bazlı-özetler)
-    - [Gün 00](#gün-00)
-    - [Gün 01](#gün-01)
-    - [Gün 02](#gün-02)
-    - [Gün 03](#gün-03)
-    - [Gün 04](#gün-04)
-      - [Mimariler Hakkında Genel Kavramlar](#mimariler-hakkında-genel-kavramlar)
-    - [Gün 05](#gün-05)
-    - [Gün 06](#gün-06)
-    - [Gün 07](#gün-07)
+- [Önsöz](#önsöz)
+- [Referanslar](#referanslar)
+- [Gereksinimler](#gereksinimler)
+- [Gün Bazlı Özetler](#gün-bazlı-özetler)
+  - [Gün 00](#gün-00)
+  - [Gün 01](#gün-01)
+  - [Gün 02](#gün-02)
+  - [Gün 03](#gün-03)
+  - [Gün 04](#gün-04)
+    - [Mimariler Hakkında Genel Kavramlar](#mimariler-hakkında-genel-kavramlar)
+  - [Gün 05](#gün-05)
+  - [Gün 06](#gün-06)
+  - [Gün 07](#gün-07)
+  - [Gün 08](#gün-08)
+  - [Gün 09](#gün-09)
 
 ## Önsöz
 
@@ -292,3 +293,11 @@ dotnet add package Microsoft.Extensions.DependencyInjection
 [Abstract sınıf kullanımı](src/Fundamentals/AbstractClassUsages.cs)
 
 [Örnek solution içeriği](src/Storage/)
+
+## Gün 09
+
+Bu derste ele aldığımız önemli konulardan bazıları;
+
+- Dependency Container servislerini daha yönetilebilir bir noktada ele almak için **IServiceCollection** arayüzünü nasıl genişletebileceğimize baktık. Bu amaçla **extension method** kavramına da değindik.
+- Depolama ve doğrulama davranışlarını **abstract base class** ve **interface** türetmeleri yerine bir storage service için gerekli olan doğrulama davranışlarını üzerine alan ayrı bir sınıf üzerine çalıştık *(Decorator deseninin basit bir implementasyonu)*
+- Generic türden bir `Result<T>` nesne örneğinin metotlardan nasıl döndürülüp kullanılabildiğini inceledik.
