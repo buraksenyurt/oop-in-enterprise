@@ -45,8 +45,8 @@ internal class InvoiceController
 
         // todo@buraksenyurt AddValidator problemini çözmemiz lazım. IStorageService değil, BaseStorage'a ait çünkü.
         // Buradan şunu da ortaya koyabiliriz. Validator(Audit) dediğimiz işlevler, StorageService bileşenlerine mi ait olmalı
-        // yoksa bu sorumluluk tamamen farklı bir bileşenin sorumluluğunda mı olmalı?
-        // _storageService.AddValidator(new S3KeyValidator());
+        // yoksa bu sorumluluk tamamen farklı bir bileşende mi yönetilmeli?
+        _storageService.AddValidator(new S3KeyValidator());
         await _storageService.SaveAsync(invoice.EInvoice);
 
         return true;

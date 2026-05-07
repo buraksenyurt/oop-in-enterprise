@@ -18,7 +18,7 @@ public class AwsS3StorageService
     //    new TypeValidator()
     //];
 
-    public AwsS3StorageService(string name) : base(name)
+    public AwsS3StorageService(string name = "AwsS3Storage") : base(name)
     {        
     }
 

@@ -20,7 +20,7 @@ public class FileStorageService
     //    new SizeValidator(),
     //    new TypeValidator()
     //];
-    public FileStorageService(string name) : base(name)    {
+    public FileStorageService(string name = "FileStorage") : base(name)    {
         
     }
     public void AddValidator(IAssetValidator validator)
