@@ -67,8 +67,6 @@ public class InvoiceController(IStorageService storageService)
                 ErrorMessage = ex.Message
             };
         }
-
-
     }
 
     public async Task<Invoice> GetInvoice(Guid id)
@@ -79,10 +77,3 @@ public class InvoiceController(IStorageService storageService)
     }
 }
 
-public class Invoice
-{
-    public Guid ID { get; set; }
-    public DateTime AcceptDate { get; set; }
-    public decimal TotalAmount { get; set; }
-    public Asset EInvoice { get; set; }
-}

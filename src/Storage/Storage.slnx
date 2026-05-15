@@ -2,4 +2,5 @@
   <Project Path="Storage.ConsoleApp/Storage.ConsoleApp.csproj" Id="b49c9f3e-ccdc-4cad-a57c-b68f032457f8" />
   <Project Path="Storage.Domain/Storage.Domain.csproj" />
   <Project Path="Storage.Infra/Storage.Infra.csproj" />
+  <Project Path="Storage.WebApi/Storage.WebApi.csproj" Id="7128dbc8-f4cf-44e7-8261-5a6f75c31faf" />
 </Solution>

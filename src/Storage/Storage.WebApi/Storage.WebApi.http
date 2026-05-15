@@ -1,0 +1,11 @@
+@Storage.WebApi_HostAddress = http://localhost:5246
+
+POST {{Storage.WebApi_HostAddress}}/api/invoice
+Content-Type: application/json
+
+{
+    "TotalAmount": 99.99,
+    "Base64Content": "VGhpcyBpcyBhIHNhbXBsZSBpbnZvaWNlIGJpbmFyeSBjb250ZW50Lg=="
+}
+
+###

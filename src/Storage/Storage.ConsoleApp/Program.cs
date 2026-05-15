@@ -48,7 +48,7 @@ constructor'ındaki string yerine ne gönderileceğini de bilmek ister. Hiç bek
     inner ise, DI Container üzerinden gelen servis oluyor (ki bu senaryoda DependencyInjection sınıfında
     bağladığımız AwsS3StorageService nesne örneği)
 */
-// var inner = serviceProvider.GetRequiredService<IStorageService>();
+//var inner = serviceProvider.GetRequiredService<IStorageService>();
 //var storageService = new ValidatingStorageService(inner,
 //[
 //    new SizeValidator(),
@@ -56,11 +56,11 @@ constructor'ındaki string yerine ne gönderileceğini de bilmek ister. Hiç bek
 //    new S3KeyValidator()
 //]);
 
-var storageService = new ValidatingStorageService(new FileStorageService(),
-[
-    new SizeValidator(),
-    new TypeValidator()
-]);
+//var storageService = new ValidatingStorageService(new FileStorageService(),
+//[
+//    new SizeValidator(),
+//    new TypeValidator()
+//]);
 
 /*
     Aşağıdaki kullanım geçerlidir ama mantıklı değildir. Neden?
@@ -73,6 +73,7 @@ var storageService = new ValidatingStorageService(new FileStorageService(),
 // var novalidatingStorageService = new ValidatingStorageService(new FileStorageService(), []);
 
 // InvoiceController'ın ihtiyacı olan asıl servisi buradaki gibi Constructor üzerinden gönderebiliriz.
+var storageService = serviceProvider.GetRequiredService<IStorageService>();
 var invoiceController = new InvoiceController(storageService);
 var saveResult = await invoiceController.SaveInvoice(new Invoice
 {
@@ -88,3 +89,14 @@ else
 {
     Console.WriteLine($"Failed to save invoice. Error: {saveResult.ErrorMessage}");
 }
+
+/*
+    Kodu denerken, 
+        - AddInfrastructure genişletme metodunu kasıtlı olarak devre dışı bırakarak,
+        - Kod aktif ama içindeki bazı satırları kaldırarak,
+        - ValidatingStorageService örneği oluştururken validator listesini boş bırakarak,
+        - ValidatingStorageService örneğini açık bir şekilde oluşturup, Controller'a verip, AddInfrastructure genişletme metodunu devre dışı bırakarak,
+
+    gibi senaryolarla deneyelim.
+    
+*/
