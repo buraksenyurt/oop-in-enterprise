@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Storage.Business;
 using Storage.Domain;
 
 namespace Storage.WebApi.Controllers;
@@ -12,28 +13,21 @@ namespace Storage.WebApi.Controllers;
 [Route("api/[controller]")]
 public class InvoiceController : ControllerBase
 {
+    private readonly IInvoiceCreateService _invoiceCreateService;
+
+    public InvoiceController(IInvoiceCreateService invoiceCreateService)
+    {
+        _invoiceCreateService = invoiceCreateService;
+    }
+
     // Save metodu HTTP protokolünün POST metoduna göre çağırılır.
     [HttpPost(Name = "SaveInvoice")]
-    public Result<Guid> Save([FromBody] InvoiceSaveRequest invoiceSaveRequests)
+    public async Task<Result<Guid>> Save([FromBody] InvoiceSaveRequest invoiceSaveRequests)
     {
-        var invoice = new Invoice
-        {
-            ID = Guid.NewGuid(),
-            AcceptDate = DateTime.Now,
-            TotalAmount = invoiceSaveRequests.TotalAmount,
-            EInvoice = new Asset(
-                $"{Guid.NewGuid()}.pdf",
-                Convert.FromBase64String(invoiceSaveRequests.Base64Content)
-            )   
-        };
-
-        // Burada business servis çağrısı yapılacak
-
-        return new Result<Guid>
-        {
-            IsSuccess = true,
-            Value = invoice.ID,
-        };
+        return await _invoiceCreateService
+            .CreateAsync(
+                invoiceSaveRequests.TotalAmount
+                , Convert.FromBase64String(invoiceSaveRequests.Base64Content));
     }
 }
 

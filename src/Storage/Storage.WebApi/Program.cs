@@ -1,3 +1,7 @@
+using Storage.Business;
+using Storage.Infra.Contracts;
+using Storage.Infra.Services;
+
 namespace Storage.WebApi;
 
 public class Program
@@ -8,6 +12,8 @@ public class Program
 
         builder.Services.AddControllers();
         builder.Services.AddOpenApi();
+        builder.Services.AddScoped<IInvoiceCreateService, InvoiceCreateService>();
+        builder.Services.AddSingleton<IStorageService, AwsS3StorageService>();
 
         var app = builder.Build();
 

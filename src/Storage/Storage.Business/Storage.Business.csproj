@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Storage.Domain\Storage.Domain.csproj" />
+    <ProjectReference Include="..\Storage.Infra\Storage.Infra.csproj" />
+  </ItemGroup>
+
+</Project>
