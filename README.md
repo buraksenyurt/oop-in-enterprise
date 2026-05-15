@@ -17,6 +17,7 @@ Sektör kampüste projesi kapsamında açtığımız **"Kurumsal Yazılım Çöz
   - [Gün 07](#gün-07)
   - [Gün 08](#gün-08)
   - [Gün 09](#gün-09)
+  - [Gün 10](#gün-10)
 
 ## Önsöz
 
@@ -27,6 +28,7 @@ Bu derste amacımız kurumsal yazılım çözümlerinde OOP'nin nasıl kullanıl
 - [Quiz 00](./exams/quiz00.md)
 - [Quiz 01](./exams/quiz01.md)
 - [Quiz 02](./exams/quiz02.md)
+- [Quiz 03](./exams/quiz03.md)
 
 ## Referanslar
 
@@ -301,3 +303,9 @@ Bu derste ele aldığımız önemli konulardan bazıları;
 - Dependency Container servislerini daha yönetilebilir bir noktada ele almak için **IServiceCollection** arayüzünü nasıl genişletebileceğimize baktık. Bu amaçla **extension method** kavramına da değindik.
 - Depolama ve doğrulama davranışlarını **abstract base class** ve **interface** türetmeleri yerine bir storage service için gerekli olan doğrulama davranışlarını üzerine alan ayrı bir sınıf üzerine çalıştık *(Decorator deseninin basit bir implementasyonu)*
 - Generic türden bir `Result<T>` nesne örneğinin metotlardan nasıl döndürülüp kullanılabildiğini inceledik.
+
+## Gün 10
+
+Bu derste **Storage** isimli çözümüze bir **Web API** projesi ekleyerek, API katmanından gelen taleplerin nasıl karşılanabileceği üzerine çalıştık. Özellikle **Controller** tarafında ihtiyaç duyulan bağımlılıkları **Business** katmanda tanımladığımız servisler ile ele aldık ve **Dependency Injection** tekniği ile yönetmeye çalıştık.
+
+[Örnek solution içeriği](src/Storage/)
