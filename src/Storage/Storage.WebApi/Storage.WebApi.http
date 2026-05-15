@@ -9,3 +9,5 @@ Content-Type: application/json
 }
 
 ###
+
+GET {{Storage.WebApi_HostAddress}}/api/invoice?invoiceId=3f4020af-13dc-4364-adec-009b33b49b4b

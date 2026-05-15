@@ -12,7 +12,9 @@ public class Program
 
         builder.Services.AddControllers();
         builder.Services.AddOpenApi();
+        // Controller bileşenlerinin ihtiyaç duyacağı tüm DI bileşenlerini kayıt ediyoruz (DI Register)
         builder.Services.AddScoped<IInvoiceCreateService, InvoiceCreateService>();
+        builder.Services.AddScoped<IInvoiceReadService, InvoiceReadService>();
         builder.Services.AddSingleton<IStorageService, AwsS3StorageService>();
 
         var app = builder.Build();

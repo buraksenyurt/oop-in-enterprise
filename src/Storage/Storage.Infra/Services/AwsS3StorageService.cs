@@ -31,9 +31,9 @@ public class AwsS3StorageService
     //}
     public Task<byte[]> LoadAsync(string key)
     {
-        throw new NotImplementedException();
+        return Task.FromResult(new byte[] { 0x25, 0x50, 0x44, 0x46 });
     }
-    //todo@buraksenyurt : Exception yerine belki Result pattern uygulayabiliriz.
+
     public Task SaveAsync(Asset asset)
     {
         // base.ApplyValidators(asset);

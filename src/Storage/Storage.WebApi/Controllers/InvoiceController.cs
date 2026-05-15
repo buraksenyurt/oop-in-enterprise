@@ -14,10 +14,12 @@ namespace Storage.WebApi.Controllers;
 public class InvoiceController : ControllerBase
 {
     private readonly IInvoiceCreateService _invoiceCreateService;
+    private readonly IInvoiceReadService _invoiceReadService;
 
-    public InvoiceController(IInvoiceCreateService invoiceCreateService)
+    public InvoiceController(IInvoiceCreateService invoiceCreateService, IInvoiceReadService invoiceReadService)
     {
         _invoiceCreateService = invoiceCreateService;
+        _invoiceReadService = invoiceReadService;
     }
 
     // Save metodu HTTP protokolünün POST metoduna göre çağırılır.
@@ -28,6 +30,12 @@ public class InvoiceController : ControllerBase
             .CreateAsync(
                 invoiceSaveRequests.TotalAmount
                 , Convert.FromBase64String(invoiceSaveRequests.Base64Content));
+    }
+
+    [HttpGet(Name ="GetInvoiceContent")]
+    public async Task<Result<byte[]>> Get(Guid invoiceId)
+    {
+        return await _invoiceReadService.GetInvoiceContentAsync(invoiceId);
     }
 }
 
