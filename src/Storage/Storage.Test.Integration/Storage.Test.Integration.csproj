@@ -15,6 +15,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Storage.Business\Storage.Business.csproj" />
+    <ProjectReference Include="..\Storage.Infra\Storage.Infra.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
 
