@@ -18,6 +18,7 @@ Sektör kampüste projesi kapsamında açtığımız **"Kurumsal Yazılım Çöz
   - [Gün 08](#gün-08)
   - [Gün 09](#gün-09)
   - [Gün 10](#gün-10)
+  - [Gün 11](#gün-11)
 
 ## Önsöz
 
@@ -307,5 +308,11 @@ Bu derste ele aldığımız önemli konulardan bazıları;
 ## Gün 10
 
 Bu derste **Storage** isimli çözümüze bir **Web API** projesi ekleyerek, API katmanından gelen taleplerin nasıl karşılanabileceği üzerine çalıştık. Özellikle **Controller** tarafında ihtiyaç duyulan bağımlılıkları **Business** katmanda tanımladığımız servisler ile ele aldık ve **Dependency Injection** tekniği ile yönetmeye çalıştık.
+
+[Örnek solution içeriği](src/Storage/)
+
+## Gün 11
+
+Bu derste bir loglama altyapısını API tarafındaki middleware katmanına nasıl entegre edeceğimizi öğrendik. Bu sayede dependency injection tekniği ile bir loglama servisinin farklı katmanlara minimum efor ve maksimum esneklik ile nasıl uygulanabileceğini kavradık. Ayrıca birim test *(unit test)* konusuna giriş yaptık. Çok basit bir birim test örneği üzerinden ilerlerken, entegrasyon testlerinde sahte nesnelerin *(mock objects)* nasıl kullanılabileceğine de değindik.
 
 [Örnek solution içeriği](src/Storage/)
