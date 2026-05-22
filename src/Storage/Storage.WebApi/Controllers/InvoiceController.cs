@@ -39,9 +39,11 @@ public class InvoiceController : ControllerBase
     }
 }
 
-// API tarafındaki Save metoduna gelen isteği tarif eden sınıf
-public class InvoiceSaveRequest
-{
-    public decimal TotalAmount { get; set; }
-    public string Base64Content { get; set; }
-}
+//// API tarafındaki Save metoduna gelen isteği tarif eden sınıf
+//public class InvoiceSaveRequest
+//{
+//    public decimal TotalAmount { get; set; }
+//    public string Base64Content { get; set; }
+//}
+
+public record InvoiceSaveRequest(decimal TotalAmount, string Base64Content);    
