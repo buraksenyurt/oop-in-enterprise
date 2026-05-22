@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Moq;
 using Storage.Business;
 using Storage.Domain;
 using Storage.Infra.Contracts;
@@ -47,6 +48,66 @@ public class InvoiceCreateServiceTests
         // Assert
         Assert.True(actual.IsSuccess);
         Assert.Equal(expected.Value, actual.Value);
+    }
+
+    /*
+        Yukarıdaki testin aynısını Moq kütüphanesini kullanarak yazalım.
+    */
+    [Fact]
+    public async Task SaveInvoice_ValidInvoice_ReturnsSuccessResult_WithMoq()
+    {
+        // Arrange
+        decimal totalAmount = 100.00m;
+        byte[] eInvoiceContent = [0x25, 0x50, 0x44, 0x46];
+        // IStorageService implementasyonu için bir mock nesne oluşturuluyor.
+        var mockStorageService = new Mock<IStorageService>();
+        // IStorageService'in SaveAsync metodunun bu test metodu özelinde CompletedTask döndürülmesi sağlanıyor
+        mockStorageService.Setup(s => s.SaveAsync(It.IsAny<Asset>())).Returns(Task.CompletedTask);
+        // Loglama işini de mocklamak gerekiyor, çünkü gerçek bir logger kullanmak istemiyoruz.
+        // ILogger<InvoiceCreateService> için bir mock nesne oluşturuluyor.
+        var mockLogger = new Mock<ILogger<InvoiceCreateService>>();
+        var service = new InvoiceCreateService(
+            mockStorageService.Object
+            , mockLogger.Object);
+
+        // Act
+        var actual = await service.CreateAsync(totalAmount, eInvoiceContent);
+        var expected = new Result<Guid>
+        {
+            IsSuccess = true,
+            Value = actual.Value
+        };
+
+        // Assert
+        Assert.True(actual.IsSuccess);
+        Assert.Equal(expected.Value, actual.Value);
+    }
+
+    /*
+        InvoiceCreateService'in CreateAsync metodunun, IStorageService'in SaveAsync metodunun 
+        bir hata fırlatması durumunda nasıl davrandığını test eden birim test metodu.
+    */
+    [Fact]
+    public async Task SaveInvoice_StorageServiceThrowsException_ReturnsFailureResult()
+    {
+        // Arrange
+        decimal totalAmount = 100.00m;
+        byte[] eInvoiceContent = [0x25, 0x50, 0x44, 0x46];
+        var mockStorageService = new Mock<IStorageService>();
+
+        // Bu sefer SaveAsync metodunun bir hata fırlatması sağlanıyor.
+        mockStorageService.Setup(s => s.SaveAsync(It.IsAny<Asset>())).ThrowsAsync(new Exception("Storage error"));
+        var mockLogger = new Mock<ILogger<InvoiceCreateService>>();
+        var service = new InvoiceCreateService(
+            mockStorageService.Object
+            , mockLogger.Object);
+
+        // Act
+        var actual = await service.CreateAsync(totalAmount, eInvoiceContent);
+
+        // Assert
+        Assert.False(actual.IsSuccess);
+        Assert.Equal("Storage error", actual.ErrorMessage);
     }
 }
 
