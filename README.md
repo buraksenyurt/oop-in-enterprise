@@ -19,6 +19,7 @@ Sektör kampüste projesi kapsamında açtığımız **"Kurumsal Yazılım Çöz
   - [Gün 09](#gün-09)
   - [Gün 10](#gün-10)
   - [Gün 11](#gün-11)
+  - [Gün 12](#gün-12)
 
 ## Önsöz
 
@@ -316,3 +317,33 @@ Bu derste **Storage** isimli çözümüze bir **Web API** projesi ekleyerek, API
 Bu derste bir loglama altyapısını API tarafındaki middleware katmanına nasıl entegre edeceğimizi öğrendik. Bu sayede dependency injection tekniği ile bir loglama servisinin farklı katmanlara minimum efor ve maksimum esneklik ile nasıl uygulanabileceğini kavradık. Ayrıca birim test *(unit test)* konusuna giriş yaptık. Çok basit bir birim test örneği üzerinden ilerlerken, entegrasyon testlerinde sahte nesnelerin *(mock objects)* nasıl kullanılabileceğine de değindik.
 
 [Örnek solution içeriği](src/Storage/)
+
+## Gün 12
+
+Ders tekrarını takiben uygulamalardaki teknik borçları görmek amacıyla **Sonarqube** aracından nasıl yararlanabileceğimize baktık. Tarattığımız **Storage** projesi ile ilgili bir öneri üzerine *(S6960: This controller has multiple responsibilities and could be split into 2 smaller controllers)* InvoiceController sınıfının sorumluluklarını iki ayrı Controller olarak yeniden tasarladık. Sonarqube'u ayağa kaldırmak için bir `docker-compose.yml` dosyası kullanabiliriz.
+
+```bash
+docker-compose up -d
+
+# Eğer Docker Desktop yoksa logları görmek için
+docker compose logs -f sonarqube
+# Sonarqube is operational görünüyorsa servis sorunsuz çalışıyor demektir.
+```
+
+Klasik olarak Sonarqube `http://localhost:9000` adresinden ayağa kalkar. Başlangıçta kullanıcı adı ve şifre bilgisi aynıdır; `admin`. Şifre değişikliği sonrası bir proje oluşturup .Net için gerekli adımlar işletilir. Aşağıdaki örnek komutlar ile de tarama işlemi icra edilir.
+
+> token bilgisi sonarqube tarafından her proje için ayrıca üretilir.
+
+```bash
+# dotnet tarafında tarama yapmak için gerekli tool (bir kez yüklenir)
+dotnet tool install --global dotnet-sonarscanner
+
+# Başlatma
+dotnet sonarscanner begin /k:"Storage-Service" /d:sonar.host.url="http://localhost:9000"  /d:sonar.token="TOKEN"
+
+# Proje build edilir
+dotnet build
+
+# Tamamlama
+dotnet sonarscanner end /d:sonar.token="TOKEN"
+```

@@ -33,6 +33,7 @@ bld/
 [Oo]ut/
 [Ll]og/
 [Ll]ogs/
+.sonarqube/
 
 # Build results on 'Bin' directories
 **/[Bb]in/*

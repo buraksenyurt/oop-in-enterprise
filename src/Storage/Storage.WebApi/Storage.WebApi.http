@@ -1,6 +1,6 @@
-@Storage.WebApi_HostAddress = http://localhost:5246
+@Storage_WebApi_HostAddress = http://localhost:5246
 
-POST {{Storage.WebApi_HostAddress}}/api/invoice
+POST {{Storage_WebApi_HostAddress}}/api/invoice
 Content-Type: application/json
 
 {
@@ -10,4 +10,4 @@ Content-Type: application/json
 
 ###
 
-GET {{Storage.WebApi_HostAddress}}/api/invoice?invoiceId=3f4020af-13dc-4364-adec-009b33b49b4b
+GET {{Storage_WebApi_HostAddress}}/api/invoice?invoiceId=3f4020af-13dc-4364-adec-009b33b49b4b
